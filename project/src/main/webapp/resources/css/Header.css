@@ -1,98 +1,111 @@
-<!-- 최성현 -->
+@charset "utf-8";
 
-
-@charset "UTF-8";
-/* Header Styles */
+/* Header */
 header {
-    background-color: #87ceeb; /* Light sky blue theme */
-    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    background-color: #003399;
+    z-index: 9998;
+    font-family: 'Noto Sans Kr', 'Roboto', sans-serif;
+}
+
+/* Container */
+header .container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 80px;
+    padding: 0 30px;
 }
 
-#logo a {
-    color: #fff;
+/* Logo */
+header #logo {
+    width: 150px;
+    height: 80px;
+    line-height: 80px;
+}
+header #logo a {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 300;
     text-decoration: none;
-    font-size: 1.8rem;
-    font-weight: 700;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-}
-
-.nav-menu li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.nav-menu li a:hover {
-    background-color: #6ab7d5; /* Slightly darker sky blue */
-    border-radius: 4px;
-}
-
-/* Mobile Menu Button */
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.mobile-menu-btn span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin: 5px 0;
-    transition: all 0.3s ease;
-}
-
-/* Mobile Menu */
-.mobile-nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100%;
-    background-color: #87ceeb;
-    padding: 5rem 2rem;
-    transition: right 0.3s ease;
-    z-index: 999;
-}
-
-.mobile-nav.active {
-    right: 0;
-}
-
-.mobile-nav ul {
+/* Nav */
+nav .nav-menu {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
 }
-
-.mobile-nav ul li a {
-    color: #fff;
+nav .nav-item {
+    position: relative; /* 드롭다운 메뉴의 기준점 설정 */
+    margin-right: 25px;
+}
+nav .nav-item:last-child {
+    margin-right: 0;
+}
+nav .nav-item:nth-child(1) {
+    margin-right: 28px;
+}
+nav .nav-item:nth-child(2) {
+    margin-right: 27px;
+}
+nav .nav-item > a {
+    line-height: 80px;
+    font-weight: 300;
+    letter-spacing: -0.05em;
+    font-size: 17px;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 1.2rem;
-    padding: 0.5rem;
     display: block;
-    transition: all 0.3s ease;
+}
+nav .nav-item > a:hover,
+nav .nav-item > a:focus,
+nav .nav-item > a:active {
+    color: #e6f0fa;
 }
 
-.mobile-nav ul li a:hover {
-    background-color: #6ab7d5;
-    border-radius: 4px;
+/* Dropdown Menu */
+nav .dropdown-menu {
+    position: absolute;
+    top: 80px; /* 헤더 높이에 맞춰 위치 조정 */
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    list-style: none;
+    padding: 10px 0;
+    min-width: 200px;
+    opacity: 0; /* 기본적으로 숨김 */
+    visibility: hidden; /* 기본적으로 보이지 않음 */
+    transform: translateY(-10px); /* 애니메이션 효과를 위한 초기 위치 */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* 부드러운 전환 효과 */
+    z-index: 9999;
+}
+nav .nav-item:hover .dropdown-menu {
+    opacity: 1; /* hover 시 보임 */
+    visibility: visible;
+    transform: translateY(0); /* 아래로 이동 */
+}
+nav .dropdown-menu li {
+    margin: 0;
+}
+nav .dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    font-weight: 300;
+    font-size: 15px;
+    color: #333333;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+nav .dropdown-menu li a:hover {
+    background-color: #e6f0fa;
+    color: #003399;
 }
