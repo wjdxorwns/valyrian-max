@@ -6,7 +6,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="3부상조 공지사항 상세 - 공지사항의 세부 내용을 확인하세요.">
     <title>3부상조 - 공지사항 상세</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -250,21 +249,7 @@
                 <li><a href="#">개인정보</a></li> <!-- 개인정보 링크 -->
             </ul>
         </nav>
-        <button class="mobile-menu-btn">
-            <span></span> <!-- 모바일 메뉴 버튼 라인 -->
-            <span></span> <!-- 모바일 메뉴 버튼 라인 -->
-            <span></span> <!-- 모바일 메뉴 버튼 라인 -->
-        </button>
     </header>
-
-    <!-- Mobile Menu -->
-    <nav class="mobile-nav">
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li> <!-- 모바일 공지사항 링크 -->
-            <li><a href="${pageContext.request.contextPath}/login">로그인</a></li> <!-- 모바일 로그인 링크 -->
-            <li><a href="#">개인정보</a></li> <!-- 모바일 개인정보 링크 -->
-        </ul>
-    </nav>
 
     <!-- Main Content -->
     <main>

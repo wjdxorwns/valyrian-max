@@ -1,20 +1,23 @@
-<!-- 최성현 -->
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="3부상조 - 내 개인정보">
     <title>3부상조 - 내 개인정보</title>
+    
+    <!-- 폰트 및 외부 CSS 로딩 -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="<c:url value='/resources/css/Header.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/Footer.css' />" rel="stylesheet">
+
+    <!-- Tailwind 제거 불가한 경우 유지 (필요 시 삭제 가능) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 내부 스타일 정의 -->
     <style type="text/css">
+        /* 기본 스타일 초기화 */
         * {
             margin: 0;
             padding: 0;
@@ -26,6 +29,7 @@
             background-color: #f0f8ff;
             color: #333;
         }
+        /* 개인정보 섹션 전체 레이아웃 */
         .info-section {
             padding: 4rem 2rem;
             max-width: 800px;
@@ -37,6 +41,8 @@
             text-align: center;
             margin-bottom: 2rem;
         }
+
+        /* 입력 폼 테이블 */
         .info-container {
             margin-bottom: 2rem;
         }
@@ -61,6 +67,8 @@
         .info-table td {
             color: #666;
         }
+
+        /* 입력 필드 및 셀렉트박스 스타일 */
         .info-table input, .info-table select {
             width: 100%;
             padding: 0.5rem;
@@ -73,12 +81,16 @@
             border-color: #87ceeb;
             box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.1);
         }
+
+        /* 프로필 사진 미리보기 */
         .profile-pic-preview {
             max-width: 100px;
             max-height: 100px;
             border-radius: 4px;
             margin-top: 0.5rem;
         }
+
+        /* 버튼 스타일 */
         .btn {
             padding: 0.75rem 1.5rem;
             background-color: #87ceeb;
@@ -92,14 +104,18 @@
             background-color: #6ab7d5;
             transform: scale(1.05);
         }
+
         .btn-container {
             text-align: center;
             margin-top: 1rem;
         }
+
+        /* 애니메이션 효과 */
         @keyframes slideUp {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
         .section-animation {
             opacity: 0;
             transform: translateY(20px);
@@ -108,6 +124,7 @@
     </style>
 </head>
 <body>
+    <!-- 상단 헤더 영역 -->
     <header>
         <div id="logo"><a href="/">3부상조</a></div>
         <nav>
@@ -119,11 +136,14 @@
         </nav>
     </header>
 
+    <!-- 메인 개인정보 입력 섹션 -->
     <section class="info-section section-animation">
-        <h1>인사 및 재고 정보 등록 및 등록</h1>
+        <h1>인사 및 재고 정보 등록 및 수정</h1>
         
+        <!-- 개인정보 저장 폼 -->
         <form action="<c:url value='/myinfo/save' />" method="post" enctype="multipart/form-data">
             <div class="info-container">
+                <!-- 사용자 기본 정보 -->
                 <table class="info-table">
                     <tr>
                         <th>사건</th>
@@ -145,26 +165,15 @@
                             </table>
                         </td>
                     </tr>
+
                     <tr>
                         <th>소속</th>
                         <td>
                             <table class="info-table">
-                                <tr>
-                                    <th>사번</th>
-                                    <td><input type="text" name="employeeId" value="${user.employeeId != null ? user.employeeId : '12345'}" required></td>
-                                </tr>
-                                <tr>
-                                    <th>이메일</th>
-                                    <td><input type="email" name="email" value="${user.email != null ? user.email : 'hong@example.com'}" required></td>
-                                </tr>
-                                <tr>
-                                    <th>전화번호</th>
-                                    <td><input type="text" name="phone" value="${user.phone != null ? user.phone : '010-1234-5678'}" required></td>
-                                </tr>
-                                <tr>
-                                    <th>생년월일</th>
-                                    <td><input type="date" name="dateOfBirth" value="${user.dateOfBirth != null ? user.dateOfBirth : '1995-01-01'}" required></td>
-                                </tr>
+                                <tr><th>사번</th><td><input type="text" name="employeeId" value="${user.employeeId != null ? user.employeeId : '12345'}" required></td></tr>
+                                <tr><th>이메일</th><td><input type="email" name="email" value="${user.email != null ? user.email : 'hong@example.com'}" required></td></tr>
+                                <tr><th>전화번호</th><td><input type="text" name="phone" value="${user.phone != null ? user.phone : '010-1234-5678'}" required></td></tr>
+                                <tr><th>생년월일</th><td><input type="date" name="dateOfBirth" value="${user.dateOfBirth != null ? user.dateOfBirth : '1995-01-01'}" required></td></tr>
                             </table>
                         </td>
                     </tr>
@@ -172,19 +181,14 @@
             </div>
 
             <div class="info-container">
+                <!-- 인사 및 근무 관련 정보 -->
                 <table class="info-table">
                     <tr>
                         <th>임사일</th>
                         <td>
                             <table class="info-table">
-                                <tr>
-                                    <th>직무</th>
-                                    <td><input type="text" name="job" value="${user.job != null ? user.job : '개발자'}" required></td>
-                                </tr>
-                                <tr>
-                                    <th>입사일</th>
-                                    <td><input type="date" name="hireDate" value="${user.hireDate != null ? user.hireDate : '2023-01-01'}" required></td>
-                                </tr>
+                                <tr><th>직무</th><td><input type="text" name="job" value="${user.job != null ? user.job : '개발자'}" required></td></tr>
+                                <tr><th>입사일</th><td><input type="date" name="hireDate" value="${user.hireDate != null ? user.hireDate : '2023-01-01'}" required></td></tr>
                             </table>
                         </td>
                     </tr>
@@ -229,6 +233,7 @@
                 </table>
             </div>
 
+            <!-- 버튼 영역 -->
             <div class="btn-container">
                 <button type="submit" class="btn">수정</button>
                 <button type="submit" class="btn" formaction="<c:url value='/myinfo/register' />">등록</button>
@@ -236,6 +241,7 @@
         </form>
     </section>
 
+    <!-- 하단 푸터 -->
     <footer>
         <div class="footer-content">
             <ul class="footer-links">

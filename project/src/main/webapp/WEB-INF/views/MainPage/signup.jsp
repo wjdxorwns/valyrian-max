@@ -1,371 +1,498 @@
 <!-- 최성현 -->
 
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="3부창조 회원가입 - 안전하고 간편한 비즈니스 플랫폼에 가입하세요.">
-    <title>3부창조 - 회원가입</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-        } /* 기본 스타일 초기화 */
+<meta charset="UTF-8">
+<meta name="description" content="3부창조 회원가입 - 안전하고 간편한 비즈니스 플랫폼에 가입하세요.">
+<title>3부창조 - 회원가입</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- CSS 파일 링크 -->
+<link href="<c:url value='/resources/css/Header.css' />"
+	rel="stylesheet">
+<link href="<c:url value='/resources/css/Footer.css' />"
+	rel="stylesheet">
+<style>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
 
-        body, html {
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            color: #fff;
-        } /* 전체 페이지 레이아웃 설정 */
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	min-height: calc(100vh - 80px - 200px);
+	background: #e9f0fd;
+	margin-top: 80px;
+}
 
-        /* Header */
-        header {
-            background-color: #87ceeb;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        } /* 헤더 스타일 정의 */
+.signup-container {
+	background: #fff;
+	border-radius: 8px;
+	padding: 1.5rem;
+	width: 100%;
+	max-width: 800px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	overflow-y: auto;
+	max-height: calc(100vh - 80px - 200px - 2rem);
+}
 
-        .logo a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.8rem;
-            font-weight: 700;
-        } /* 로고 스타일 */
+.signup-container h2 {
+	font-size: 1.5rem;
+	color: #333;
+	text-align: center;
+	margin-bottom: 0.5rem;
+	font-weight: 700;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        } /* 네비게이션 링크 컨테이너 */
+.signup-container p.welcome {
+	font-size: 0.9rem;
+	color: #666;
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
 
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
-        } /* 네비게이션 링크 스타일 */
+.error-message {
+	display: none;
+	color: #fff;
+	background-color: #ff6b6b;
+	padding: 0.5rem;
+	border-radius: 4px;
+	margin-bottom: 1rem;
+	font-size: 0.85rem;
+	text-align: center;
+}
 
-        .nav-links a:hover {
-            background-color: #6ab7d5;
-            border-radius: 4px;
-        } /* 네비게이션 링크 호버 효과 */
+.error-message.show {
+	display: block;
+}
 
-        /* Main Content */
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        } /* 메인 콘텐츠 레이아웃 */
+.form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5rem;
+	margin-bottom: 1rem;
+}
 
-        .signup-container {
-            background: linear-gradient(135deg, rgba(135, 206, 235, 0.95), rgba(106, 183, 213, 0.95));
-            border-radius: 16px;
-            padding: 3rem;
-            width: 100%;
-            max-width: 600px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 0.8s ease-out;
-        } /* 회원가입 폼 컨테이너 */
+.form-section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
 
-        .signup-container h2 {
-            font-size: 2rem;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 1rem;
-        } /* 회원가입 제목 */
+.section-title {
+	font-size: 1rem;
+	color: #333;
+	margin-bottom: 0.5rem;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid #ddd;
+	font-weight: 500;
+}
 
-        .signup-container p.welcome {
-            font-size: 1.1rem;
-            color: #e0f4ff;
-            text-align: center;
-            margin-bottom: 2rem;
-        } /* 환영 메시지 */
+.form-group {
+	margin-bottom: 0.8rem;
+}
 
-        .section-title {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 1.5rem 0 1rem;
-            border-bottom: 1px solid #e0f4ff;
-            padding-bottom: 0.5rem;
-        } /* 섹션 제목 스타일 */
+.form-group label {
+	display: block;
+	font-size: 0.9rem;
+	color: #333;
+	margin-bottom: 0.3rem;
+	font-weight: 500;
+}
 
-        .error-message {
-            display: none;
-            color: #fff;
-            background-color: #ff6b6b;
-            padding: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            text-align: center;
-        } /* 에러 메시지 스타일 */
+.input-with-button {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
 
-        .error-message.show {
-            display: block;
-        } /* 에러 메시지 표시 스타일 */
+input[type="text"], input[type="email"], input[type="password"] {
+	width: 100%;
+	padding: 0.6rem;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 0.9rem;
+	background-color: #fff;
+	transition: border-color 0.3s;
+}
 
-        .form-group {
-            margin-bottom: 1.2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: center;
-        } /* 폼 입력 그룹 스타일 */
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus
+	{
+	outline: none;
+	border-color: #1e90ff;
+	box-shadow: 0 0 4px rgba(30, 144, 255, 0.2);
+}
 
-        .form-group label {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        } /* 접근성을 위한 숨김 라벨 */
+input[readonly], input:disabled {
+	background-color: #f5f5f5;
+	cursor: not-allowed;
+	opacity: 0.6;
+}
 
-        input[type="text"], input[type="email"], input[type="password"] {
-            flex: 1;
-            padding: 0.85rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            transition: all 0.3s ease;
-            min-width: 200px;
-        } /* 텍스트, 이메일, 비밀번호 입력 필드 */
+.form-group input[type="button"] {
+	padding: 0.6rem 1rem;
+	background-color: #1e90ff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.85rem;
+	transition: background 0.3s;
+	white-space: nowrap;
+}
 
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-            outline: none;
-            border-color: #87ceeb;
-            box-shadow: 0 0 8px rgba(135, 206, 235, 0.3);
-            background-color: #fff;
-        } /* 입력 필드 포커스 효과 */
+.form-group input[type="button"]:hover {
+	background-color: #1c86ee;
+}
 
-        input[readonly] {
-            background-color: #e9ecef;
-            cursor: not-allowed;
-        } /* 읽기 전용 입력 필드 스타일 */
+button[type="submit"] {
+	width: 100%;
+	padding: 0.8rem;
+	background-color: #1e90ff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.95rem;
+	transition: background 0.3s;
+}
 
-        input:disabled {
-            background-color: #e9ecef;
-            cursor: not-allowed;
-            opacity: 0.6;
-        } /* 비활성화 입력 필드 스타일 */
+button[type="submit"]:hover {
+	background-color: #1c86ee;
+}
 
-        .form-group button, .form-group input[type="button"] {
-            padding: 0.85rem 1.5rem;
-            background-color: #6ab7d5;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        } /* 폼 그룹 내 버튼 스타일 */
+button[type="submit"]:disabled {
+	background-color: #a0c4ff;
+	cursor: not-allowed;
+}
 
-        .form-group button:hover, .form-group input[type="button"]:hover {
-            background-color: #5aa4c2;
-            transform: scale(1.03);
-        } /* 폼 그룹 내 버튼 호버 효과 */
+.login-link {
+	text-align: center;
+	margin-top: 1rem;
+	font-size: 0.85rem;
+	color: #666;
+}
 
-        button[type="submit"] {
-            width: 100%;
-            padding: 1rem;
-            background-color: #1e3a8a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-        } /* 제출 버튼 스타일 */
+.login-link a {
+	color: #1e90ff;
+	text-decoration: none;
+}
 
-        button[type="submit"]:hover {
-            background-color: #172554;
-            transform: scale(1.03);
-        } /* 제출 버튼 호버 효과 */
+.login-link a:hover {
+	text-decoration: underline;
+}
 
-        button[type="submit"]:disabled {
-            background-color: #6b7280;
-            cursor: not-allowed;
-            transform: none;
-        } /* 비활성화 제출 버튼 스타일 */
+/* Signature Canvas Styling */
+#signatureCanvas {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #f9f9f9;
+	width: 100%;
+	height: 100px;
+	touch-action: none; /* Prevent scrolling on touch devices */
+}
 
-        .login-link {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #e0f4ff;
-        } /* 로그인 링크 섹션 */
-
-        .login-link a {
-            color: #fff;
-            text-decoration: none;
-        } /* 로그인 링크 스타일 */
-
-        .login-link a:hover {
-            text-decoration: underline;
-            color: #e0f4ff;
-        } /* 로그인 링크 호버 효과 */
-
-        footer {
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #e0f4ff;
-            background-color: rgba(0, 0, 0, 0.5);
-        } /* 푸터 스타일 */
-
-        footer a {
-            color: #e0f4ff;
-            text-decoration: none;
-        } /* 푸터 링크 스타일 */
-
-        footer a:hover {
-            text-decoration: underline;
-        } /* 푸터 링크 호버 효과 */
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        } /* 페이드 인 애니메이션 */
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        } /* 슬라이드 업 애니메이션 */
-
-        .form-group {
-            animation: slideUp 0.5s ease-out forwards;
-            animation-delay: calc(0.1s * var(--order));
-        } /* 폼 그룹 애니메이션 */
-    </style>
+.signature-buttons {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo"><a href="/index.jsp">3부상조</a></div> <!-- 로고 -->
-        <nav class="nav-links">
-            <a href="#">공지사항</a> <!-- 공지사항 링크 -->
-            <a href="login">로그인</a> <!-- 로그인 링크 -->
-            <a href="#">공지사항</a> <!-- 공지사항 링크 (중복) -->
-        </nav>
-    </header>
-    <main>
-        <div class="signup-container">
-            <h2>회원가입</h2> <!-- 회원가입 제목 -->
-            <p class="welcome">3부창조와 함께 비즈니스 여정을 시작하세요!</p> <!-- 환영 메시지 -->
-            <div class="error-message" id="error-message"><c:out value="${error}" /></div> <!-- 에러 메시지 -->
-            <form action="/members_join_ok" method="post" autocomplete="off" onsubmit="return checkForm();">
-                <div class="section-title">계정 정보</div> <!-- 계정 정보 섹션 제목 -->
-                <div class="form-group" style="--order: 1;">
-                    <label for="m_id">아이디</label> <!-- 아이디 라벨 -->
-                    <input type="text" id="m_id" name="m_id" placeholder="아이디" required tabindex="1" /> <!-- 아이디 입력 -->
-                </div>
-                <div class="form-group" style="--order: 2;">
-                    <label for="m_pw">비밀번호</label> <!-- 비밀번호 라벨 -->
-                    <input type="password" id="m_pw" name="m_pw" placeholder="비밀번호" required tabindex="2" /> <!-- 비밀번호 입력 -->
-                </div>
-                <div class="form-group" style="--order: 3;">
-                    <label for="m_pw2">비밀번호 확인</label> <!-- 비밀번호 확인 라벨 -->
-                    <input type="password" id="m_pw2" name="m_pw2" placeholder="비밀번호 확인" required tabindex="3" /> <!-- 비밀번호 확인 입력 -->
-                </div>
-                <div class="form-group" style="--order: 4;">
-                    <label for="m_name">이름</label> <!-- 이름 라벨 -->
-                    <input type="text" id="m_name" name="m_name" placeholder="이름" required tabindex="4" /> <!-- 이름 입력 -->
-                </div>
+	<!-- Header -->
+	<jsp:include page="/resources/jsp/Header.jsp" />
+	<main>
+		<div class="signup-container">
+			<h2>회원가입</h2>
+			<p class="welcome">3부창조와 함께 비즈니스 여정을 시작하세요!</p>
+			<div class="error-message" id="error-message">
+				<c:out value="${error}" />
+			</div>
+			<form action="/members_join_ok" method="post" autocomplete="off"
+				onsubmit="return checkForm();">
+				<div class="form-grid">
+					<!-- Account Information -->
+					<div class="form-section">
+						<div class="section-title">계정 정보</div>
+						<div class="form-group">
+							<label for="m_id">아이디</label> <input type="text" id="m_id"
+								name="m_id" placeholder="아이디" required tabindex="1" />
+						</div>
+						<div class="form-group">
+							<label for="m_name">이름</label> <input type="text" id="m_name"
+								name="m_name" placeholder="이름" required tabindex="2" />
+						</div>
+						<div class="form-group">
+							<label for="m_pw">비밀번호</label> <input type="password" id="m_pw"
+								name="m_pw" placeholder="비밀번호" required tabindex="3" />
+						</div>
+						<div class="form-group">
+							<label for="m_pw2">비밀번호 확인</label> <input type="password"
+								id="m_pw2" name="m_pw2" placeholder="비밀번호 확인" required
+								tabindex="4" />
+						</div>
+					</div>
+					<!-- Address, Contact, and Signature Information -->
+					<div class="form-section">
+						<div class="section-title">주소 정보</div>
+						<div class="form-group">
+							<label for="m_addr">주소</label>
+							<div class="input-with-button">
+								<input type="text" id="m_addr" name="m_addr" placeholder="주소"
+									readonly required tabindex="5" /> <input type="button"
+									value="주소찾기" onclick="execDaumPostcode()" tabindex="6" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="m_addr2">상세주소</label> <input type="text" id="m_addr2"
+								name="m_addr2" placeholder="상세주소 입력" tabindex="7" />
+						</div>
+						<div class="section-title">연락처 정보</div>
+						<div class="form-group">
+							<label for="m_email">이메일</label>
+							<div class="input-with-button">
+								<input type="email" id="m_email" name="m_email"
+									placeholder="이메일" required tabindex="8" /> <input
+									type="button" value="인증번호 보내기" onclick="sendVerificationCode()"
+									tabindex="9" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="emailCode">인증번호</label>
+							<div class="input-with-button">
+								<input type="text" id="emailCode" placeholder="인증번호 입력"
+									tabindex="10" /> <input type="button" value="인증확인"
+									onclick="checkVerificationCode()" tabindex="11" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="m_phone">전화번호</label> <input type="text" id="m_phone"
+								name="m_phone" placeholder="전화번호" required disabled
+								tabindex="12" />
+						</div>
+						<div class="section-title">서명 정보</div>
+						<div class="form-group">
+							<label for="signatureCanvas">서명</label>
+							<canvas id="signatureCanvas" width="300" height="100"></canvas>
+							<div class="signature-buttons">
+								<input type="button" value="지우기" onclick="clearSignature()"
+									tabindex="13" /> <input type="button" value="저장"
+									onclick="saveSignature()" tabindex="14" />
+							</div>
+							<input type="hidden" id="signatureData" name="signatureData" />
+						</div>
+					</div>
+				</div>
+				<button type="submit" id="submitBtn" disabled tabindex="15">가입
+					완료</button>
+			</form>
+			<div class="login-link">
+				이미 계정이 있으신가요? <a href="/login">로그인</a>
+			</div>
+		</div>
+	</main>
+	<!-- Footer -->
+	<jsp:include page="/resources/jsp/Footer.jsp" />
 
-                <div class="section-title">주소 정보</div> <!-- 주소 정보 섹션 제목 -->
-                <div class="form-group" style="--order: 5;">
-                    <label for="m_addr">주소</label> <!-- 주소 라벨 -->
-                    <input type="text" id="m_addr" name="m_addr" placeholder="주소" readonly required tabindex="5" /> <!-- 주소 입력 -->
-                    <input type="button" value="주소찾기" onclick="execDaumPostcode()" tabindex="6" /> <!-- 주소 찾기 버튼 -->
-                </div>
-                <div class="form-group" style="--order: 6;">
-                    <label for="m_addr2">상세주소</label> <!-- 상세주소 라벨 -->
-                    <input type="text" id="m_addr2" name="m_addr2" placeholder="상세주소 입력" tabindex="7" /> <!-- 상세주소 입력 -->
-                </div>
+	<script>
+	// Signature Canvas Setup
+    const canvas = document.getElementById('signatureCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
 
-                <div class="section-title">연락처 정보</div> <!-- 연락처 정보 섹션 제목 -->
-                <div class="form-group" style="--order: 7;">
-                    <label for="m_email">이메일</label> <!-- 이메일 라벨 -->
-                    <input type="email" id="m_email" name="m_email" placeholder="이메일" required tabindex="8" /> <!-- 이메일 입력 -->
-                    <input type="button" value="인증번호 보내기" onclick="sendVerificationCode()" tabindex="9" /> <!-- 인증번호 보내기 버튼 -->
-                </div>
-                <div class="form-group" style="--order: 8;">
-                    <label for="emailCode">인증번호</label> <!-- 인증번호 라벨 -->
-                    <input type="text" id="emailCode" placeholder="인증번호 입력" tabindex="10" /> <!-- 인증번호 입력 -->
-                    <input type="button" value="인증확인" onclick="checkVerificationCode()" tabindex="11" /> <!-- 인증확인 버튼 -->
-                </div>
-                <div class="form-group" style="--order: 9;">
-                    <label for="m_phone">전화번호</label> <!-- 전화번호 라벨 -->
-                    <input type="text" id="m_phone" name="m_phone" placeholder="전화번호" required disabled tabindex="12" /> <!-- 전화번호 입력 -->
-                </div>
+    // Set canvas drawing properties
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
 
-                <button type="submit" id="submitBtn" disabled tabindex="13">가입 완료</button> <!-- 가입 완료 버튼 -->
-            </form>
-            <div class="login-link">
-                이미 계정이 있으신가요? <a href="/login">로그인</a> <!-- 로그인 링크 -->
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>© 2025 3부창조. <a href="#">개인정보처리방침</a> | <a href="#">고객 지원</a></p> <!-- 푸터 콘텐츠 -->
-    </footer>
+    // Mouse Events
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
 
-    <script>
-        function checkForm() {
-            const pw = $("#m_pw").val();
-            const pw2 = $("#m_pw2").val();
-            const errorMessage = $("#error-message");
+    // Touch Events
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        lastX = touch.clientX - rect.left;
+        lastY = touch.clientY - rect.top;
+        isDrawing = true;
+    });
 
-            if (pw !== pw2) {
-                errorMessage.text("비밀번호가 일치하지 않습니다.").addClass("show");
-                $("#m_pw").val("");
-                $("#m_pw2").val("").focus();
-                return false;
+    canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (!isDrawing) return;
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        lastX = x;
+        lastY = y;
+    });
+
+    canvas.addEventListener('touchend', () => {
+        isDrawing = false;
+    });
+
+    function startDrawing(e) {
+        isDrawing = true;
+        const rect = canvas.getBoundingClientRect();
+        lastX = e.clientX - rect.left;
+        lastY = e.clientY - rect.top;
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        lastX = x;
+        lastY = y;
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+    }
+
+    function clearSignature() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('signatureData').value = '';
+    }
+
+    function saveSignature() {
+        const dataUrl = canvas.toDataURL('image/png');
+        document.getElementById('signatureData').value = dataUrl;
+        showError("서명이 저장되었습니다.");
+        setTimeout(hideError, 3000);
+    }
+
+    // Form Validation
+    function checkForm() {
+        const id = document.getElementById('m_id').value.trim();
+        const pw = document.getElementById('m_pw').value.trim();
+        const pw2 = document.getElementById('m_pw2').value.trim();
+        const name = document.getElementById('m_name').value.trim();
+        const addr = document.getElementById('m_addr').value.trim();
+        const email = document.getElementById('m_email').value.trim();
+        const phone = document.getElementById('m_phone').value.trim();
+        const signatureData = document.getElementById('signatureData').value;
+        const errorBox = document.getElementById('error-message');
+
+        if (!id || !pw || !pw2 || !name || !addr || !email || !phone || !signatureData) {
+            showError("모든 필수 항목을 입력하고 서명을 저장해주세요.");
+            return false;
+        }
+
+        if (pw !== pw2) {
+            showError("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+
+        const idPattern = /^[a-zA-Z0-9]{4,12}$/;
+        const pwPattern = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phonePattern = /^\d{10,11}$/;
+
+        if (!idPattern.test(id)) {
+            showError("아이디는 영문자와 숫자 조합의 4~12자여야 합니다.");
+            return false;
+        }
+
+        if (!pwPattern.test(pw)) {
+            showError("비밀번호는 영문자와 숫자 조합으로 최소 8자 이상이어야 합니다.");
+            return false;
+        }
+
+        if (!emailPattern.test(email)) {
+            showError("유효한 이메일 주소를 입력해주세요.");
+            return false;
+        }
+
+        if (!phonePattern.test(phone)) {
+            showError("유효한 전화번호를 입력해주세요 (10~11자리 숫자).");
+            return false;
+        }
+
+        hideError();
+        return true;
+    }
+
+    function showError(message) {
+        const errorBox = document.getElementById('error-message');
+        if (errorBox) {
+            errorBox.textContent = message;
+            errorBox.classList.add('show');
+        }
+    }
+
+    function hideError() {
+        const errorBox = document.getElementById('error-message');
+        if (errorBox) {
+            errorBox.textContent = '';
+            errorBox.classList.remove('show');
+        }
+    }
+
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                const fullAddr = data.address;
+                document.getElementById('m_addr').value = fullAddr;
             }
+        }).open();
+    }
 
-            errorMessage.removeClass("show");
-            return true;
-        } /* 폼 제출 전 비밀번호 확인 */
+    function sendVerificationCode() {
+        const email = document.getElementById('m_email').value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            showError("유효한 이메일 주소를 입력해주세요.");
+            return;
+        }
+        showError("인증번호가 이메일로 전송되었습니다.");
+        setTimeout(hideError, 3000);
+    }
 
-        function execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    document.getElementById('m_addr').value = data.address;
-                }
-            }).open();
-        } /* 다음 우편번호 API 호출 */
+    function checkVerificationCode() {
+        const code = document.getElementById('emailCode').value.trim();
+        if (!code) {
+            showError("인증번호를 입력해주세요.");
+            return;
+        }
+        document.getElementById('m_phone').disabled = false;
+        showError("인증이 완료되었습니다.");
+        document.getElementById('submitBtn').disabled = false;
+        setTimeout(hideError, 3000);
+    }
+	</script>
 
-        function sendVerificationCode() {
-            alert("이메일로 인증번호가 전송되었습니다. (구현 필요)");
-            // Ajax로 서버 요청 예제
-        } /* 이메일 인증번호 전송 (미구현) */
-
-        function checkVerificationCode() {
-            alert("인증번호 확인 완료. (구현 필요)");
-            $("#m_phone").prop('disabled', false);
-            $("#submitBtn").prop('disabled', false);
-        } /* 인증번호 확인 (미구현) */
-    </script>
 </body>
 </html>

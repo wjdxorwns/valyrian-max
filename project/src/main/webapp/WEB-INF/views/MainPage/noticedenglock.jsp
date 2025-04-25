@@ -6,7 +6,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="3부상조 공지사항 등록 - 관리자용 공지사항 작성 페이지">
     <title>3부상조 - 공지사항 등록</title>
         <!-- CSS 경로 지정: Header, Footer 스타일 -->
