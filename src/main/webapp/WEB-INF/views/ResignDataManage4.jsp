@@ -8,8 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="3부상조 - 퇴사 데이터 관리 1">
-    <title>3부상조 - 퇴사 데이터 관리 1</title>
+    <meta name="description" content="3부상조 - 퇴사 데이터 관리 4">
+    <title>3부상조 - 퇴사 데이터 관리 4</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="<c:url value='/resources/css/CSS.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/CSS_working_ways.css' />" rel="stylesheet">
