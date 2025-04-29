@@ -117,7 +117,7 @@ tbody tr:hover {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr onclick="">
 							<td>${count }</td>
 							<td></td>
 							<td>${position }</td> <!-- employee(직원) 테이블 -->
