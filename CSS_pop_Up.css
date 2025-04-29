@@ -25,5 +25,5 @@
 }
 
 .hidden {
-  display: inline; /* 원래는 hidden;  이전 화면에서 수정 버튼을 누르면 display  */
+  display: inline; /* 원래는 display: hidden; */
 }
