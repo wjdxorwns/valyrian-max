@@ -27,3 +27,7 @@
 .hidden {
   display: inline; /* 원래는 display: hidden; */
 }
+
+.btn-group button {
+  margin: 5px;
+}
