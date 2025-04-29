@@ -9,13 +9,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="3부상조 - 퇴사 데이터 관리 2">
-<title>3부상조 - 퇴사 데이터 관리 2</title>
+<meta name="description" content="3부상조 - 퇴사 데이터 관리 3">
+<title>3부상조 - 퇴사 데이터 관리 3</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="<c:url value='/resources/css/CSS.css' />" rel="stylesheet">
-    <link href="<c:url value='/resources/css/CSS_working_ways.css' />" rel="stylesheet">
     <link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
     <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
+    <link href="<c:url value='resources/css/CSS_pop_Up.css' />" rel="stylesheet">
     <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
     <style type="text/css">
@@ -201,38 +201,6 @@ button {
 .cancel-btn:hover {
 	background-color: #bbb;
 }
-
-.modal {
-  position: fixed; /* 화면 기준 고정 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5); /* 약간 어두운 배경 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* 다른 요소들 위에 */
-}
-
-.modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  min-width: 300px;
-  max-width: 400px;
-  margin: 300px auto; /* 가로 세로 모두 중앙 */
-}
-
-.hidden {
-  display: inline; /* 원래는 hidden;  이전 화면에서 수정 버튼을 누르면 display  */
-}
-
-.btn-group button {
-  margin: 5px;
-}
-
 
 
 </style>
