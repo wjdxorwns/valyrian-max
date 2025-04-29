@@ -16,7 +16,7 @@
     <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
     
 <link rel="stylesheet" 
-	href="${pageContext.request.contextPath}/resources/css/CSS_vacation.css">
+	href="${pageContext.request.contextPath}/resources/css/Vacation.css">
 <style type="text/css">
 *{
 margin: 0;
@@ -116,21 +116,21 @@ padding:5px;
 						<tr>
 							<th style="background-color: #e0f4ff;">가용 가능</th>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '연차'}">
 										${v.vacation_day}일<br>
 									</c:if>
 								</c:forEach>
 							</td>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '월차'}">
 										${v.vacation_day}일<br>
 									</c:if>
 								</c:forEach>
 							</td>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '반차'}">
 										${v.vacation_day}회<br>
 									</c:if>
@@ -154,7 +154,7 @@ padding:5px;
 						<tr>
 							<td colspan="5" >
 								<input type="file" name="vacationFile" multipartfile>
-								<input type="button" value="추가" >
+								<input type="button" value="보내기" >
 							</td>
 						</tr>
 					</tbody>
@@ -172,11 +172,13 @@ padding:5px;
 					<tbody id="vacationTableBody">
 						<tr>
 							<td><input type="radio"></td>
-							<td><select name="vacation" onchange="changeDateType(this)">
-								<option value="연차">연차</option>
-								<option value="월차">월차</option>
-								<option value="반차">반차</option>
-							</select></td>
+							<td>${vacation_type }
+								<select name="vacation" onchange="changeDateType(this)">
+									<option value="연차">연차</option>
+									<option value="월차">월차</option>
+									<option value="반차">반차</option>
+								</select>
+							</td>
 							<td><input type="date" name="startDate">${start_date }</td>
 							<td><input type="date" name="endDate"${end_date }></td>
 							<td>
@@ -210,21 +212,21 @@ padding:5px;
 						<tr>
 							<td style="background-color: #e0f4ff;">사용 완료</td>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '연차'}">
 										${v.start_date} ~ ${v.end_date} - ${v.vacation_day}일 사용<br>
 									</c:if>
 								</c:forEach>
 							</td>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '월차'}">
 										${v.start_date} ~ ${v.end_date} - ${v.vacation_day}일 사용<br>
 									</c:if>
 								</c:forEach>
 							</td>
 							<td>
-								<c:forEach var="v" items="${usedList}">
+								<c:forEach var="v" items="${emp_idx}"> <!-- Employee(직원) 테이블 -->
 									<c:if test="${v.vacation_type == '반차'}">
 										${v.start_date} ~ ${v.end_date} - 반차 사용<br>
 									</c:if>

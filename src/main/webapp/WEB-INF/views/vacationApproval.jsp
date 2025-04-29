@@ -16,7 +16,7 @@
     <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
     
 <link rel="stylesheet" 
-	href="${pageContext.request.contextPath}/resources/css/CSS_vacation.css">
+	href="${pageContext.request.contextPath}/resources/css/Vacation.css">
 <style type="text/css">
 #standby{
 border: 1px solid black;
