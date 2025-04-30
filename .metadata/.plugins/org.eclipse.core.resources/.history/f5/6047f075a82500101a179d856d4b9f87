@@ -1,0 +1,16 @@
+package com.ict.project.service;
+
+import org.springframework.stereotype.Service;
+
+import com.ict.project.vo.personnel.UserVO;
+
+@Service
+public class NorServiceImpl implements NorService{
+
+	@Override
+	public UserVO getLoginForm(int user_idx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

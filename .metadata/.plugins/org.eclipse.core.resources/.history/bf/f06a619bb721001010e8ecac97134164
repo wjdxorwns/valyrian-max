@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/* 작성자: 정택준 */
+/* Reset default styles */
+
+/* 메인  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+/* 메인 */
+main {
+      margin-top: 100px; /* header height 고려 */
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f8;
+    padding: 60px 30px;
+    
+}
+
+
+
+
+
+
+
+
+

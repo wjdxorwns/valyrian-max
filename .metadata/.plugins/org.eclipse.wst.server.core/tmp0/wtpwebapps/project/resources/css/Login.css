@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+.login-container {
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px); 		/* 헤더(80px) + 푸터(예상 80px) 제외 */
+    background-color: #f7f9fc;
+    padding: 120px 20px 50px;		 /* 헤더 높이(80px) + 여백 */
+}
+
+.login-box {
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-title {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    font-size: 1em;
+    color: #4a4a4a;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9em;
+    color: #34495e;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+.options {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    font-size: 0.9em;
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #2980b9;
+}
+
+.login-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #003399; /* Header.css의 기본 색상 */
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #002266; 		/* 약간 어두운 톤 */
+    transform: translateY(-2px);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}

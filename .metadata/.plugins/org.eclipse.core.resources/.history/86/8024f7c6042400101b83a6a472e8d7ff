@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* 작성자: 정택준 */
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+
+/* 메인  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+/* 메인 */
+main {
+    margin: 80px auto 40px auto; /* 상단 80px, 하단 200px, 좌우 auto로 가운데 정렬 */
+    
+    padding: 2rem;
+    max-width: 1280px;
+    width: 100%; /* 부모 컨테이너에 맞게 너비 확장 */
+    min-height: calc(100vh - 80px); /* 헤더 높이 80px에 맞춤 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 가로 가운데 정렬 */
+    
+}
+
+

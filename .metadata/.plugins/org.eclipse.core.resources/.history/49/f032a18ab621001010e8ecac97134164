@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/* 작성자: 정택준 */
+/* Reset default styles */
+
+/* 메인  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+/* 메인 */
+/* Main */
+.main-wrapper {
+    margin-top: 100px; /* header height 고려 */
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f8;
+    padding: 60px 30px;
+    font-family: 'Noto Sans Kr', sans-serif;
+}
+
+.main-inner {
+    text-align: center;
+    max-width: 800px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+
+.main-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.main-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #003399;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.main-btn:hover {
+    background-color: #1a4dd4;
+}
+
+
+
