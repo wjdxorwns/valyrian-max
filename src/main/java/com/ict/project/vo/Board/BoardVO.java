@@ -1,4 +1,4 @@
-package com.ict.project.vo.board;
+package com.ict.project.vo.Board;
 /* 작성자: 김재겸 기여자 : 한찬욱 */
 public class BoardVO {				//	7. 게시글 테이블
 	

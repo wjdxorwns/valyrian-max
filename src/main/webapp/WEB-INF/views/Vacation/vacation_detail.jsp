@@ -73,7 +73,7 @@ input {
 	<main>
 		<form action="">
 			<div id="title">
-				<h2>${emp_name }${position }님의 휴가 신청입니다</h2>
+				<h2>${emp_name }${position }님의휴가 신청입니다</h2>
 			</div>
 			<div id="detail">
 				<table>

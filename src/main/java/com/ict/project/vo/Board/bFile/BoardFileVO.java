@@ -1,4 +1,4 @@
-package com.ict.project.vo.board.bFile;
+package com.ict.project.vo.Board.bFile;
 /* 작성자: 한찬욱 */
 public class BoardFileVO {			//	7-1. 게시글 첨부 파일
 	
