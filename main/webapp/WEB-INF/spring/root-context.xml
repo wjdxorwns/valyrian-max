@@ -8,7 +8,7 @@
 	<!-- DB접속 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/ictedu_db" />
+		<property name="url" value="jdbc:mysql://localhost:3306/pj" />
 		<property name="username" value="ictedu" />
 		<property name="password" value="1234" />
 	</bean>
