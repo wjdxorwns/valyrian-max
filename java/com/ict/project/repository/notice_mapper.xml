@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ict.project.repository.NoticeDAO">
+
+    <resultMap id="BoardVOResultMap"
+        type="com.ict.project.vo.Board.BoardVO">
+        <id property="board_id" column="board_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="emp_idx" column="emp_idx" />
+        <result property="created_at" column="created_at" />
+        <result property="updated_at" column="updated_at" />
+        <result property="view_count" column="view_count" />
+        <result property="is_deleted" column="is_deleted" />
+        <result property="is_temp" column="is_temp" />
+        <result property="f_name" column="f_name" />
+        <result property="importance" column="importance" />
+        <result property="secret" column="secret" />
+        <result property="username" column="emp_name" />
+    </resultMap>
+
+    <select id="getNoticeList"
+        parameterType="com.ict.project.common.Paging"
+        resultMap="BoardVOResultMap">
+        SELECT b.board_id, b.title, b.content, b.emp_idx, b.created_at, b.f_name,
+        b.importance, b.secret, u.emp_name
+        FROM Board b
+        JOIN Employee e ON b.emp_idx = e.emp_idx
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE b.is_deleted = FALSE AND b.is_temp = FALSE
+        ORDER BY b.created_at DESC
+        LIMIT #{numPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="getTotalNoticeCount" resultType="int">
+        SELECT COUNT(*) FROM Board WHERE is_deleted = FALSE AND is_temp = FALSE
+    </select>
+
+    <insert id="insertNotice"
+        parameterType="com.ict.project.vo.Board.BoardVO">
+        INSERT INTO Board (title, content, emp_idx, f_name, importance, secret,
+        created_at)
+        VALUES (#{title}, #{content}, #{emp_idx}, #{f_name}, #{importance},
+        #{secret}, NOW())
+    </insert>
+
+    <select id="getNoticeDetail" parameterType="int"
+        resultMap="BoardVOResultMap">
+        SELECT b.board_id, b.title, b.content, b.emp_idx, b.created_at,
+        b.updated_at, b.view_count, b.f_name, b.importance, b.secret,
+        u.emp_name
+        FROM Board b
+        JOIN Employee e ON b.emp_idx = e.emp_idx
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE b.board_id = #{boardId} AND b.is_deleted = FALSE AND b.is_temp =
+        FALSE
+    </select>
+
+    <update id="increaseViewCount" parameterType="int">
+        UPDATE Board SET view_count = view_count + 1
+        WHERE board_id = #{boardId}
+    </update>
+
+    <update id="updateNotice" parameterType="com.ict.project.vo.Board.BoardVO">
+    UPDATE Board
+    SET
+        title = #{title},
+        content = #{content},
+        f_name = CASE
+                    WHEN #{f_name} IS NOT NULL AND #{f_name} != '' THEN #{f_name}
+                    ELSE f_name
+                 END,
+        importance = #{importance},
+        updated_at = NOW()
+    WHERE board_id = #{board_id}
+    AND is_deleted = FALSE
+    </update>
+
+    <update id="deleteNotice" parameterType="int">
+        UPDATE Board
+        SET is_deleted = TRUE
+        WHERE board_id = #{boardId}
+    </update>
+</mapper>
