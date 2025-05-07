@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 작성자: 김재겸 -->
+<!-- 진행중인 요청 사항 보여주기(사원용) -->
 
 <!DOCTYPE html>
 <html>
@@ -29,12 +30,10 @@
 	      		<tr scope="col">
 	      		  <th>이름</th>
 	      		  <th>발령 유형</th>
-	      		  <th>신청한 부서명</th>
+	      		  <th>이전 근무지</th>
 	      		  <th>신청한 근무지</th>
 	      		  <th>이전 부서명</th>
-	      		  <th>변경된 부서명</th>
-	      		  <th>이전 근무지</th>
-	      		  <th>변경된 근무지</th>
+	      		  <th>신청한 부서명</th>
 	      		  <th>고용 타입</th>
 	      		  <th>승인여부</th>
 	      		</tr>
@@ -42,13 +41,20 @@
 	      	<tbody>
 	      		<tr>
 	      		  <td>${UsersVO.getEmp_name}</td>
+	      		  <td>${PersonnelChangeVO.getChange_type}</td>
+	      		  <td>${PersonnelChangeVO.getPrev_location_id}</td>
+	      		  <td>${PersonnelChangeVO.getNew_location_id}</td>
 	      		  <td>${PersonnelChangeVO.getPrev_dept_id}</td>
 	      		  <td>${PersonnelChangeVO.getNew_dept_id}</td>
-	      		  <td></td>
-	      		  <td></td>
-	      		  <td></td>
-	      		  <td></td>
-	      		  <td></td>
+	      		  <td>${PersonnelChangeVO.getEmployment_type}</td>
+	      		  <c:choose>
+	      		  	<c:when test="${PermissionVO.getCan_access_worktype == 0}">
+	      		  		<td>미승인</td>
+	      		  	</c:when>
+	      		  	<c:otherwise>
+	      		  		<td>승인</td>
+	      		  	</c:otherwise>
+	      		  </c:choose>
 	      		</tr>
 	      	</tbody>
 	      </table>
@@ -68,7 +74,7 @@
 	  }
 
 	  function update_data() {
-		location.href = "/되돌아가기 기능 컨트롤러로 ㄱㄱ";
+		location.href = "index";
 	  }
 	  
 	</script>

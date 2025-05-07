@@ -11,10 +11,9 @@
         <div class="footer-section">
             <h4>빠른 링크</h4>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/privacy">개인정보처리방침</a></li>
-                <li><a href="${pageContext.request.contextPath}/about">회사소개</a></li>
-                <li><a href="${pageContext.request.contextPath}/support">고객지원</a></li>
-                <li><a href="${pageContext.request.contextPath}/service">게시판</a></li>
+                <li><a href="privacyPolicy">개인정보처리방침</a></li>
+                <li><a href="companyIntroduction">회사소개</a></li>
+                <li><a href="customerSupport">고객지원</a></li>
             </ul>
         </div>
         <div class="footer-section">
