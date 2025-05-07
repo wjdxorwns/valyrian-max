@@ -39,11 +39,11 @@
 						<li><a href="/payrollList">급여 리스트 조회</a></li>
 						<li><a href="/payrollGrade">직급별 급여 리스트</a></li>
 					</ul></li>
-				<li class="nav-item"><a href="LeaveManagement">휴가 관리</a>
+				<li class="nav-item"><a href="VacationManagement">휴가 관리</a>
 					<ul class="dropdown-menu">
-						<li><a href="/vacation_list">휴가 리스트 조회</a></li>
-						<li><a href="/leaveApproval">휴가 승인 및 대기</a></li>
-						<li><a href="/leaveInquiry">휴가현황</a></li>
+						<li><a href="/vacationList">휴가 리스트 조회</a></li>
+						<li><a href="/vacationApproval">휴가 승인 및 대기</a></li>
+						<li><a href="/vacationInquiry">휴가현황</a></li>
 					</ul></li>
 				<c:if test="${not empty sessionScope.user}">
 					<li class="nav-item user-info"><a href="#">${sessionScope.user.emp_name}님 환영합니다!</a>

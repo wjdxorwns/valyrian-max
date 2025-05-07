@@ -54,9 +54,10 @@
 			<mvc:mapping path="/payrollList"/>					<!-- 급여 리스트 조회 -->
 			<mvc:mapping path="/payrollGrade"/>					<!-- 직급별 급여 리스트 -->
 			
-			<mvc:mapping path="/LeaveManagement"/>				<!-- 휴가 관리(큰 글씨) -->
-			<mvc:mapping path="/leaveList"/>					<!-- 휴가 리스트 조회 -->
-			<mvc:mapping path="/leaveRequest"/>					<!-- 휴가 조정 및 신청 -->
+			<mvc:mapping path="/VacationManagement"/>				<!-- 휴가 관리(큰 글씨) -->
+			<mvc:mapping path="/vacationList"/>						<!-- 휴가 리스트 조회 -->
+			<mvc:mapping path="/vacationApproval"/>					<!-- 휴가 조정 및 신청 -->
+			<mvc:mapping path="/vacationInquiry"/>					<!-- 개인 휴가 현황 -->
 			
 			<mvc:mapping path="/userProfile"/>					<!-- 내 정보(마이페이지) -->
 			
