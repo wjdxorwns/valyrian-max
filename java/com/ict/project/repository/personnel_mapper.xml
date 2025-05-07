@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="person">
+
+	<select>
+		SELECT  
+        	v.vacation_id,
+        	u.emp_email,
+        	u.emp_name,
+        	v.vacation_type,
+        	v.start_date,
+        	v.end_date,
+        	v.vacation_day,
+        	v.comment,
+        	v.status
+    	FROM 
+        Vacation v
+        	INNER JOIN Request r ON v.request_idx = r.request_idx
+        	INNER JOIN Employee e ON r.emp_idx = e.emp_idx
+        	INNER JOIN Users u ON e.user_idx = u.user_idx
+    	WHERE 
+        	u.remove = 0
+    	ORDER BY 
+        	v.start_date DESC
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
