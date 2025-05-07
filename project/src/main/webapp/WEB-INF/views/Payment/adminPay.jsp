@@ -9,31 +9,31 @@
 <head>
 <meta charset="UTF-8">
 <title>3부상조 - 메인 페이지</title>
-<link href="<c:url value='/resources/css/Main.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/>"rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/>"rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Header.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css'/>" rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/> "rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/> "rel="stylesheet">
 
-
-
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"rel="stylesheet">
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 <body>
 
 	<jsp:include page="/resources/jsp/Header.jsp" />
-	<main>
+	
+	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<main style="margin: 80px auto 200px auto;">
 
 		<div id="title">
 			<h2>급여 기본 정보 조회 및 수정</h2>
 			<p>내용 설명 - 전체 직원 급여 조회 및 수정 (관리자용)</p>
 		</div>
 		<div>
+		
+		
+		
 			<div class="search-form">
 				<div>
 					<label class="department">부서</label> <select class="department">
@@ -73,116 +73,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>6</td>
-						<td>6</td>
-					</tr>
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>1</td>

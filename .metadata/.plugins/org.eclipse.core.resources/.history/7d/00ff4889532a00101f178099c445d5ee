@@ -1,0 +1,85 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+    <title>QnA 목록</title>
+    <style>
+        /* 모달 스타일 */
+        #writeModal {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            width: 40%;
+            background-color: white;
+            border: 1px solid #aaa;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border-radius: 10px;
+        }
+
+        #writeModalClose {
+            margin-top: 15px;
+        }
+
+        .write-btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .write-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h2>QnA 목록</h2>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>내용 보기</th>
+    </tr>
+
+    <c:forEach var="qna" items="${qnaList}">
+        <tr>
+            <td>${qna.title}</td>
+            <td>${qna.writer}</td>
+            <td>${qna.regDate}</td>
+            <td>
+                <!-- 모달로 보여줄 QnA 내용 버튼 -->
+                <button class="write-btn" onclick="showWritePopup(this)" data-content="${qna.content}">Write</button>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
+<!-- 모달 팝업 -->
+<div id="writeModal">
+    <div id="writeContent">내용 로딩 중...</div>
+    <button id="writeModalClose" onclick="closeWritePopup()">닫기</button>
+</div>
+
+<!-- 스크립트 -->
+<script>
+function showWritePopup(button) {
+    const content = button.getAttribute('data-content');
+    document.getElementById('writeContent').innerText = content;
+    document.getElementById('writeModal').style.display = 'block';
+}
+
+function closeWritePopup() {
+    document.getElementById('writeModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

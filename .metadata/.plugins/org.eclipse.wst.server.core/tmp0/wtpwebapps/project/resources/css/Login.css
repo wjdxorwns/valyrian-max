@@ -1,3 +1,5 @@
+/* 최성현 */
+
 @charset "UTF-8";
 
 .login-container {
@@ -5,9 +7,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 160px); 		/* 헤더(80px) + 푸터(예상 80px) 제외 */
+    min-height: calc(100vh - 160px); /* 헤더(80px) + 푸터(예상 80px) 제외 */
     background-color: #f7f9fc;
-    padding: 120px 20px 50px;		 /* 헤더 높이(80px) + 여백 */
+    padding: 120px 20px 50px; /* 헤더 높이(80px) + 여백 */
 }
 
 .login-box {
@@ -92,7 +94,7 @@
 }
 
 .login-button:hover {
-    background-color: #002266; 		/* 약간 어두운 톤 */
+    background-color: #002266; /* 약간 어두운 톤 */
     transform: translateY(-2px);
 }
 

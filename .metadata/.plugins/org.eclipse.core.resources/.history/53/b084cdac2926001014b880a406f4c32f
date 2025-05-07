@@ -1,0 +1,15 @@
+package com.ict.project.service;
+
+import java.util.Map;
+
+import com.ict.project.vo.personnel.EmployeeVO;
+import com.ict.project.vo.personnel.UserVO;
+
+public interface NorService {
+
+	Map<String, Object> loginWithRole(String emp_email);
+
+
+
+
+}

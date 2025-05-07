@@ -1,0 +1,20 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head><title>QnA 게시판</title></head>
+<body>
+<h2>QnA 게시판</h2>
+<a href="write.jsp">[질문 작성]</a>
+<table border="1">
+  <tr><th>번호</th><th>제목</th><th>작성자</th><th>등록일</th></tr>
+  <c:forEach var="q" items="${qnaList}">
+    <tr>
+      <td>${q.id}</td>
+      <td><a href="view.jsp?id=${q.id}">${q.title}</a></td>
+      <td>${q.writer}</td>
+      <td>${q.regDate}</td>
+    </tr>
+  </c:forEach>
+</table>
+</body>
+</html>

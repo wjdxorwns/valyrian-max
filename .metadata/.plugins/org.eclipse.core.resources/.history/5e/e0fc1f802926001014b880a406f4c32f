@@ -1,0 +1,23 @@
+package com.ict.project.service;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ict.project.repository.NorDAO;
+import com.ict.project.vo.personnel.UserVO;
+
+@Service
+public class NorServiceImpl implements NorService{
+	@Autowired
+	private NorDAO norDAO;
+
+	@Override
+	public Map<String, Object> loginWithRole(String emp_email) {
+		return norDAO.loginWithRole(emp_email);
+	}
+	
+	
+
+}

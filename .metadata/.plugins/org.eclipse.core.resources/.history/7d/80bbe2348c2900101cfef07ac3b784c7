@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/* 작성자: 정택준 */
+
+
+aside {
+    position: fixed;
+    top: 80px; 
+    left: 0;
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: auto;
+    z-index: 9997; 
+    cursor: grab;
+    transition: transform 0.3s ease;
+}
+
+aside .aside-item {
+    padding: 20px;
+}
+
+aside .aside-item h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #003399;
+    margin-bottom: 15px;
+}
+
+aside .aside-item ul {
+    list-style: none;
+}
+
+aside .aside-item ul li {
+    margin-bottom: 10px;
+}
+
+aside .aside-item ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 300;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+aside .aside-item ul li a:hover {
+    color: #3498db;
+}

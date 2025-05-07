@@ -1,0 +1,11 @@
+package com.ict.project.service;
+
+import com.ict.project.vo.personnel.UserVO;
+
+public interface NorService {
+
+	UserVO getLoginForm(UserVO user_idx);
+	UserVO getLoginForm(int user_idx);
+
+
+}

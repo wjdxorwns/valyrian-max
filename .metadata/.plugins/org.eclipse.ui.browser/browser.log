@@ -21,3 +21,158 @@
 4월 28, 2025 14:13:29.447 [18180:30540:0428/141329.446:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
 4월 28, 2025 14:14:26.388 Created TensorFlow Lite XNNPACK delegate for CPU.
 4월 28, 2025 14:14:26.415 [2816:22952:0428/141426.414:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+
+5월 02, 2025 09:30:29.314 NEW SESSION
+5월 02, 2025 09:30:29.314 [13756:3644:0502/093029.313:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:30:29.740 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:30:49.702 [13756:3644:0502/093049.701:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:31:36.259 [13756:3644:0502/093136.259:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:33:22.167 [13756:3644:0502/093322.167:ERROR:registration_request.cc(291)] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:33:58.738 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:33:58.758 [24036:27028:0502/093358.758:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:34:27.247 [24036:27028:0502/093427.247:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:34:38.133 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:34:38.141 [15876:30056:0502/093438.141:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:35:05.814 [15876:30056:0502/093505.813:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:36:00.858 [15876:30056:0502/093600.858:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:37:48.699 [15876:30056:0502/093748.699:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:41:39.203 [15876:30056:0502/094139.202:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:44:55.376 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:44:55.402 [30972:12700:0502/094455.402:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+5월 02, 2025 09:55:13.463 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:55:13.499 [3916:18704:0502/095513.499:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:55:25.77 [3916:28076:0502/095525.076:ERROR:components\sync\engine\get_updates_processor.cc:267] PostClientToServerMessage() failed during GetUpdates with error Network error (ERR_ABORTED)
+5월 02, 2025 09:55:41.273 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:55:41.302 [2284:27348:0502/095541.302:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:56:25.770 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:56:25.794 [30616:1772:0502/095625.794:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:56:50.20 [30616:1772:0502/095650.020:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:57:23.721 [8300:8212:0502/095723.721:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 02, 2025 09:57:23.722 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 02, 2025 09:57:51.167 [8300:8212:0502/095751.166:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+
+5월 05, 2025 16:51:40.478 NEW SESSION
+5월 05, 2025 16:51:40.478 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 16:51:40.505 [27912:5348:0505/165140.505:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:52:06.779 [27912:5348:0505/165206.778:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:53:01.303 [27912:5348:0505/165301.303:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:54:43.891 [27912:5348:0505/165443.891:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:56:02.687 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 16:56:02.697 [5272:5928:0505/165602.697:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:56:23.809 [5272:5928:0505/165623.809:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:57:19.289 [5272:5928:0505/165719.289:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 16:59:06.33 [5272:5928:0505/165906.033:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:02:29.284 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 17:02:29.339 [11344:27132:0505/170229.338:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:02:49.889 [11344:27132:0505/170249.888:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:03:35.983 [11344:27132:0505/170335.982:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:05:23.41 [11344:27132:0505/170523.041:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:07:02.901 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 17:07:02.916 [11624:13140:0505/170702.915:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:07:27.875 [11624:13140:0505/170727.875:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:08:20.277 [11624:13140:0505/170820.277:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:10:15.630 [11624:13140:0505/171015.629:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:14:07.681 [11624:13140:0505/171407.680:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:20:13.16 [11624:13140:0505/172013.016:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:28:15.528 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 17:28:15.542 [28684:22600:0505/172815.542:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:28:40.728 [28684:22600:0505/172840.727:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:29:33.549 [28684:22600:0505/172933.549:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:31:18.274 [28684:22600:0505/173118.274:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:34:57.835 [28684:22600:0505/173457.835:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:36:05.374 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 17:36:05.458 [18120:12284:0505/173605.458:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:36:27.749 [18120:12284:0505/173627.749:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:37:15.800 [18120:12284:0505/173715.799:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:39:15.169 [18120:12284:0505/173915.169:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:42:52.255 [18120:12284:0505/174252.254:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:46:57.209 [18120:21908:0505/174657.209:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 05, 2025 17:50:39.839 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 05, 2025 17:50:39.867 [1828:10896:0505/175039.867:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:51:04.215 [1828:10896:0505/175104.215:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:51:58.267 [1828:10896:0505/175158.267:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:53:26.503 [1828:10896:0505/175326.502:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 17:56:48.539 [1828:10896:0505/175648.538:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 18:02:43.582 [1828:10896:0505/180243.581:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 05, 2025 18:03:57.732 [1828:30396:0505/180357.732:ERROR:components\device_event_log\device_event_log_impl.cc:202] [18:03:57.732] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+5월 05, 2025 18:40:17.75 [1828:30396:0505/184017.075:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 05, 2025 18:40:54.958 [1828:30396:0505/184054.958:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+
+5월 06, 2025 15:52:20.765 NEW SESSION
+5월 06, 2025 15:52:20.765 [16744:25728:0506/155220.763:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:52:21.930 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 06, 2025 15:52:50.304 [16744:25728:0506/155250.304:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:53:32.734 [16744:25728:0506/155332.732:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:55:07.229 [16744:25728:0506/155507.229:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:57:25.180 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 06, 2025 15:57:25.217 [11640:12312:0506/155725.217:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:57:54.928 [11640:12312:0506/155754.928:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 15:58:42.824 [11640:12312:0506/155842.824:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 16:00:13.375 [11640:12312:0506/160013.375:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 06, 2025 16:03:43.315 [11640:12312:0506/160343.315:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+
+5월 07, 2025 09:43:45.506 NEW SESSION
+5월 07, 2025 09:43:45.506 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 07, 2025 09:43:45.533 [19600:24784:0507/094345.533:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:44:08.503 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:08.507 [19600:31352:0507/094408.503:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:44:14.614 [19600:24784:0507/094414.614:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:44:59.83 [19600:24784:0507/094459.083:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:45:34.648 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 07, 2025 09:45:35.507 [6788:30228:0507/094535.507:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:45:42.215 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.215 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.216 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.216 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.216 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.217 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.217 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.218 [6788:18224:0507/094542.214:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.233 [6788:18224:0507/094542.233:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.234 [6788:18224:0507/094542.233:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.234 [6788:18224:0507/094542.233:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.234 [6788:18224:0507/094542.234:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.234 [6788:18224:0507/094542.234:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.234 [6788:18224:0507/094542.234:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.235 [6788:18224:0507/094542.234:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:42.235 [6788:18224:0507/094542.234:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.815 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.815 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.815 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.816 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.816 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.816 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.816 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:54.816 [6788:18224:0507/094554.814:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.596 [6788:18224:0507/094557.595:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.597 [6788:18224:0507/094557.595:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.597 [6788:18224:0507/094557.595:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.598 [6788:18224:0507/094557.596:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.598 [6788:18224:0507/094557.596:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.598 [6788:18224:0507/094557.596:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.599 [6788:18224:0507/094557.596:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.600 [6788:18224:0507/094557.596:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.756 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.756 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.756 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.758 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.758 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.758 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.759 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:57.759 [6788:18224:0507/094557.754:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 07, 2025 09:45:58.811 [6788:30228:0507/094558.811:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:46:42.100 [6788:30228:0507/094642.100:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:48:19.492 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 07, 2025 09:48:19.530 [25516:10000:0507/094819.528:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:48:40.316 [25516:10000:0507/094840.316:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:49:37.296 [25516:10000:0507/094937.294:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:51:36.244 [25516:10000:0507/095136.244:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 09:54:23.286 [25516:10000:0507/095423.285:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 10:01:06.165 [25516:10000:0507/100106.165:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 07, 2025 10:27:46.422 [25516:11844:0507/102746.422:ERROR:components\device_event_log\device_event_log_impl.cc:202] [10:27:46.422] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)

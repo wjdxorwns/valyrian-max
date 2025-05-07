@@ -17,11 +17,9 @@
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css' />"
 	rel="stylesheet">
-<link href="<c:url value='/resources/css/Login.css' />"
-	rel="stylesheet">
+<link href="<c:url value='/resources/css/login.css' />" rel="stylesheet">
 
 <style>
-
 </style>
 </head>
 <body>
@@ -34,17 +32,24 @@
 				<p class="login-subtitle">안전하고 간편한 비즈니스 플랫폼에 접속하세요</p>
 				<form id="loginForm" action="<c:url value='/login' />" method="post">
 					<div class="input-group">
-						<label for="emp_email">이메일</label> 
-						<input type="email" id="emp_email" name="emp_email" placeholder="이메일을 입력하세요" required>
+						<label for="emp_email">이메일</label> <input type="email"
+							id="emp_email" name="emp_email" placeholder="이메일을 입력하세요" required>
 					</div>
 					<div class="input-group">
-						<label for="emp_password">비밀번호</label> 
-						<input type="password" id="emp_password" name="emp_password" placeholder="비밀번호를 입력하세요" required>
+						<label for="emp_password">비밀번호</label> <input type="password"
+							id="emp_password" name="emp_password" placeholder="비밀번호를 입력하세요"
+							required>
 					</div>
 					<div class="options">
 						<a href=" " class="forgot-password">비밀번호 찾기</a>
 					</div>
 					<button type="submit" class="login-button">로그인</button>
+					<c:if test="${loginchk == 'fail'}">
+						<p style="color: red;">이메일 또는 비밀번호가 잘못되었습니다.</p>
+					</c:if>
+					<c:if test="${not empty error}">
+						<p style="color: red;">${error}</p>
+					</c:if>
 				</form>
 			</div>
 		</section>
@@ -54,16 +59,6 @@
 	<jsp:include page="/resources/jsp/Footer.jsp" />
 
 	<script>
-		document.getElementById('loginForm').addEventListener('submit',
-				function(e) {
-					const emp_email = document.getElementById('emp_email').value;
-					const emp_password = document.getElementById('emp_password').value;
-
-					if (!emp_email || !emp_password) {
-						e.preventDefault();
-						alert('이메일과 비밀번호를 입력해주세요.');
-					}
-				});
 		
 	</script>
 </body>

@@ -1,0 +1,120 @@
+package com.ict.project.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.project.service.NorService;
+import com.ict.project.vo.personnel.UsersVO;
+import com.ict.project.vo.personnel.EmployeeVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Controller
+public class NorLoginAndRegisterController {
+
+    private static final Logger logger = LoggerFactory.getLogger(NorLoginAndRegisterController.class);
+
+    @Autowired
+    private NorService norService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    // 로그인 페이지로 이동
+    @GetMapping("/login")
+    public ModelAndView loginPageGo() {
+        System.out.println("[DEBUG] 로그인 페이지로 이동");
+        return new ModelAndView("MainPage/login");
+    }
+
+    // 로그인 처리 (일반 사용자, 관리자, 슈퍼관리자 포함)
+    @PostMapping("/login")
+    public ModelAndView login(@RequestParam String emp_email, @RequestParam String emp_password, HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        System.out.println("[DEBUG] 로그인 요청 - emp_email: " + emp_email + ", emp_password: " + emp_password);
+
+        try {
+            // 사용자가 입력한 이메일로 사용자 정보 조회
+            UsersVO user = norService.getUserByEmail(emp_email);
+            System.out.println("[DEBUG] 조회된 UsersVO: " + (user != null ? user.toString() : "null"));
+            
+            if (user == null) {
+                logger.warn("[DEBUG] 사용자 미존재 - emp_email: {}", emp_email);
+                mv.addObject("loginchk", "fail");
+                mv.setViewName("MainPage/login");
+                return mv;
+            }
+
+            // 입력한 비밀번호가 저장된 비밀번호와 일치하는지 확인
+            boolean passwordMatch = passwordEncoder.matches(emp_password, user.getEmp_password());
+            System.out.println("[DEBUG] 비밀번호 일치 여부: " + passwordMatch);
+            if (!passwordMatch) {
+                logger.warn("[DEBUG] 비밀번호 불일치 - emp_email: {}", emp_email);
+                mv.addObject("loginchk", "fail");
+                mv.setViewName("MainPage/login");
+                return mv;
+            }
+
+            // UsersVO에서 user_idx를 가져와서 EmployeeVO 정보 조회
+            int user_idx = user.getUser_idx();
+            System.out.println("[DEBUG] user_idx: " + user_idx);
+            EmployeeVO employee = norService.getEmployeeByUserIdx(user_idx);
+            System.out.println("[DEBUG] 조회된 EmployeeVO: " + (employee != null ? employee.toString() : "null"));
+
+            if (employee == null) {
+                logger.warn("[DEBUG] 직원 정보 미존재 - user_idx: {}", user_idx);
+                mv.addObject("loginchk", "fail");
+                mv.setViewName("MainPage/login");
+                return mv;
+            }
+
+            // 로그인 성공 처리 - 세션에 로그인 정보 저장
+            session.setAttribute("loginchk", "ok");
+            session.setAttribute("userVO", user);
+            session.setAttribute("emp_email", user.getEmp_email());
+            System.out.println("[DEBUG] 세션 설정 - loginchk: ok, emp_email: " + user.getEmp_email());
+
+            // 부서 정보 설정
+            String deptName = employee.getDept_name();
+            System.out.println("[DEBUG] deptName: " + deptName);
+            session.setAttribute("role", deptName);
+
+            // 관리자 및 슈퍼관리자 구분
+            boolean isAdmin = "슈퍼관리자".equals(deptName) || "관리자".equals(deptName);
+            session.setAttribute("admin", isAdmin ? "ok" : "no");
+            System.out.println("[DEBUG] admin 설정: " + (isAdmin ? "ok" : "no"));
+
+            // 메인 페이지로 리다이렉트
+            logger.info("[DEBUG] 로그인 성공 - emp_email: {}, role: {}", emp_email, deptName);
+            mv.setViewName("redirect:/index");
+        } catch (Exception e) {
+           
+            mv.addObject("error", "로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+            mv.setViewName("MainPage/login");
+        }
+
+        return mv;
+    }
+
+    // 로그아웃 처리
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpSession session) {
+        System.out.println("[DEBUG] 로그아웃 요청 - 세션 무효화");
+        session.invalidate();
+        return new ModelAndView("redirect:/login");
+    }
+
+    // index 페이지로 이동
+    @GetMapping("/index")
+    public ModelAndView goToIndex() {
+        System.out.println("[DEBUG] 인덱스 페이지로 이동");
+        return new ModelAndView("MainPage/index");
+    }
+}

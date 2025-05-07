@@ -2,30 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="nor">
-	<select id="login" parameterType="String" resultType="map" >
-	 SELECT * 
-  	FROM Users u
-  	JOIN Employee e ON u.user_idx = e.user_idx
-  	WHERE u.user_idx = #{user_idx}
-	</select>
-	
-	
-	
+    <!-- 이메일로 사용자 조회 -->
+    <select id="getUserByEmail" parameterType="String" resultType="com.ict.project.vo.personnel.UsersVO">
+        SELECT * FROM users WHERE emp_email = #{emp_email}
+    </select>
+
+    <!-- user_idx로 직원 조회 -->
+    <select id="getEmployeeByUserIdx" parameterType="int" resultType="com.ict.project.vo.personnel.EmployeeVO">
+        SELECT * FROM employee WHERE user_idx = #{userIdx}
+    </select>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

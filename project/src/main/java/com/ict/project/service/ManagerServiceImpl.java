@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.project.repository.ManagerDAO;
-import com.ict.project.vo.personnel.UserVO;
+import com.ict.project.vo.personnel.UsersVO;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
@@ -14,17 +14,17 @@ public class ManagerServiceImpl implements ManagerService{
     private ManagerDAO managerDAO;
 
     @Override
-    public List<UserVO> getAllEmp() {
+    public List<UsersVO> getAllEmp() {
         return managerDAO.getAllEmp();
     }
 
     @Override
-    public List<UserVO> getEmpNameSearch(UserVO uVO) {
+    public List<UsersVO> getEmpNameSearch(UsersVO uVO) {
         return managerDAO.getEmpNameSearch(uVO);
     }
 
     @Override
-    public List<UserVO> getEmpIdSearch(UserVO uVO) {
+    public List<UsersVO> getEmpIdSearch(UsersVO uVO) {
         return managerDAO.getEmpIdSearch(uVO);
     }
 }

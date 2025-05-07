@@ -9,10 +9,11 @@
 <title>3부상조 - 어드민 직원에게 급여 지급</title>
 
 	<!-- 화면(CSS) 링크 -->
-	<link href="<c:url value='/resources/css/Main.css' />" rel="stylesheet">
-    <link href="<c:url value='/resources/css/Header.css' />" rel="stylesheet">
-    <link href="<c:url value='/resources/css/Footer.css' />" rel="stylesheet">
-    <link href="<c:url value='/resources/css/HanCW/CSS_admin_pay_detail_update.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/>"rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/>"rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/Header.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/Footer.css'/>" rel="stylesheet">
     
     <!-- 폰트 링크 -->
 	<link

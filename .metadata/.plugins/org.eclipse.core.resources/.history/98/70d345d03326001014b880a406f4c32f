@@ -1,0 +1,99 @@
+package com.ict.project.controller;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+// 작성자: 최성현 | 기여자: 김재겸
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.project.service.NorService;
+
+
+@Controller
+public class NorLoginAndRegisterController {
+	
+	/*
+	  	기능
+	  	1. 로그인 기능
+	  	2. 회원가입 기능
+	  	3. 비밀번호 찾기
+	  
+	 */
+	
+	@Autowired
+	private NorService norService;
+	
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@RequestMapping("/login")
+	public ModelAndView loginPageGo() {
+	return new ModelAndView("MainPage/Login");
+	}
+	
+	@PostMapping("/loginForm")
+	public ModelAndView getLoginForm(HttpSession session, @RequestParam String emp_email, @RequestParam String emp_password) {
+	    ModelAndView mv = new ModelAndView();
+	    try {
+	
+	        Map<String, Object> loginResult = norService.loginWithRole(emp_email);
+	        if (loginResult == null) {
+	            System.out.println("User not found for email: " + emp_email);
+	            mv.addObject("loginchk", "fail");
+	            mv.setViewName("MainPage/Login");
+	            return mv;
+	        }
+
+	        String storedPassword = (String) loginResult.get("emp_password");
+	
+	        if (passwordEncoder.matches(emp_password, storedPassword)) {
+	            session.setAttribute("loginchk", "ok");
+	            session.setAttribute("user_idx", loginResult.get("user_idx"));
+	            session.setAttribute("emp_name", loginResult.get("emp_name"));
+	            session.setAttribute("role", loginResult.get("dept_name"));
+	            System.out.println("Session Attributes Set: " + session.getAttribute("loginchk"));
+
+	            String deptName = (String) loginResult.get("dept_name");
+	        
+	            if ("슈퍼관리자".equals(deptName) || "관리자".equals(deptName) || "직원".equals(deptName)) {
+	                mv.setViewName("MainPage/index");
+	            } else {
+	                System.out.println("Invalid dept_name: " + deptName);
+	                mv.addObject("loginchk", "fail");
+	                mv.setViewName("redirect:/MainPage/index");
+	            }
+	        } else {
+	     
+	            mv.addObject("loginchk", "fail");
+	            mv.setViewName("MainPage/Login");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 예외 상세 출력
+	        mv.addObject("error", "로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+	        mv.setViewName("MainPage/Login");
+	    }
+	    return mv;
+	}
+		
+		
+		
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+

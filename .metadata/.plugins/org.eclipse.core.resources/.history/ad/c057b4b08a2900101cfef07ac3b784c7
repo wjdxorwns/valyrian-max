@@ -1,0 +1,47 @@
+@charset "UTF-8";
+aside {
+    position: fixed;
+    top: 80px; 
+    left: 0;
+    width: 260px;
+    height: calc(100vh - 80px);
+    background-color: #c0c0c0; 
+    border-right: 1px solid #e0e0e0; 
+    padding: 2rem 1.5rem;
+    z-index: 9997; 
+}
+
+
+aside h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #003399;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.05em;
+}
+
+
+aside ul {
+    list-style: none;
+}
+
+aside ul li {
+    margin-bottom: 1rem;
+}
+
+aside ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 15px;
+    font-weight: 300;
+    color: #333333;
+    text-decoration: none;
+    letter-spacing: -0.05em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+aside ul li a:hover {
+    background-color: #e6f0fa; /* 헤더 드롭다운 hover와 동일 */
+    color: #003399; /* 헤더 드롭다운 hover와 동일 */
+    border-radius: 5px;
+}

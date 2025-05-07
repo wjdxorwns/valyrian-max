@@ -1,0 +1,46 @@
+aside {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 80px); /* 기존 높이 유지 */
+    padding: 0; /* 패딩 제거 */
+    border-right: 1px solid #e0e0e0;
+}
+
+.aside-content {
+    background-color: #f5f6f5; /* 색상은 aside-content에만 적용 */
+    height: 500px; /* 고정 높이로 제한 */
+    padding: 20px; /* 기존 aside의 패딩을 여기로 이동 */
+    overflow-y: auto; /* 내용이 길면 스크롤 */
+}
+
+aside h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside ul li {
+    margin-bottom: 15px;
+}
+
+aside ul li a {
+    font-size: 16px;
+    color: #005BAC;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+aside ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-left: 250px;
+}
