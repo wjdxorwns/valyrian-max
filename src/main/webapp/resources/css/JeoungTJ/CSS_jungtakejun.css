@@ -8,6 +8,13 @@
 	padding: 0px;
 	justify-content:center;
 	}
+
+.main-item{
+	margin-left: 100px;
+	align-items: center;
+	margin-top: 30px;
+}
+
 th:first-child,
   td:first-child {
     width: 5px ;
@@ -38,7 +45,7 @@ margin-top: 10px;
  style="width: 1240px; overflow-x: auto;
 }
 
-#title{display: inline-block; align-items: flex-start; text-align: left;}
+#title{display: inline-block; align-items: flex-start; text-align: left; margin-top: 30px;}
 
 .tabletitle{
 min-width: 1220px
@@ -54,6 +61,10 @@ margin:40px 200px
 
 
 }
+.information input{
+	background-color: lightgray; border-radius: 20px;
+	
+}
 .emp_information{
 width: 1215px;
 overflow-x: auto;
@@ -61,8 +72,3 @@ overflow-x: auto;
 .emp_table{
 min-width: 1500px
 }
-
-
-
-
-

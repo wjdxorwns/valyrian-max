@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<!-- 정택준 -->
+<!-- 작성자: 정택준 | 기여자: 김재겸 -->
 <html>
 <head>
 <meta charset="UTF-8">

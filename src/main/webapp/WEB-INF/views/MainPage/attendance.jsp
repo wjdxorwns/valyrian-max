@@ -20,188 +20,188 @@
 	rel="stylesheet">
 <style type="text/css">
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
-    height: auto; /* Ensure body can grow with content */
+	margin: 0;
+	padding: 0;
+	height: auto; /* Ensure body can grow with content */
 }
 
 main {
-    margin-top: 80px; /* Match header height */
-    padding: 2rem 1rem;
-    background: #e9f0fd; /* Light blue to match login page */
-    display: flex;
-    flex-direction: column; /* Stack sections vertically */
-    align-items: center;
-    justify-content: center;
+	margin-top: 80px; /* Match header height */
+	padding: 2rem 1rem;
+	background: #e9f0fd; /* Light blue to match login page */
+	display: flex;
+	flex-direction: column; /* Stack sections vertically */
+	align-items: center;
+	justify-content: center;
 }
 
 .summary-section {
-    max-width: 1200px;
-    width: 1200px; /* Fixed width */
-    background: #fff;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+	max-width: 1200px;
+	width: 1200px; /* Fixed width */
+	background: #fff;
+	border-radius: 10px;
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .summary-section h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1rem;
+	font-size: 1.5rem;
+	color: #333;
+	margin-bottom: 1rem;
 }
 
 .summary-section .summary-item {
-    font-size: 1.1rem;
-    color: #666;
-    margin-bottom: 0.5rem;
+	font-size: 1.1rem;
+	color: #666;
+	margin-bottom: 0.5rem;
 }
 
 .attendance-section {
-    max-width: 1200px;
-    width: 1200px; /* Fixed width */
-    min-height: 600px; /* Added to make the section taller */
-    margin-bottom: 2rem; /* Space above footer */
-    padding: 3rem; /* Added to increase internal spacing */
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex; /* Use flex to control layout */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
+	max-width: 1200px;
+	width: 1200px; /* Fixed width */
+	min-height: 600px; /* Added to make the section taller */
+	margin-bottom: 2rem; /* Space above footer */
+	padding: 3rem; /* Added to increase internal spacing */
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex; /* Use flex to control layout */
+	flex-direction: column; /* Stack children vertically */
+	align-items: center; /* Center children horizontally */
 }
 
 .clock-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 2rem;
 }
 
 .clock {
-    font-size: 3rem;
-    color: #333;
-    font-weight: 700;
+	font-size: 3rem;
+	color: #333;
+	font-weight: 700;
 }
 
 .status {
-    font-size: 1.2rem;
-    color: #666;
-    background: #e0f4ff;
-    padding: 0.3rem 1rem;
-    border-radius: 15px;
+	font-size: 1.2rem;
+	color: #666;
+	background: #e0f4ff;
+	padding: 0.3rem 1rem;
+	border-radius: 15px;
 }
 
 .card-container {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
+	display: flex;
+	gap: 1.5rem;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
 }
 
 .attendance-card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 1.5rem;
-    width: 220px; /* Slightly smaller to match screenshot */
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	background: #fff;
+	border-radius: 10px;
+	padding: 1.5rem;
+	width: 220px; /* Slightly smaller to match screenshot */
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .attendance-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+	transform: translateY(-5px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .icon-wrapper {
-    background: #e9f0fd;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
+	background: #e9f0fd;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 1rem;
 }
 
 .icon {
-    font-size: 1.5rem;
-    color: #1e90ff;
+	font-size: 1.5rem;
+	color: #1e90ff;
 }
 
 .checkin-icon {
-    transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
 .checkout-icon {
-    transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
 .attendance-card h2 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 0.8rem;
-    font-weight: 500;
+	font-size: 1.2rem;
+	color: #333;
+	margin-bottom: 0.8rem;
+	font-weight: 500;
 }
 
 .attendance-card .time {
-    font-size: 1.5rem;
-    color: #1e90ff;
-    margin-bottom: 1rem;
-    font-weight: 700;
+	font-size: 1.5rem;
+	color: #1e90ff;
+	margin-bottom: 1rem;
+	font-weight: 700;
 }
 
 .attendance-card .btn {
-    display: block;
-    padding: 0.6rem 1rem;
-    background-color: #1e90ff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s ease, transform 0.2s ease;
+	display: block;
+	padding: 0.6rem 1rem;
+	background-color: #1e90ff;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .attendance-card .btn:hover {
-    background-color: #1c86ee;
-    transform: scale(1.02);
+	background-color: #1c86ee;
+	transform: scale(1.02);
 }
 
 .action-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
 }
 
 .action-btn {
-    padding: 0.6rem 1.5rem;
-    background-color: #e9f0fd;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s ease, color 0.3s ease;
+	padding: 0.6rem 1.5rem;
+	background-color: #e9f0fd;
+	color: #333;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background 0.3s ease, color 0.3s ease;
 }
 
 .action-btn:hover {
-    background-color: #d0e4fd;
-    color: #1e90ff;
+	background-color: #d0e4fd;
+	color: #1e90ff;
 }
 </style>
 </head>
@@ -233,17 +233,27 @@ main {
 				</div>
 			</div>
 			<div class="action-buttons">
-				<button class="action-btn" id="break-btn" onclick="toggleBreak()">휴식 시작</button>
-				<button class="action-btn" id="work-btn" onclick="startWork()">근무 시작</button>
+				<button class="action-btn" id="break-btn" onclick="toggleBreak()">휴식
+					시작</button>
+				<button class="action-btn" id="work-btn" onclick="startWork()">근무
+					시작</button>
 				<button class="action-btn" onclick="startTask()">업무</button>
 			</div>
 		</section>
 		<section class="summary-section">
 			<h3>오늘의 근무 요약</h3>
-			<div class="summary-item">출근 시간: <span id="summary-checkin">미등록</span></div>
-			<div class="summary-item">퇴근 시간: <span id="summary-checkout">미등록</span></div>
-			<div class="summary-item">근무 시간: <span id="summary-work-hours">0시간 0분</span></div>
-			<div class="summary-item">휴식 시간: <span id="summary-break-hours">0시간 0분</span></div>
+			<div class="summary-item">
+				출근 시간: <span id="summary-checkin">미등록</span>
+			</div>
+			<div class="summary-item">
+				퇴근 시간: <span id="summary-checkout">미등록</span>
+			</div>
+			<div class="summary-item">
+				근무 시간: <span id="summary-work-hours">0시간 0분</span>
+			</div>
+			<div class="summary-item">
+				휴식 시간: <span id="summary-break-hours">0시간 0분</span>
+			</div>
 		</section>
 		<script>
 			// Update clock every second

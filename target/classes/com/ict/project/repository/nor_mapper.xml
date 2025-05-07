@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!-- 작성자: 최성현 -->
 <mapper namespace="nor">
     <!-- 이메일로 사용자 조회 -->
     <select id="getUserByEmail" parameterType="String" resultType="com.ict.project.vo.personnel.UsersVO">
@@ -13,4 +13,17 @@
     <select id="getEmployeeByUserIdx" parameterType="int" resultType="com.ict.project.vo.personnel.EmployeeVO">
         SELECT * FROM employee WHERE user_idx = #{userIdx}
     </select>
+    
+    <!-- 작성자: 한찬욱 -->
+    <!-- user_idx로 자신의 정보 불러오기 -->
+	<select id="getUsersInfor" parameterType="String" resultType="map">
+	    SELECT 
+        u.emp_name, u.emp_email, u.phone_number, e.team, e.position, e.hire_date, v.vacation_day, e.emp_idx, u.gender, u.home, u.detail_home, ep.f_name
+	    FROM employee e
+	    INNER JOIN users u ON u.user_idx = e.user_idx
+	    INNER JOIN request r ON e.emp_idx = r.emp_idx
+	    INNER JOIN vacation v ON r.request_idx = v.request_idx
+	    INNER JOIN emppicture ep ON e.emp_idx = ep.emp_idx
+	    WHERE e.emp_idx = #{emp_idx}
+	</select>
 </mapper>

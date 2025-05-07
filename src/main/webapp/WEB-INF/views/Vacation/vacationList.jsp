@@ -20,6 +20,7 @@
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css' />"
 	rel="stylesheet">
+<link href="<c:url value='resources/css/Aside.css' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/KimYH/CSS_vacation.css' />"
 	rel="stylesheet">
 <style type="text/css">
@@ -32,6 +33,11 @@
 
 #list p {
 	margin-top: 10px;
+}
+
+.no-data {
+	font-size: 2rem;
+	margin: 0 20px;
 }
 /* 공통 */
 table {
@@ -52,9 +58,11 @@ th, td {
 
 	<!-- Header -->
 	<jsp:include page="/resources/jsp/Header.jsp" />
+	<!-- Aside -->
+	<jsp:include page="/resources/jsp/VacationAside.jsp" />
 
 	<main>
-		<form action="" method="">
+		<form action="/leaveList" method="post">
 			<div id="title">
 				<h2>직원 휴가 현황</h2>
 			</div>
@@ -73,7 +81,7 @@ th, td {
 				<table>
 					<thead>
 						<tr>
-							<th>No.</th>
+							<th style="width: 150px;">휴가 ID</th>
 							<th>직급</th>
 							<th>이름</th>
 							<th>휴가기간</th>
@@ -83,53 +91,65 @@ th, td {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>${count }</td>
-							<td>${position }</td>
-							<!-- employee(직원) 테이블 -->
-							<td>${emp_name }</td>
-							<!-- user(회원가입) 테이블 -->
-							<td>${start_date }~ ${end_date }</td>
-							<!-- vacation(휴가) 테이블 -->
-							<td><c:choose>
-									<%-- "승인"일 때 현재 날짜에 따라 값이 변하게끔 --%>
-									<c:when test="${request_vacation eq '승인'}">
-										<c:choose>
-											<c:when test="${today < start_date}">
-												휴가 예정
-											</c:when>
-											<c:when test="${today >= start_date and today <= end_date}">
-												휴가중
-											</c:when>
-											<c:otherwise>
-												근무중
-											</c:otherwise>
-										</c:choose>
-									</c:when>
-									<c:otherwise>
-										근무중
-									</c:otherwise>
-								</c:choose></td>
-							<!-- vacation(휴가) 테이블 -->
-							<td>
-								<!-- request(승인요청) 테이블 --> <c:choose>
-									<c:when test="${empty request_vacation}">
-										<!-- null일 때 -->
-										승인 대기 
-									</c:when>
-									<c:when test="${request_vacation eq '불승인'}">
-										불승인 
-									</c:when>
-									<c:when test="${request_vacation eq '승인'}">
-										승인
-									</c:when>
-									<c:otherwise>
-										-
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td></td>
-						</tr>
+						<c:choose>
+							<c:when test="${empty vacationMap}">
+								<tr>
+									<td colspan="7" class="no-data">휴가 신청 내역이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="entry" items="${vacationMap}">
+									<tr>
+										<td>${entry.value.vacation_id }</td>
+										<td>${entry.value.position }</td>
+										<%--  employee(직원) 테이블 --%>
+										<td>${entry.value.emp_name }</td>
+										<!-- user(회원가입) 테이블 -->
+										<td>${entry.value.start_date }~${entry.value.end_date }</td>
+										<!-- vacation(휴가) 테이블 -->
+										<td><c:choose>
+												<%-- "승인"일 때 현재 날짜에 따라 값이 변하게끔 --%>
+												<c:when test="${entry.value.status eq '승인'}">
+													<c:choose>
+														<c:when test="${today < entry.value.start_date}">
+													휴가 예정
+												</c:when>
+														<c:when
+															test="${today >= entry.value.start_date and today <= entry.value.end_date}">
+													휴가중
+												</c:when>
+														<c:otherwise>
+													근무중
+												</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+											근무중
+										</c:otherwise>
+											</c:choose></td>
+										<!-- vacation(휴가) 테이블 -->
+										<td>
+											<!-- request(승인요청) 테이블 --> <c:choose>
+												<c:when test="${entry.value.status eq '대기'}">
+													<!-- null일 때 -->
+											대기 
+										</c:when>
+												<c:when test="${entry.value.status eq '반려'}">
+											반려 
+										</c:when>
+												<c:when test="${entry.value.status eq '승인'}">
+											승인
+										</c:when>
+												<c:otherwise>
+											-
+										</c:otherwise>
+											</c:choose>
+										</td>
+										<td>${entry.value.comment}</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</tbody>
 				</table>
 			</div>

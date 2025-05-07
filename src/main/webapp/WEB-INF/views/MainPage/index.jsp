@@ -49,15 +49,32 @@
 				<div class="container">
 					<ul class="shortcut-list clearfix">
 
-						<li class="shortcut-list-item"><a href="calendar">
-								<h3 class="txt-main">켈린더</h3>
-								<p class="txt-sub">
-									3부상조 플랫폼 켈린더를 활용하기 위해<br> 계정을 등록하고 서비스를 경험하세요.
-								</p>
-								<p class="img-box">
-									<span class="screen-hidden"></span>
-								</p>
-						</a></li>
+						<li class="shortcut-list-item"><c:choose>
+								<c:when test="${empty sessionScope.userVO}">
+									<!-- 로그인 전: 시작하기 -->
+									<a href="login">
+										<h3 class="txt-main">시작하기</h3>
+										<p class="txt-sub">
+											3부상조 플랫폼 테스트를 시작하기 위해<br> 계정을 등록하고 서비스를 경험하세요.
+										</p>
+										<p class="img-box">
+											<span class="screen-hidden"></span>
+										</p>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<!-- 로그인 후: 켈린더 -->
+									<a href="calendar">
+										<h3 class="txt-main">켈린더</h3>
+										<p class="txt-sub">
+											3부상조 플랫폼 켈린더를 활용하기 위해<br> 계정을 등록하고 서비스를 경험하세요.
+										</p>
+										<p class="img-box">
+											<span class="screen-hidden"></span>
+										</p>
+									</a>
+								</c:otherwise>
+							</c:choose></li>
 						<li class="shortcut-list-item"><a href="attendance">
 								<h3 class="txt-main">출, 퇴근 관리</h3>
 								<p class="txt-sub">

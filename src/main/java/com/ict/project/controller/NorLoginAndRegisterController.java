@@ -1,7 +1,11 @@
 package com.ict.project.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.project.service.NorService;
-import com.ict.project.vo.personnel.UsersVO;
 import com.ict.project.vo.personnel.EmployeeVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ict.project.vo.personnel.UsersVO;
+
+// 작성자: 최성현
 
 @Controller
 public class NorLoginAndRegisterController {
@@ -110,4 +114,54 @@ public class NorLoginAndRegisterController {
 	public ModelAndView goToIndex() {
 		return new ModelAndView("MainPage/index");
 	}
+
+	
+//	작성자: 한찬욱
+//	index에서 MyPage로 이동
+    @PostMapping("/myPage")
+    public ModelAndView goMyPage(@RequestParam String emp_idx) {
+    	try {
+    		
+    		ModelAndView mv = new ModelAndView();
+			Map<String, Object> eVO = norService.getEmployeeInfor(emp_idx);	
+			
+			mv.addObject("eVO", eVO);
+			mv.setViewName("MyPage/myPage");
+			
+			return mv;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ModelAndView("error");
+		}
+    }
+    
+	//	myPage에서 index 페이지로 이동 
+	@GetMapping("/index") 
+	public ModelAndView returnToIndex() { 
+		
+		return new ModelAndView("MainPage/index"); 
+	}
+	
+	// myPage에서 myPageUpdate 창으로 이동
+	@PostMapping("/myPageUp")
+	public ModelAndView myPageUpdate(@RequestParam("emp_idx") String emp_idx) {
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> eVO = norService.getEmployeeInfor(emp_idx);
+		
+		mv.addObject("eVO", eVO);
+		mv.setViewName("MyPage/myPageUpdate");
+		return mv;
+	}
+
+	
+	/*
+	// myPageUpdate에서 myPage로 이동
+	
+	@GetMapping("/returnMyPage") public ModelAndView returnMyPage() {
+	
+	return new ModelAndView("/MyPage/myPage"); }
+	
+	*/
+    // myPageUpdate에서 DB에 비밀번호 및 사인 저장
 }
