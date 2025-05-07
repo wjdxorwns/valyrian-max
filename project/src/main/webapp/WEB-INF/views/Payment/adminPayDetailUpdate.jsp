@@ -9,9 +9,8 @@
 <title>3부상조 - 어드민 직원에게 급여 지급</title>
 
 	<!-- 화면(CSS) 링크 -->
-<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/>"rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/>"rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>" rel="stylesheet">
+	<link href="<c:url value='/resources/css/HanCW/CSS_admin_pay_detail_update.css'/>"rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>"rel="stylesheet">
 <link href="<c:url value='/resources/css/Header.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css'/>" rel="stylesheet">
     
@@ -23,58 +22,25 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
+	
+
+
 <body>
 	
-		<header id="main-header">
-	    <div id="logo"><a href="/">3부상조</a></div>
-	    <nav>
-	      <ul class="nav-items">
-	        <li><a href="/">직원 정보 조회(H)</a></li>
-	        <li><a href="/cart">근무 지정</a></li>
-	        <li><a href="/orders">인사 관리</a></li>
-	        <li><a href="/signup">급여</a></li>
-	        <li><a href="/login">휴가</a></li>
-	      </ul>
-	    </nav>
-	    <button id="mobile-menu-btn">
-	      <span></span>
-	      <span></span>
-	      <span></span>
-	    </button>
-	  </header>
+
+	<main style="width: margin: 80px auto  auto;">
+	<jsp:include page="/resources/jsp/PayAside.jsp" />
 	
-	  <!-- Mobile Menu -->
-	  <aside id="mobile-menu">
-	    <nav>
-	      <ul class="nav-items">
-	        <li><a href="/">직원등록</a></li>
-	        <li><a href="/">근무지정</a></li>
-	        <li><a href="/">인사</a></li>
-	        <li><a href="/">급여</a></li>
-	        <li><a href="/">휴가</a></li>
-	      </ul>
-	    </nav>
-	  </aside>
 	
-	  <!-- Sidebar for Desktop -->
-	  <aside id="sidebar">
-	    <nav>
-	      <ul>
-	        <li><a href="/">직원등록</a></li>
-	        <li><a href="/">근무지정</a></li>
-	        <li><a href="/">인사</a></li>
-	        <li><a href="/">급여</a></li>
-	        <li><a href="/">휴가</a></li>
-	      </ul>
-	    </nav>
-	  </aside>
-	<main>
 		<!-- 사진, 이메일, 직원 이름, 집주소, 상세 집주소, 휴대전화번호, 부서명, 직책, 호봉, 입사일, 직원 고유코드, 휴가일  -->
 		<!-- Header -->
 		<jsp:include page="/resources/jsp/Header.jsp" />
+		<div style=" margin-top: 30px;">
 		<h2>직원 급여 지급</h2>
 		<h4>직원에게 급여를 책정합니다.</h4>
-		<hr>
+		
+		</div>
 		<!-- 개인정보 테이블 -->
 		<div class="container">
 			<div class="container1">
@@ -82,7 +48,7 @@
 				<div class="infor_table">
 					<!-- 사진 -->
 					<div class="profile_image">
-						<img src='<c:url value="/resources/images/brucelee.jpg" />'>
+						<img src='<c:url value="/resources/images/18ceebb0bfd4c2da7.jpg" />'>
 					</div>
 					<!-- 직원이름, 이메일, 휴대전화번호, 부서명, 직책, 호봉 -->
 					<div>
@@ -90,42 +56,42 @@
 						<div class="set">
 							<div class="info_title">이름</div>
 							<div>
-								<input type="text" class="box1" value="${user.emp_name }" />
+								<input type="text" class="box1" value="${user.emp_name }"  disabled/>
 							</div>
 						</div>
 	
 						<div class="set">
 							<div class="info_title">이메일</div>
 							<div>
-								<input type="text" class="box1" value="${user.emp_email }" />
+								<input type="text" class="box1" value="${user.emp_email }" disabled />
 							</div>
 						</div>
 	
 						<div class="set">
 							<div class="info_title">전화번호</div>
 							<div>
-								<input type="text" class="box1" value="${user.phone_number }" />
+								<input type="text" class="box1" value="${user.phone_number }" disabled />
 							</div>
 						</div>
 	
 						<div class="set">
 							<div class="info_title">부서명</div>
 							<div>
-								<input type="text" class="box1" value="${employee.dept_name }" />
+								<input type="text" class="box1" value="${employee.dept_name }" disabled />
 							</div>
 						</div>
 	
 						<div class="set">
 							<div class="info_title">직책</div>
 							<div>
-								<input type="text" class="box1" value="${employee.position }" />
+								<input type="text" class="box1" value="${employee.position }" disabled/>
 							</div>
 						</div>
 
 					<div class="set">
 						<div class="info_title">호봉</div>
 						<div>
-							<input type="text" class="box1" value="${employee.pay_grade }" />
+							<input type="text" class="box1" value="${employee.pay_grade }" disabled/>
 						</div>
 					</div>
 
@@ -138,13 +104,13 @@
 
 						<div class="info_title">입사일</div>
 						<div>
-							<input type="text" class="box2" value="${user.start_date }" />
+							<input type="text" class="box2" value="${user.start_date }" disabled/>
 						</div>
 					</div>
 					<div class="set">
 						<div class="info_title">휴가일</div>
 						<div>
-							<input type="text" class="box2" value="${user.vacation_day }" />
+							<input type="text" class="box2" value="${user.vacation_day }" disabled />
 						</div>
 					</div>
 
@@ -153,27 +119,27 @@
 					<div class="set">
 						<div class="info_title">직원코드</div>
 						<div>
-							<input type="text" class="box2" value="${user.emp_code }" />
+							<input type="text" class="box2" value="${user.emp_code }" disabled/>
 						</div>
 					</div>
 					<div class="set">
 						<div class="info_title">급여</div>
 						<div>
-							<input type="text" class="box2" value="${user.pay }" />
+							<input type="text" class="box2" value="${user.pay }" disabled/>
 						</div>
 					</div>			
 				</div>		
 				<div class="set">
 					<div class="info_title">주소</div>
 					<div>
-						<input type="text" class="box3" value="${user.home }" />
+						<input type="text" class="box3" value="${user.home }" disabled/>
 					</div>
 				</div>
 
 				<div class="set">
 					<div class="info_title">상세주소</div>
 					<div>
-						<input type="text" class="box3" value="${user.detail_home }" />
+						<input type="text" class="box3" value="${user.detail_home }" disabled/>
 					</div>
 				</div>
 			</div>
@@ -184,8 +150,8 @@
 		 	<div class="pay">
 				<div>급여 : </div>
 					<div class="choice">
-						<input class="in" type="text" >
-						<button class="button3">등록</button>	
+						<input class="in" type="number" >
+						<button class="button3" >등록</button>	
 					</div>
 			</div>	
 			<div class="tex">
@@ -218,6 +184,65 @@
 	<!-- Footer -->
 	<jsp:include page="/resources/jsp/Footer.jsp" />
 </body>
+
+
+
+<script type="text/javascript">
+    // 실수령 금액 계산
+    function calculateRealPay() {
+        const salaryInput = document.querySelector(".in").value;
+        const salary = parseFloat(salaryInput) || 0;
+        const taxRateSelect = document.querySelector(".percentage").value;
+        const taxRate = parseFloat(taxRateSelect) / 100 || 0;
+        const taxAmount = salary * taxRate;
+        const realPay = salary - taxAmount;
+        const realPayInput = document.querySelector(".pay_box");
+        realPayInput.value = realPay.toFixed(0);
+    }
+
+
+    function admin_Pay_Detail_Update() {
+       
+        const salary = parseFloat(document.querySelector(".in").value) || 0;
+        const taxRate = parseFloat(document.querySelector(".percentage").value) || 0;
+        const realPay = parseFloat(document.querySelector(".pay_box").value) || 0;
+        const empIdx = "${user.emp_code}"; // JSP에서 직원 코드 가져오기
+
+
+        if (salary <= 0 || isNaN(salary)) {
+            alert("유효한 급여를 입력하세요.");
+            return;
+        }
+        if (taxRate <= 0 || isNaN(taxRate)) {
+            alert("유효한 세율을 선택하세요.");
+            return;
+        }
+
+    
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const calcButton = document.querySelector(".button3");
+        if (calcButton) {
+            calcButton.addEventListener("click", calculateRealPay);
+        }
+
+        const saveButton = document.querySelector('input[value="저장하기"]');
+        if (saveButton) {
+            saveButton.addEventListener("click", admin_Pay_Detail_Update_ok);
+        }
+
+        const backButton = document.querySelector('input[value="돌아가기"]');
+        if (backButton) {
+            backButton.addEventListener("click", function () {
+                window.location.href = "/searchEmployees";
+            });
+        }
+    });
+</script>
+
 </html>
 
 

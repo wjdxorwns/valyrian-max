@@ -16,7 +16,7 @@ aside {
     background-color: #ffffff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 9997; 
-    height: 850px;
+    height: -webkit-fill-available;
     
 }
 

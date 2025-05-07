@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/* 작성자: 한찬욱 */
+<style type="text/css">
+
+.main_body{
+	margin-left: 200px;
+	
+	}
+.container{display: flex;}
+.container1 {
+	text-align: center;
+	align-items: center; 
+	justify-content: center;
+	}
+
+.infor_table {
+	border: 1px solid black;
+	display: flex;
+	width: 600px;
+	height: 300px;
+	}
+
+.info_title {
+	border: 1px solid black;
+	width: 80px;
+	line-height: 50px;
+	}
+
+.under_table {border: 1px solid black;}
+
+.und_table {display: flex;}
+
+.set {
+	display: flex;
+	height: 50px;
+	}
+
+.box1 {
+	width: 600px;
+	height: 50px;
+	text-align: center;
+	}
+
+.box2 {
+	width: 219px;
+	height: 50px;
+	text-align: center;
+	}
+
+.box3 {
+	width: 518px;
+	height: 50px;
+	text-align: center;
+	}
+.box4{
+	width: 400px;
+	height: 50px;
+}
+.cols {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px; /* 위와 간격이 있다면 추가 */
+	gap : 10px;
+	}
+.button{width : 80px;}
+
+img {
+	width: 200px;
+	height: 300px;
+	}
+
+hr {margin: 20px;}
+
+.container2{
+	margin-left : 100px;	
+	}
+
+button{
+	width : 100px;
+	float: right;
+	}   
+.sign_name{margin: 10px;}
+.pay {
+	display: flex;
+	height: 20px;
+	margin-bottom: 5px;
+	}
+.tex {
+	margin-bottom: 5px;
+	display: flex;
+	}
+.choice {margin-left: 10px;}
+.real_pay{justify-content: flex-end;}
+.in{height: 20px;}
+.pay_box{
+	width: 250px;
+	height: 20px;
+	}
+.button2{
+	width : 60px;
+	text-align: center;
+	}
+.button3{
+	width : 30px;
+	margin-left: 3px;
+	}	
+</style>

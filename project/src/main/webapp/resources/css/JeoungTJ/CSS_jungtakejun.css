@@ -10,9 +10,9 @@
 	}
 
 .main-item{
-	margin-left: 200px;
-	display: flex;
+	margin-left: 100px;
 	align-items: center;
+	margin-top: 30px;
 }
 
 th:first-child,
@@ -45,7 +45,7 @@ margin-top: 10px;
  style="width: 1240px; overflow-x: auto;
 }
 
-#title{display: inline-block; align-items: flex-start; text-align: left;}
+#title{display: inline-block; align-items: flex-start; text-align: left; margin-top: 30px;}
 
 .tabletitle{
 min-width: 1220px

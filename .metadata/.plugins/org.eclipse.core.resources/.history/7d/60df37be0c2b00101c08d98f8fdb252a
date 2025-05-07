@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="personnel">
+    <resultMap id="employeeVOMap" type="com.ict.project.vo.personnel.EmployeeVO">
+        <result property="emp_idx" column="emp_idx"/>
+        <result property="emp_name" column="emp_name"/>
+        <result property="pay_grade" column="pay_grade"/>
+        <result property="position" column="position"/>
+        <result property="dept_name" column="dept_name"/>
+        <result property="hire_date" column="hire_date"/>
+        <result property="employment_type" column="employment_type"/>
+        <result property="salary" column="salary"/>
+        <result property="bonus" column="bonus"/>
+    </resultMap>
+
+    <select id="findByEmpNameContaining" resultMap="employeeVOMap">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE u.emp_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByDeptNameContaining" resultMap="employeeVOMap">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE e.dept_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByPositionContaining" resultMap="employeeVOMap">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE e.position LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

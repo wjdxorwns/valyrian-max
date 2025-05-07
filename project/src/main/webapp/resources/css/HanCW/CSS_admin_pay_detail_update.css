@@ -39,22 +39,26 @@
 	width: 318px;
 	height: 50px;
 	text-align: center;
+	border-color: black;
 	}
 
 .box2 {
 	width: 219px;
 	height: 50px;
 	text-align: center;
+	border-color: black;
 	}
 
 .box3 {
 	width: 518px;
 	height: 50px;
 	text-align: center;
+	border-color: black;
 	}
 .box4{
 	width: 400px;
 	height: 50px;
+	border-color: black;
 }
 .cols {
 	display: flex;

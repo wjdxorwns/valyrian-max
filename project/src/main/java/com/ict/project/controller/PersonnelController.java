@@ -1,108 +1,127 @@
 package com.ict.project.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ict.project.vo.personnel.UsersVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ict.project.service.NorService;
+import com.ict.project.service.PersonnelService;
+import com.ict.project.vo.personnel.EmployeeVO;
+
 
 // 작성자: 김재겸
+
 
 @Controller
 public class PersonnelController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonnelController.class);
+	@Autowired
+    private PersonnelService personnelservice;
+	
+/*
+  기능
+  1. 출퇴근 도장 기능
+  2. 오늘의 할일 달력(TO DO 달력) 기능
+  3. 근무 방식 및 희망 근무지 기능
+  4. 내 월급 리스트 확인 기능
+  5. 휴가 신청 기능
+  6. 공지사항 기능
+ */
+	
+	@GetMapping("/attendance")
+	public ModelAndView AttendancePageGO() {
+		
+		return new ModelAndView("MainPage/attendance");
+	}
+	
+	
+	@GetMapping("/PayrollManagement")
+	public ModelAndView getPayrollManagement(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/Payment/pay");
+		return mv;
+	}
+	
+	@PostMapping("/searchEmployees")
+    public ModelAndView searchEmployees(
+            @RequestParam("searchType") String searchType,
+            @RequestParam("searchKeyword") String searchKeyword,
+            HttpSession session) {
+        ModelAndView mv = new ModelAndView("Payment/adminPay");
+      
 
-    /*
-      기능
-      1. 출퇴근 도장 기능
-      2. 오늘의 할일 달력(TO DO 달력) 기능
-      3. 근무 방식 및 희망 근무지 기능
-      4. 내 월급 리스트 확인 기능
-      5. 휴가 신청 기능
-      6. 공지사항 기능
-     */
+        Map<String, String> searchOptions = new HashMap<>();
+        searchOptions.put("name", "이름");
+        searchOptions.put("department", "부서");
+        searchOptions.put("position", "직책");
+        mv.addObject("searchOptions", searchOptions);
+        mv.addObject("selectedType", searchType);
+        mv.addObject("searchKeyword", searchKeyword);
 
-    @GetMapping("/attendance")
-    public ModelAndView AttendancePageGO(HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        debugSession(session, "/attendance");
-        // 세션 확인
-        if (!isUserLoggedIn(session)) {
-            logger.warn("[DEBUG] 로그인되지 않은 사용자 - /attendance로 접근 시도");
-            mv.setViewName("redirect:/login");
+        if (searchType == null || searchType.trim().isEmpty()) {
+            mv.addObject("error", "검색 기준을 선택하세요.");
             return mv;
         }
-        mv.setViewName("MainPage/attendance");
+        if (searchKeyword == null || searchKeyword.trim().isEmpty()) {
+            mv.addObject("error", "검색어를 입력하세요.");
+            return mv;
+        }
+
+        List<Map<String, Object>> employeeList = new ArrayList<>();
+        if ("name".equals(searchType)) {
+            employeeList = personnelservice.searchEmployeesByName(searchKeyword);
+        } else if ("department".equals(searchType)) {
+            employeeList = personnelservice.searchEmployeesByDepartment(searchKeyword);
+        } else if ("position".equals(searchType)) {
+            employeeList = personnelservice.searchEmployeesByPosition(searchKeyword);
+        } else {
+            mv.addObject("error", "잘못된 검색 기준입니다.");
+            return mv;
+        }
+      
+        mv.addObject("employeeList", employeeList);
+        System.out.println("Employee List: " + employeeList);
         return mv;
     }
-
-    @GetMapping("/PayrollManagement")
-    public ModelAndView getPayrollManagement(HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        debugSession(session, "/PayrollManagement");
-        // 세션 확인
-        if (!isUserLoggedIn(session)) {
-            logger.warn("[DEBUG] 로그인되지 않은 사용자 - /PayrollManagement로 접근 시도");
-            mv.setViewName("redirect:/login");
-            return mv;
-        }
-        mv.setViewName("/Payment/pay");
-        return mv;
-    }
-
-    @GetMapping("/payrollList")
-    public ModelAndView getPayrollList(HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        debugSession(session, "/payrollList");
-        // 세션 확인
-        if (!isUserLoggedIn(session)) {
-            logger.warn("[DEBUG] 로그인되지 않은 사용자 - /payrollList로 접근 시도");
-            mv.setViewName("redirect:/login");
-            return mv;
-        }
-        mv.setViewName("Payment/pay");
-        return mv;
-    }
-
-    @GetMapping("/payrollGrade")
-    public ModelAndView getPayrollGrade(HttpSession session) {
-        ModelAndView mv = new ModelAndView();
-        debugSession(session, "/payrollGrade");
-        // 세션 확인 (관리자 권한 확인 추가)
-        if (!isUserLoggedIn(session)) {
-            logger.warn("[DEBUG] 로그인되지 않은 사용자 - /payrollGrade로 접근 시도");
-            mv.setViewName("redirect:/login");
-            return mv;
-        }
-        if (!"ok".equals(session.getAttribute("admin"))) {
-            logger.warn("[DEBUG] 관리자 권한 없음 - /payrollGrade로 접근 시도, emp_email: {}", 
-                session.getAttribute("emp_email"));
-            mv.setViewName("redirect:/index");
-            return mv;
-        }
-        mv.setViewName("Payment/adminPay");
-        return mv;
-    }
-
-    // 세션 데이터 디버깅 메서드
-    private void debugSession(HttpSession session, String endpoint) {
-        System.out.println("[DEBUG] 엔드포인트: " + endpoint);
-        System.out.println("[DEBUG] 세션 loginchk: " + session.getAttribute("loginchk"));
-        System.out.println("[DEBUG] 세션 emp_email: " + session.getAttribute("emp_email"));
-        System.out.println("[DEBUG] 세션 role: " + session.getAttribute("role"));
-        System.out.println("[DEBUG] 세션 admin: " + session.getAttribute("admin"));
-        UsersVO user = (UsersVO) session.getAttribute("userVO");
-        System.out.println("[DEBUG] 세션 userVO: " + (user != null ? user.toString() : "null"));
-       
-    }
-
-    // 로그인 상태 확인 메서드
-    private boolean isUserLoggedIn(HttpSession session) {
-        return "ok".equals(session.getAttribute("loginchk"));
-    }
+	
+	@GetMapping("/pay_update")
+	public ModelAndView getPayUpdate(@RequestParam("emp_idx") String emp_idx) {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		
+		return null;
+	}
+	
+	@GetMapping("/payrollList")
+	public ModelAndView getPayrollList(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Payment/pay");
+		return mv;
+	}
+	
+	
+	@GetMapping("/payrollGrade")
+	public ModelAndView getPayrollGrade(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Payment/adminPay");
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
 }

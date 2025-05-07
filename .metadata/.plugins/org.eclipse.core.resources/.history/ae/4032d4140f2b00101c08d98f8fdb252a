@@ -1,0 +1,33 @@
+package com.ict.project.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.ict.project.vo.personnel.EmployeeVO;
+
+@Repository
+public class PersonnelDAO {
+	
+	@Autowired
+    private SqlSession sqlSession;
+
+	public List<Map<String, Object>> searchEmployeesByName(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("Personnel.namesearchpay",searchKeyword);
+	}
+
+	public List<Map<String, Object>> searchEmployeesByDepartment(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("Personnel.namesearchpay",searchKeyword);
+	}
+
+	public List<Map<String, Object>> searchEmployeesByPosition(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("Personnel.namesearchpay",searchKeyword);
+	}
+
+}
