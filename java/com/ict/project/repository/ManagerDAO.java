@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ict.project.vo.personnel.UserVO;
+import com.ict.project.vo.personnel.UsersVO;
 
 @Repository
 public class ManagerDAO {
@@ -14,7 +14,7 @@ public class ManagerDAO {
 	    private SqlSessionTemplate sqlSessionTemplate;
 
 
-	    public List<UserVO> getAllEmp() {
+	    public List<UsersVO> getAllEmp() {
 	        try {
 	            return sqlSessionTemplate.selectList("man.getAllEmp");
 	        } catch (Exception e) {
@@ -24,7 +24,7 @@ public class ManagerDAO {
 	    }
 
 
-	    public List<UserVO> getEmpNameSearch(UserVO uVO) {
+	    public List<UsersVO> getEmpNameSearch(UsersVO uVO) {
 	        try {
 	            return sqlSessionTemplate.selectList("man.nameList", uVO);
 	        } catch (Exception e) {
@@ -34,7 +34,7 @@ public class ManagerDAO {
 	    }
 
 
-	    public List<UserVO> getEmpIdSearch(UserVO uVO) {
+	    public List<UsersVO> getEmpIdSearch(UsersVO uVO) {
 	        try {
 	            return sqlSessionTemplate.selectList("man.idList", uVO);
 	        } catch (Exception e) {
