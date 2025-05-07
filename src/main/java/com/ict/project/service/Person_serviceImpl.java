@@ -1,5 +1,0 @@
-package com.ict.project.service;
-
-public class Person_serviceImpl {
-
-}
