@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="attendance">
+    <!-- 재직 중인 직원 목록 조회 -->
+    <select id="getActiveEmployees" resultType="map">
+        SELECT 
+            e.emp_idx,
+            e.emp_name,
+            e.dept_name,
+            e.position
+        FROM employee e
+        WHERE e.quitter = '입사'
+        ORDER BY e.emp_name ASC
+    </select>
+
+    <!-- 월별 근태 조회 -->
+    <select id="getAttendanceByMonth" parameterType="map" resultType="map">
+        SELECT 
+            e.emp_idx,
+            e.emp_name,
+            e.dept_name,
+            e.position,
+            CASE 
+                WHEN w.worktype = '정상출근' THEN '출'
+                WHEN w.worktype = '지각' THEN '지'
+                WHEN w.worktype = '조퇴' THEN '조'
+                WHEN w.worktype = '결근' THEN '결'
+                WHEN w.worktype = '외근' THEN '외'
+                WHEN w.worktype = '휴가' THEN '휴'
+                ELSE ''
+            END as attendance_status,
+            DAY(w.start_date) as day
+        FROM employee e
+        LEFT JOIN worktype w ON e.emp_idx = w.emp_idx 
+            AND DATE_FORMAT(w.start_date, '%Y-%m') = CONCAT(#{year}, '-', LPAD(#{month}, 2, '0'))
+        WHERE e.quitter = '입사'
+        ORDER BY e.emp_name ASC, w.start_date ASC
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
