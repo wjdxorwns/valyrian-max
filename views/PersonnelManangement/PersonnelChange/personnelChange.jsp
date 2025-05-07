@@ -15,106 +15,190 @@
     <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
     <link href="<c:url value='resources/css/KimKS/CSS_personnel_change_detail.css' />" rel="stylesheet">
    <link href="<c:url value='resources/css/KimKS/CSS_origin.css' />" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/KimJK/CSS_job_apply.css">
     <!-- Font Awesome for social icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
-    <style type="text/css">
-</style>
+ <style>
+
+  </style>
 </head>
 <body>
-	<!-- Header -->
+<!-- Header -->
     <jsp:include page="/resources/jsp/Header.jsp" />
  
- 
-<!-- Main Content -->
+	<!-- Main Content -->
+ <section class="employee-section">
+  <h2>보직 발령 조회 및 등록</h2>
+  <form class="search-bar">
+    <label>발령구분</label>
+    <select>
+      <option>전체</option>
+      <option>사내</option>
+      <option>전출</option>
+    </select>
+    <label>발령일자</label>
+    <input type="date" value="2016-01-06">
+    <span>~</span>
+    <input type="date" value="2016-01-12">
+    <div id="button"><button type="submit">조회</button></div>
+  </form>
+  <div class="top-bar">
+    <span style="font-weight:bold; color: #000;">발령 직원조회</span>
+      <button id="openPopupBtn" class="register-btn">발령등록</button>
+  </div>
+  <!-- 발령등록 버튼 -->
 
-<main>
-	 <section class="employee-section">
-		<h2>보직 이동</h2>
-		<h4>관리자가 해당 직원 보직 변경 및 진급 관리</h4>
-		
-		<!-- Search and Filter -->
-			<div>
-			<div class="search-form">
-				<div>
-					<label class="department">부서</label> <select class="department">
-						<option>영업1팀</option>
-						<option>영업2팀</option>
-						<option>인사1팀</option>
-						<option>인사2팀</option>
-						<option>총무팀</option>
-					</select>
-					 <select class="employee">
-						<option>직원명</option>
-						<option>직원번호</option>
-						<option>부서</option>
-						<option>직책</option>
-					</select>
-					<input type="text" placeholder="검색">
-					<button>검색</button>
-				</div>
-			</div>
-		</div>
-
-		 <!-- Detail Table -->
-    <table>
-        <thead>
-            <tr>
-            	<th class="checkbox"> <input type="checkbox" id="select-all"></th>
-                <th>직원번호</th>
+  <table>
+    <thead>
+      <tr>
+          <th>직원번호</th>
                 <th>직원명</th>
                 <th>부서</th>
                 <th>직책</th>
-                <th>호봉</th>
+                <th>연차</th>
                 <th>발령 유형</th>
                 <th>발령 부서</th>
                 <th>발령일</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- 데이터 로딩 -->
-            <tr><td class="checkbox"><input type="checkbox"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td class="checkbox"><input type="checkbox"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td class="checkbox"><input type="checkbox"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td class="checkbox"><input type="checkbox"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
-    </table>
-   
-   <div class="detail-section">
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+	
+
+<!-- 팝업 오버레이 -->
+ <div id="registerFormContainer">
+  <div style="background:#fff; padding:30px 20px; border-radius:8px; position:relative; min-width:400px;">
+    <!-- 팝업 내용: 여기에 발령등록 폼 등 원하는 내용을 넣으세요 -->
+    <h3>발령등록</h3>
+    <form>
+      <!-- 예시 입력 폼 -->
+      <div class="detail-section">
   <h3>세부 내용</h3>
   <div class="detail-row">
-    <label>직원번호:</label> <input type="text" name="emp_id" />
+    <label>직원번호:</label> <input type="text"/>
   </div>
   <div class="detail-row">
-    <label>직원명:</label> <input type="text" name="emp_name" />
+    <label>직원명:</label> <input type="text"/>
   </div>
   <div class="detail-row">
-    <label>직책:</label> <input type="text" name="position" />
+    <label>직책:</label> <input type="text"/>
   </div>
   <div class="detail-row">
-    <label>호봉:</label> <input type="number" name="pay_grade" />
+    <label>연차:</label> <input type="number"/>
   </div>
   <div class="detail-row">
-    <label>발령 유형:</label> <select name="change_type">
+    <label>발령 유형:</label> <select>
     	<option>사내</option>
     	<option>전출</option>
     </select>
   </div>
   <div class="detail-row">
-    <label>발령 부서:</label> <input type="text" name="new_dept_id" />
+    <label>발령 부서:</label> <input type="text" />
   </div>
   <div class="detail-row">
-    <label>발령일:</label> <input type="date" name="change_date" />
+    <label>발령일:</label> <input type="date"/>
   </div>
 </div>
-  <!-- Action Buttons -->
-    	<div class="action-buttons">
-    		<button class="update-btn">저장</button>
-    		<button class="cancel-btn">취소</button>
+    </form>
+  </div>
+
+ <!-- 근무 방식 지정 섹션 -->
+     
+	<div class="section">
+     <!-- 지도 + 선택 영역 통합 -->
+	<div class="map_content">
+		<!-- 지도 영역 -->
+		<div class="map_section">
+			<iframe id="map_data" 
+				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.803744693673!2d126.93840231521123!3d37.54999397980272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c989d7c7e8b8b%3A0x9f5c8e2b5d9e6f1!2z7ISc7Jq47Yq567OE7IucIOyCrOyaqeygnOq1rCDrsLDsmrXroZwzMe2DkywgM-yKpO2DhOybkA!5e0!3m2!1sko!2skr!4v1698771234567!5m2!1sko!2skr">
+				</iframe>
 		</div>
-	</section>
-</main>
+		<!-- 근무지 선택 영역 -->
+		<form method="post" action="/submit_location" class="work_location_form">
+			<div class="location_container">
+				<div class="location_select_container">
+					<label for="location_select"><strong>근무지 목록</strong></label><br>
+					<select id="location_select" name="location" size="5" class="location_select">
+						<option>경기도 연천지부</option>
+						<option>전라남도 나주지부</option>
+						<option>경상북도 경산지부</option>
+						<option>강원도 속초지부</option>
+					</select>
+				</div>
+				</div>
+				</form>
+				</div>
+	</div>  
+	</div>  
+	
+	<!-- Action Buttons -->
+    	<div class="update-btn">
+    		<button>확인</button>
+    		<button>취소</button>
+		</div>
+  </section>
+  
+</body>
+
+<script>
+document.getElementById('openPopupBtn').addEventListener('click', function() {
+  var container = document.getElementById('registerFormContainer');
+  if (container.style.display === 'block') {
+    // 이미 열려있으면 닫기
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  // AJAX로 폼을 불러오는 것처럼 예시 (실제로는 서버에서 받아오거나, 아래처럼 직접 작성)
+  // fetch('/register-form.html').then(res => res.text()).then(html => { container.innerHTML = html; ... });
+  container.innerHTML = `
+    <form id="registerForm">
+      <div>
+        <label>발령구분</label>
+        <select name="type" required>
+          <option value="">선택</option>
+          <option value="부서이동">부서이동</option>
+          <option value="승진">승진</option>
+        </select>
+      </div>
+      <div>
+        <label>발령일자</label>
+        <input type="date" name="date" required>
+      </div>
+      <div>
+        <label>사원번호</label>
+        <input type="text" name="empno" required>
+      </div>
+      <div>
+        <label>성명</label>
+        <input type="text" name="name" required>
+      </div>
+      <div>
+        <label>발령내용</label>
+        <input type="text" name="content" required>
+      </div>
+      <button type="submit">등록</button>
+    </form>
+  `;
+  container.style.display = 'block';
+
+  // 폼 제출 시 AJAX로 처리 (예시)
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // 실제로는 아래 부분에서 fetch 또는 $.ajax 등으로 서버에 데이터 전송
+    alert('등록되었습니다!');
+    container.style.display = 'none';
+    container.innerHTML = '';
+  });
+});
+</script>
    <!-- Footer -->
     <jsp:include page="/resources/jsp/Footer.jsp" />
 </body>
-
 </html>
