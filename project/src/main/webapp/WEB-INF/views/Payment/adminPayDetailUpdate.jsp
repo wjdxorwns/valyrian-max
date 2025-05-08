@@ -108,7 +108,7 @@
 						</div>
 					</div>
 					<div class="set">
-						<div class="info_title">휴가일</div>
+						<div class="info_title">성별</div>
 						<div>
 							<input type="text" class="box2" value="${user.vacation_day }" disabled />
 						</div>

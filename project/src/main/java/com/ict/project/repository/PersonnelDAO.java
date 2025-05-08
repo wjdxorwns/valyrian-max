@@ -25,4 +25,11 @@ public class PersonnelDAO {
         return sqlSession.selectList("personnel.findByPositionContaining", searchKeyword);
     }
 
+    public Map<String, Object> serchpaydetail(String emp_idx) {
+        return sqlSession.selectOne("personnel.patdtail", emp_idx);
+    }
+
+
+	
+
 }

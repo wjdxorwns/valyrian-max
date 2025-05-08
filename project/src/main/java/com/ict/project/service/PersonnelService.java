@@ -13,4 +13,7 @@ public interface PersonnelService {
 
 	List<Map<String, Object>> searchEmployeesByPosition(String searchKeyword);
 
+	Map<String, Object> serchpaydetail(String emp_idx);
+	
+
 }

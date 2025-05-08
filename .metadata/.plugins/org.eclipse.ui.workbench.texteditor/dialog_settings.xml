@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="&lt;!-- 어드민 급여 확인 --&gt;"/>
 			<item value="package com.ict.project.vo.personnel;"/>
 			<item value="50"/>
 			<item value="asid"/>

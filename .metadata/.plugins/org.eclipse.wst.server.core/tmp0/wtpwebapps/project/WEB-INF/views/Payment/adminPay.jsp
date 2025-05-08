@@ -116,13 +116,33 @@
     <script type="text/javascript">
 
         function paySelected() {
-            location.href= "/pay_update?emp_idx="+emp_idx ;
-             
+        	const checked = document.querySelector('input[name="employeeIds"]:checked');
+            if (!checked) {
+                alert("지급할 직원을 선택하세요.");
+                return;
+            }
+            const emp_idx = checked.value;
+            location.href= "/pay_detail?emp_idx="+emp_idx ;       
         }
         
-
         
+        document.addEventListener("DOMContentLoaded", function () {
+            const checkboxes = document.querySelectorAll('input[name="employeeIds"]');
 
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    if (this.checked) {
+                        checkboxes.forEach(other => {
+                            if (other !== this) {
+                                other.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+       
         function cancelSelection() {
             document.querySelectorAll('input[name="employeeIds"]').forEach(cb => cb.checked = false);
         }

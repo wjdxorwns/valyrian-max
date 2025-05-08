@@ -95,13 +95,14 @@ public class PersonnelController {
         return mv;
     }
 	
-	@GetMapping("/pay_update")
+	@GetMapping("/pay_detail")
 	public ModelAndView getPayUpdate(@RequestParam("emp_idx") String emp_idx) {
-		ModelAndView mv = new ModelAndView();
-		
-		
-		
-		return null;
+	    ModelAndView mv = new ModelAndView("Payment/adminPayDetailUpdate");
+	    
+	    Map<String, Object> paydetail = personnelservice.serchpaydetail(emp_idx);
+
+	    mv.addObject("user", paydetail); // JSP에서 ${user.xxx}로 접근 가능
+	    return mv;
 	}
 	
 	@GetMapping("/payrollList")

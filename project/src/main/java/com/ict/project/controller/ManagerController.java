@@ -33,7 +33,7 @@ public class ManagerController {
         }
         return mv;
     }
-    
+    //권한부여 
 
     
 }
