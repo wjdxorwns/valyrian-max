@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="manager">
+
+	<!-- 1. Users 테이블에 회원 정보 저장 -->
+	<insert id="insertUser"
+		parameterType="com.ict.project.vo.personnel.UsersVO">
+		INSERT INTO users (emp_email, emp_name, emp_password, home, detail_home,
+		phone_number, gender, birthday)
+		VALUES (#{emp_email}, #{emp_name}, #{emp_password}, #{home}, #{detail_home},
+		#{phone_number}, #{gender}, #{birthday})
+	</insert>
+
+	<!-- 2. UserSign 테이블에 서명 정보 저장 -->
+	<insert id="insertUserSign"
+		parameterType="com.ict.project.vo.personnel.pFile.UsersignVO">
+		INSERT INTO usersign (user_idx, sign_name, sign_path, update_day)
+		VALUES (#{user_idx}, #{sign_name}, #{sign_path}, #{update_day})
+	</insert>
+
+	<!-- 3. Employee 테이블에 직원 정보 저장 -->
+	<insert id="insertEmployee"
+		parameterType="com.ict.project.vo.personnel.EmployeeVO">
+		INSERT INTO employee (emp_idx, user_idx, emp_id, dept_name, position,
+		pay_grade, hire_date, team, location, resignation_date, attitude_type,
+		quitter, employment_type)
+		VALUES (#{emp_idx}, #{user_idx}, #{emp_id}, #{dept_name}, #{position},
+		#{pay_grade}, #{hire_date}, #{team}, #{location}, #{resignation_date},
+		#{attitude_type}, #{quitter}, #{employment_type})
+	</insert>
+
+	<!-- 4. EmpPicture 테이블에 프로필 사진 정보 저장 -->
+	<insert id="insertEmpPicture"
+		parameterType="com.ict.project.vo.personnel.pFile.EmpPictureVO">
+		INSERT INTO emppicture (emp_idx, f_name, f_path, f_width, f_height)
+		VALUES (#{emp_idx}, #{f_name}, #{f_path}, #{f_width}, #{f_height})
+	</insert>
+
+	<!-- 5. PersonnelChange 테이블에 인사 발령 정보 저장 -->
+	<insert id="insertPersonnelChange"
+		parameterType="com.ict.project.vo.personnel.PersonnelChangeVO">
+		INSERT INTO personnelchange (request_idx, change_type, change_date,
+		prev_dept_id, new_dept_id, prev_location_id, new_location_id,
+		employment_type)
+		VALUES (#{request_idx}, #{change_type}, #{change_date}, #{prev_dept_id},
+		#{new_dept_id}, #{prev_location_id}, #{new_location_id},
+		#{employment_type})
+	</insert>
+
+	<!-- 6. 직원리스트에서 직원 데이터 불러오기 -->
+	<select id="selectEmployeeList"
+		resultType="com.ict.project.vo.personnel.EmployeeVO">
+		SELECT *
+		FROM employee
+	</select>
+
+<!-- 7. 직원 이메일(로그인에서 아이디 역할) 중복확인 -->
+<select id="checkEmailDuplicate" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM users WHERE emp_email = #{email}
+</select>
+
+<!-- 8. 직원번호 중복확인 -->
+	<select id="checkEmpIdDuplicate" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM employee WHERE emp_id = #{emp_id}
+</select>
+
+</mapper>

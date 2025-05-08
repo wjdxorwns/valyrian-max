@@ -75,7 +75,7 @@
 							<th>직원 이름</th>
 							<th>부서 이름</th>
 							<th>직책</th>
-							<th>아이디</th>
+							<th>이메일</th>
 							<th>생년월일</th>
 							<th>성별</th>
 							<th>휴대전화번호</th>
@@ -93,90 +93,30 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach var="emp" items="${employeeList}">
 						<tr>
-							<td>001211</td>
-							<td>김진수</td>
-							<td>인사1팀</td>
-							<td>사원</td>
-							<td>kjs@gmail.com</td>
-							<td>1999-01-01</td>
-							<td>남성</td>
-							<td>010-1111-2224</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>입사</td>
-							<td></td>
-							<td>정상</td>
+							<td>${emp.emp_id}</td>
+							<td>${emp.emp_name}</td>
+							<td>${emp.team}</td>
+							<td>${emp.position}</td>
+							<td>${emp.emp_email}</td>
+							<td>${emp.birthday}</td>
+							<td>${emp.gender}</td>
+							<td>${emp.phone_number}</td>
+							<td>${emp.home}</td>
+							<td>${emp.detail_home}</td>
+							<td>${emp.hire_date}</td>
+							<td>${emp.location}</td>
+							<td>${emp.pay_grade}</td>
+							<td>${emp.employment_type}</td>
+							<td>${emp.attitude_type}</td>
+							<td>${emp.dept_name}</td>
+							<td>${emp.quitter}</td>
+							<td>${emp.resignation_date}</td>
+							<td>${emp.remove}</td>
 						</tr>
-						<tr>
-							<td>001213</td>
-							<td>박진수</td>
-							<td>인사1팀</td>
-							<td>사원</td>
-							<td>pjs@gmail.com</td>
-							<td>1999-05-05</td>
-							<td>남성</td>
-							<td>010-1111-2229</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>입사</td>
-							<td></td>
-							<td>정상</td>
-						</tr>
-						<tr>
-							<td>001215</td>
-							<td>이진수</td>
-							<td>인사2팀</td>
-							<td>사원</td>
-							<td>ljs@gmail.com</td>
-							<td>1999-12-12</td>
-							<td>남성</td>
-							<td>010-1111-3333</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>입사</td>
-							<td></td>
-							<td>정상</td>
-						</tr>
-						<tr>
-							<td>001219</td>
-							<td>심진수</td>
-							<td>인사3팀</td>
-							<td>사원</td>
-							<td>sjs@mycompany.kr</td>
-							<td>1999-03-03</td>
-							<td>남성</td>
-							<td>010-1111-4444</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>입사</td>
-							<td></td>
-							<td>정상</td>
-						</tr>
+						</c:forEach>
+						</tbody>
 				</table>
 			</div>
 		</section>

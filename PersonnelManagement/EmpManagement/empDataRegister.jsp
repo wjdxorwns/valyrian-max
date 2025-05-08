@@ -70,14 +70,19 @@
   <div class="profile-container">
   	<h2>직원정보 등록</h2>
     <h4>관리자가 임직원의 인사정보 등록 및 관리</h4>
+    	
+    	  <form action="<c:url value='/manager/PersonnelManagement/EmpManagement/empDataRegister'/>" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
     	<!-- Action Buttons -->
 			<div class="directory-btn">
-				<button>목록</button>
+				  <button type="button" onclick="goToTheList()">목록</button>
 			</div>
     <div class="profile-header">
      <div class="profile-box">
-      <div class="profile-img"></div>
-      <div><input type="file" id="profile-photo" accept="image/*"> </div>
+      <div class="profile-img"> 
+      <img id="profilePreview" src="#" alt="미리보기" style="max-width: 100px; display: none;">
+      </div>
+      <div><input type="file" id="profile-photo" accept="image/*" onchange="previewImage(this, 'profilePreview')"> 
+      </div>
       </div>
   	<div class="section">
 					<div class="row">
@@ -95,7 +100,7 @@
 						<label>아이디</label> <input type="text" name="emp_email" value="" placeholder="직원 개인이메일 입력" required>
 						</div>
 					<div class="duplicate">
-					<button class="duplicate-btn" type="button">중복확인</button>
+					<button class="duplicate-btn" type="button" onclick="checkDuplicate('emp_email')">중복확인</button>
 					</div>
 					</div>
 					<div class="section">
@@ -104,7 +109,7 @@
 						<input type="text" name="emp_id" value="" placeholder="직원 번호 입력" required>
 						</div>
 						<div class="duplicate">
-						<button class="duplicate-btn" type="button">중복확인</button>
+						<button class="duplicate-btn" type="button" onclick="checkDuplicate('emp_id')">중복확인</button>
 						</div>
 						<div class="row01">
 					 	<label>직책</label>
@@ -190,15 +195,73 @@
     </div>
     	<!-- Action Buttons -->
 			<div class="update-btn">
-				<button >확인</button>
+				<button type="submit" name="action" value="submit">확인</button>
 			</div>
+			 </form>
   </div>
- 
   </main>
    <!-- Footer -->
     <jsp:include page="/resources/jsp/Footer.jsp" />
-  <script src="script.js">
+ <script type="text/javascript">
+ function goToTheList() {
+	window.location.href="/PersonnelManagement/EmpManagement/empDataList";
+}
+  function validateForm() {
+    const empName = document.getElementById("empName").value.trim();
+    const userId = document.getElementById("userId").value.trim();
+    const password = document.getElementById("password").value.trim();
 
+    if (!empName || !userId || !password) {
+      alert("직원 이름, 이메일, 비밀번호는 필수 입력입니다.");
+      return false;
+    }
+    return true;
+  }
+
+  function previewImage(input, targetId) {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById(targetId);
+        img.src = e.target.result;
+        img.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function checkDuplicate(field) {
+	    let value = "";
+	    let label = "";
+
+	    if (field === "emp_email") {
+	        value = document.querySelector("input[name='emp_email']").value;
+	        label = "이메일";
+	    } else if (field === "emp_id") {
+	        value = document.querySelector("input[name='emp_id']").value;
+	        label = "직원번호";
+	    }
+
+	    if (!value) {
+	        alert(`${label}을(를) 입력해주세요.`);
+	        return;
+	    }
+
+	    fetch(`<c:url value='/manager/check-duplicate'/>?field=${field}&value=${encodeURIComponent(value)}`)
+	        .then(res => res.json())
+	        .then(data => {
+	            if (data.duplicate) {
+	                alert(`${label}이(가) 이미 존재합니다.`);
+	            } else {
+	                alert(`${label}은(는) 사용 가능합니다.`);
+	            }
+	        })
+	        .catch(error => {
+	            console.error('중복확인 실패', error);
+	            alert('중복확인 중 오류가 발생했습니다.');
+	        });
+	}
   </script>
 </body>
 </html>
