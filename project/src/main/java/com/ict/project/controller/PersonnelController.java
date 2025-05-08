@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,14 +45,10 @@ public class PersonnelController {
 		
 		return new ModelAndView("MainPage/attendance");
 	}
+/////////////////////////////////////////////////////////
+// 급여 컨트롤러 작정자: 정택준 
+//adminpay controller
 	
-	
-	@GetMapping("/PayrollManagement")
-	public ModelAndView getPayrollManagement(HttpSession session) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/Payment/pay");
-		return mv;
-	}
 	
 	@PostMapping("/searchEmployees")
     public ModelAndView searchEmployees(
@@ -95,28 +92,99 @@ public class PersonnelController {
         return mv;
     }
 	
-	@GetMapping("/pay_detail")
-	public ModelAndView getPayUpdate(@RequestParam("emp_idx") String emp_idx) {
-	    ModelAndView mv = new ModelAndView("Payment/adminPayDetailUpdate");
-	    
-	    Map<String, Object> paydetail = personnelservice.serchpaydetail(emp_idx);
-
-	    mv.addObject("user", paydetail); // JSP에서 ${user.xxx}로 접근 가능
-	    return mv;
-	}
-	
-	@GetMapping("/payrollList")
-	public ModelAndView getPayrollList(HttpSession session) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("Payment/pay");
-		return mv;
-	}
-	
-	
 	@GetMapping("/payrollGrade")
 	public ModelAndView getPayrollGrade(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Payment/adminPay");
+		return mv;
+	}
+	
+//admin detailpay controller
+	
+	@GetMapping("/pay_detail")
+	public ModelAndView getPayUpdate(@RequestParam("emp_idx") String emp_idx,HttpSession session) {
+	    ModelAndView mv = new ModelAndView("Payment/adminPayDetailUpdate");
+	    
+	    if (!"ok".equals(session.getAttribute("admin"))) {
+            mv.setViewName("redirect:/index");
+            mv.addObject("error", "관리자 권한이 필요합니다.");
+            return mv;
+        }
+	    
+	    Map<String, Object> paydetail = personnelservice.serchpaydetail(emp_idx);
+	    
+	    
+
+	    if(paydetail != null && paydetail.containsKey("gender")) {
+	    	String gender = paydetail.get("gender").toString();
+	    switch (gender) {
+		case "0": paydetail.put("gender", "여자"); break;
+
+		case "1": paydetail.put("gender", "남자"); break;
+		 
+	    }
+	}else {
+    	paydetail.put("gender",null);
+    }
+	
+	    mv.addObject("user", paydetail); 
+	    return mv;
+	}
+	
+	
+	@GetMapping("/adminPayDetailUpdateOk")
+	public ModelAndView getadminPayDetailUpdateOk(@RequestParam("emp_idx") String emp_idx,
+												  @RequestParam("pay") String pay,
+												  @RequestParam("payment_date") String payment_date) {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		mv.setViewName("Payment/adminPay");
+		return mv;
+	}
+	
+	
+	
+//pay controoler	
+	
+	@GetMapping("/payrollList")
+	public ModelAndView getPayrollList(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String emp_idx = (String) session.getAttribute("emp_idx");
+		
+		mv.addObject("emp_idx", emp_idx);
+		mv.setViewName("Payment/pay");
+		return mv;
+	}
+	
+	@GetMapping("/PayrollManagement")
+	public ModelAndView getPayrollManagement(HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		String emp_idx = (String) session.getAttribute("emp_idx");
+		mv.addObject("emp_idx", emp_idx);
+		mv.setViewName("/Payment/pay");
+		return mv;
+	}
+	
+	@GetMapping("/paylist")
+	public ModelAndView getPayList(@RequestParam("emp_idx") String emp_idx,
+								   @RequestParam("payment_date") String payment_date)
+									{
+		System.out.println(emp_idx);
+		ModelAndView mv = new ModelAndView("Payment/pay");
+		  List<Map<String, Object>> paylist = new ArrayList<>();
+		  
+		  paylist = personnelservice.serchpaylist(payment_date);
+		  
+		  mv.addObject("paylist",paylist);
+		  
 		return mv;
 	}
 	

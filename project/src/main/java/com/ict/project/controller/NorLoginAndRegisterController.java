@@ -37,9 +37,9 @@ public class NorLoginAndRegisterController {
 
     // 로그인 처리 (일반 사용자, 관리자, 슈퍼관리자 포함)
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String emp_email, @RequestParam String emp_password, HttpSession session) {
+    public ModelAndView login(@RequestParam String emp_email, @RequestParam String emp_password,HttpSession session ) {
         ModelAndView mv = new ModelAndView();
-
+        
         try {
             // 사용자가 입력한 이메일로 사용자 정보 조회
             UsersVO user = norService.getUserByEmail(emp_email);
@@ -71,20 +71,21 @@ public class NorLoginAndRegisterController {
             session.setAttribute("loginchk", "ok");
             session.setAttribute("userVO", user); 
             session.setAttribute("emp_email", user.getEmp_email());
-
-
+            session.setAttribute("emp_idx", employee.getEmp_idx());
+            
             // 부서 정보 설정
             String deptName = employee.getDept_name();  // EmployeeVO에서 dept_name 가져오기
             session.setAttribute("role", deptName);
             
-
+            
+            
             // 관리자 및 슈퍼관리자 구분
             if ("슈퍼관리자".equals(deptName) || "관리자".equals(deptName)) {
                 session.setAttribute("admin", "ok");
             } else {
                 session.setAttribute("admin", "no");
             }
-    
+            
             // 메인 페이지로 리다이렉트
             mv.setViewName("redirect:/index");
             System.out.println(session);

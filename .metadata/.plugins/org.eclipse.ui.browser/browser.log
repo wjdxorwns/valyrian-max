@@ -192,3 +192,36 @@
 5월 07, 2025 14:18:48.291 [25516:11844:0507/141848.290:ERROR:components\device_event_log\device_event_log_impl.cc:202] [14:18:48.291] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
 5월 07, 2025 14:49:41.979 [25516:11844:0507/144941.979:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
 5월 07, 2025 15:05:44.703 bad_optional_access was thrown in -fno-exceptions mode
+
+5월 08, 2025 15:51:57.568 NEW SESSION
+5월 08, 2025 15:51:57.568 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 08, 2025 15:51:57.629 [31448:30932:0508/155157.629:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:52:23.806 [31448:30932:0508/155223.806:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:53:09.522 [31448:30932:0508/155309.522:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:54:44.286 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 08, 2025 15:54:44.331 [17828:16668:0508/155444.331:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:55:06.932 [17828:16668:0508/155506.931:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:56:03.583 [17828:16668:0508/155603.583:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:56:20.228 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 08, 2025 15:56:20.309 [20568:15720:0508/155620.309:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:56:41.615 [20568:15720:0508/155641.615:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:57:26.169 [20568:15720:0508/155726.169:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 15:58:53.166 [20568:15720:0508/155853.166:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:01:39.379 [20568:15720:0508/160139.378:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:02:05.207 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 08, 2025 16:02:05.285 [8280:24680:0508/160205.285:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:02:29.231 [8280:24680:0508/160229.231:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:03:11.732 [8280:24680:0508/160311.732:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:04:40.25 [8280:7184:0508/160440.024:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 08, 2025 16:04:40.25 [8280:7184:0508/160440.024:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 08, 2025 16:04:57.95 [8280:24680:0508/160457.094:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:08:37.713 [8280:24680:0508/160837.711:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:14:24.769 [8280:24680:0508/161424.768:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:19:53.360 [8280:7184:0508/161953.360:ERROR:components\device_event_log\device_event_log_impl.cc:202] [16:19:53.360] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
+5월 08, 2025 16:42:47.751 [8280:7184:0508/164247.751:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 0 rejected by interface blink.mojom.WidgetHost
+5월 08, 2025 16:47:38.446 [8280:24680:0508/164738.446:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:48:06.209 [8280:24680:0508/164806.208:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:49:05.118 [8280:24680:0508/164905.118:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:50:32.329 [8280:24680:0508/165032.329:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:53:13.827 [8280:24680:0508/165313.827:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 08, 2025 16:54:07.209 [8280:7184:0508/165407.209:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost

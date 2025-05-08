@@ -95,7 +95,7 @@
                                     <td><c:out value="${emp.dept_name}" /></td>
                                     <td><c:out value="${emp.hire_date}" /></td>
                                     <td><c:out value="${emp.employment_type}" /></td>
-                                    <td><c:out value="${emp.salary != null ? emp.salary : '-'}" /></td>
+                                    <td><c:out value="${emp.pay != null ? emp.pay : '-'}" /></td>
                                     <td><c:out value="${emp.bonus != null ? emp.bonus : '-'}" /></td>
                                 </tr>
                             </c:forEach>
@@ -128,7 +128,7 @@
         
         document.addEventListener("DOMContentLoaded", function () {
             const checkboxes = document.querySelectorAll('input[name="employeeIds"]');
-
+				
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', function () {
                     if (this.checked) {

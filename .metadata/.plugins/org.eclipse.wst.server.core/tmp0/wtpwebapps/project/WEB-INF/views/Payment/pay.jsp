@@ -41,7 +41,7 @@
 				<p>내용설명 본인급여 조회(직원용)</p>
 			</div>
 			<p>
-				지급년월 <input type="date" id="paymentYearMonth">
+				지급년월 <input type="date" id="paymentYearMonth" name="payment_date">
 				<button id="serch" onclick="searchPayroll()">조회</button>
 			</p>
 
@@ -49,18 +49,42 @@
 				<table class="emp_table">
 					<thead>
 						<tr>
+							<th>직원코드</th>
+							<th>이름</th>
 							<th>지급기준일</th>
 							<th>지급차수</th>
 							<th>부서</th>
 							<th>직책</th>
-							<th>급여형태</th>
-							<th>호봉</th>
+							<th>고용형태</th>
 							<th>급여</th>
 							<th>보너스</th>
 						</tr>
 					</thead>
 					<tbody id="payrollTableBody">
-						<!-- 동적으로 데이터 추가 -->
+						<c:choose>
+							<c:when test="${empty paylist}">
+								<tr>
+									<td colspan="9">
+										<h3>내용이 없습니다</h3>
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+							<c:forEach var="pay" items="${paylist}">
+							<tr>
+							 <td>${pay.emp_idx}</td>
+							 <td>${pay.emp_name}</td>
+							 <td>${pay.payment_date}</td>
+							 <td>${pay.pay_grade}</td>
+							 <td>${pay.team}</td>
+							 <td>${pay.position}</td>
+							 <td>${pay.employment_type}</td>
+							 <td>${pay.pay}</td>
+							 <td>${pay.bonus}</td>
+							</tr>
+							</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</tbody>
 				</table>
 			</div>
@@ -75,25 +99,28 @@
 	<jsp:include page="/resources/jsp/Footer.jsp" />
 
 	<script type="text/javascript">
+	
         function searchPayroll() {
-            // 조회 버튼 클릭 시 테이블 데이터 갱신 (AJAX로 구현 가능)
-            alert("조회 기능은 구현 중입니다.");
-          
+        	const payment_date = document.querySelector("input[name='payment_date']").value;
+            const emp_idx = "${sessionScope.user_idx}";
+        	location.href="/paylist?emp_idx="+emp_idx+"&payment_date="+payment_date;    
+        	
         }
 
+        
         function downloadExcel() {
-            const userIdx = "${sessionScope.user_idx}";
+            const userIdx = "${sessionScope.emp_idx}";
             if (!userIdx) {
                 alert("로그인이 필요합니다.");
                 window.location.href = "<c:url value='/login' />";
                 return;
             }
-            // 엑셀 다운로드 요청
+           
             window.location.href = "<c:url value='/downloadExcel' />?user_idx=" + userIdx;
         }
 
         function cancel() {
-            // 취소 버튼: 이전 페이지로 이동 또는 폼 초기화
+         
             window.history.back();
         }
     </script>

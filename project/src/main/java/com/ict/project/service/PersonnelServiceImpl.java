@@ -39,6 +39,12 @@ public class PersonnelServiceImpl implements PersonnelService{
 		return personnelDAO.serchpaydetail(emp_idx);
 	}
 
+	@Override
+	public List<Map<String, Object>> serchpaylist(String payment_date) {
+		// TODO Auto-generated method stub
+		return personnelDAO.serchpaylist(payment_date);
+	}
+
 
 
 }

@@ -5,8 +5,14 @@ public class EmployeeVO {	//	2. 직원
 	//	직원고유키, 회원고유키, 직원고유코드, 비밀번호, 부서명, 직책, 호봉, 입사일, 퇴사일, 근무방식, 퇴사자
 	private int user_idx, pay_grade;
 	private String emp_idx, emp_id, dept_name, position, hire_date, 
-				resignation_date, attitude_type, quitter, employment_type ;
+				resignation_date, attitude_type, quitter, employment_type,pay ;
 	
+	public String getPay() {
+		return pay;
+	}
+	public void setPay(String pay) {
+		this.pay = pay;
+	}
 	public String getEmp_idx() {
 		return emp_idx;
 	}
