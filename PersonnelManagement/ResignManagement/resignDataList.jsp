@@ -38,7 +38,7 @@
 	<jsp:include page="/resources/jsp/Header.jsp" />
 
 	<!-- Aside -->
-	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<jsp:include page="/resources/jsp/EmpDataAside.jsp" />
 
 	<!-- Main Content -->
 	<main>

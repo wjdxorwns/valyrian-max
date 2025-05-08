@@ -19,7 +19,6 @@
 <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/KimKS/CSS_origin.css' />"
 	rel="stylesheet">
-<link href="<c:url value='resources/css/Aside.css' />" rel="stylesheet">
 <!-- Font Awesome for social icons -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -39,7 +38,7 @@
 	<jsp:include page="/resources/jsp/Header.jsp" />
 
 	<!-- Aside -->
-	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<jsp:include page="/resources/jsp/EmpDataAside.jsp" />
 
 	<!-- Main Content -->
 	<main>

@@ -47,12 +47,26 @@ th {
 tr:nth-child(even) {
 	background: #faf7f7;
 }
+
+.map_content {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* 지도 영역 스타일 개선 */
+.map_section {
+    flex: 1;
+    width: 500px;
+}
+
 </style>
 </head>
 <body>
 	<!-- Header -->
 	<jsp:include page="/resources/jsp/Header.jsp" />
-
+	<!-- Aside -->
+	<jsp:include page="/resources/jsp/EmpDataAside.jsp" />
+	<main>
 	<!-- Main Content -->
 	<section class="employee-section">
 		<h2>보직 발령 조회 및 등록</h2>
@@ -224,9 +238,10 @@ tr:nth-child(even) {
 			<button>취소</button>
 		</div>
 	</section>
+	</main>
 	<!-- Footer -->
 	<jsp:include page="/resources/jsp/Footer.jsp" />
-</body>
+
 <script type="text/javascript">
 document.getElementById('openPopupBtn').addEventListener('click', function() {
   var container = document.getElementById('registerFormContainer');

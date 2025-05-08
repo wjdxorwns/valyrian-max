@@ -1,13 +1,13 @@
-
 package com.ict.project.vo.personnel;
 /* 작성자: 한찬욱 */
 public class VacationVO {				//	6. 휴가
 	
 	//	휴가ID, 직원코드, 휴가 종류, 시작일, 종료일, 잔여 휴가 수, 상태
-	private int vacation_id, request_idx ;
-	private String vacation_type, start_date, end_date, comment, status,  vacation_day;
+	private int vacation_id, request_idx;
+	private String vacation_type, start_date, end_date, comment, status;
+	
 
-
+	
 	public int getVacation_id() {
 		return vacation_id;
 	}
@@ -20,7 +20,6 @@ public class VacationVO {				//	6. 휴가
 	public void setRequest_idx(int request_idx) {
 		this.request_idx = request_idx;
 	}
-
 	public String getVacation_type() {
 		return vacation_type;
 	}
@@ -51,13 +50,4 @@ public class VacationVO {				//	6. 휴가
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
-    public String getVacation_day() {
-        return vacation_day;
-    }
-
-    public void setVacation_day(String vacation_day) {
-        this.vacation_day = vacation_day;
-    }
 }

@@ -14,7 +14,6 @@
 <link href="<c:url value='/resources/css/Main.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
-<link href="<c:url value='resources/css/Aside.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/KimKS/CSS_pop_up.css' />"
 	rel="stylesheet">
 <link href="<c:url value='resources/css/KimKS/CSS_origin.css' />"
@@ -44,7 +43,7 @@
 	<jsp:include page="/resources/jsp/Header.jsp" />
 
 	<!-- Aside -->
-	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<jsp:include page="/resources/jsp/EmpDataAside.jsp" />
 	<!-- Main Content -->
 	<main>
 		<div class="profile-container">
