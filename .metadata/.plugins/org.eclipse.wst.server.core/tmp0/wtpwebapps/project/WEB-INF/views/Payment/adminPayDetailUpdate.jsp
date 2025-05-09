@@ -71,7 +71,7 @@
                         <div class="set">
                             <div class="info_title">입사일</div>
                             <div>
-                                <input type="text" class="box2" value="${not empty user.start_date ? user.start_date : '-'}" disabled/>
+                                <input type="text" class="box2" value="${not empty user.hire_date ? user.hire_date : '-'}" disabled/>
                             </div>
                         </div>
                         <div class="set">
@@ -85,7 +85,7 @@
                         <div class="set">
                             <div class="info_title">직원코드</div>
                             <div>
-                                <input type="text" class="box2" value="${not empty user.emp_idx ? user.emp_idx : '-'}" disabled/>
+                                <input type="text" class="box2" name="emp_idx" value="${not empty user.emp_idx ? user.emp_idx : '-'}" disabled/>
                             </div>
                         </div>
                         <div class="set">
@@ -111,54 +111,93 @@
             </div>
             <div class="container2">
                 <br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <div class="pay">
-                    <div>급여 : </div>
-                    <div class="choice">
-                        <input class="in" type="number" name="salary" min="0">
-                        <button class="button3" type="button">등록</button>
+                <form id="payForm" action="/admin_Pay_Update_Ok" method="post">
+                    <div class="pay">
+                        <div>기본급 : </div>
+                        <div class="choice">
+                            <input class="in" type="number" name="base_salary" min="0">
+                            <button class="button3" type="button" onclick="calculateRealPay()">계산</button>
+                        </div>
                     </div>
-                </div>
-                <div class="tex">
-                    <div>세금</div>
+                    <div class="bonus" style="display:flex; align-items: baseline;">
+                        <div>보너스 : </div>
+                        <div class="choice">
+                            <input class="in" type="number" name="bonus" min="0">
+                        </div>
+                    </div>
+                    <div class="tex">
+                        <div>세금</div>
+                        <div>
+                            <label for="percentage" class="choice">퍼센트 선택:</label>
+                            <select class="percentage" name="taxRate" id="taxRate">
+                                <option value="1">1%</option>
+                                <option value="2">2%</option>
+                                <option value="3">3%</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="payment_date">
+                        <div>지급일 : </div>
+                        <div class="choice">
+                            <input class="in" type="date" name="payment_date" required>
+                        </div>
+                    </div>
+                    <div class="real_pay">실수령 금액</div>
+                    기본급 - (세금×기본급) + 보너스 = 실수령 금액
                     <div>
-                        <label for="percentage" class="choice">퍼센트 선택:</label>
-                        <select class="percentage" name="taxRate">
-                            <option value="1">1%</option>
-                            <option value="2">2%</option>
-                            <option value="3">3%</option>
-                        </select>
+                        <input class="pay_box" type="text" name="realPay" readonly>
                     </div>
-                </div>
-                <div class="real_pay">실수령 금액</div>
-                급여 - (세금×급여) = 실수령 금액
-                <div>
-                    <input class="pay_box" type="text" name="realPay" readonly>
-                </div>
-                <div>
-                    <input type="button" class="button2" value="저장하기" onclick="adminPayDetailUpdateOk()">
-                    <input type="button" class="button2" value="돌아가기" onclick="history.back()">
-                </div>
+                    <input type="hidden" name="emp_idx" value="${user.emp_idx}">
+                    <div>
+                        <input type="button" class="button2" value="저장하기" onclick="adminPayDetailUpdateOk()">
+                        <input type="button" class="button2" value="돌아가기" onclick="history.back()">
+                    </div>
+                </form>
             </div>
         </div>
     </main>
     <jsp:include page="/resources/jsp/Footer.jsp" />
     <script type="text/javascript">
         function calculateRealPay() {
-            const salaryInput = document.querySelector(".in").value;
+            const salaryInput = document.querySelector('input[name="base_salary"]').value;
             const salary = parseFloat(salaryInput) || 0;
             const taxRateSelect = document.querySelector(".percentage").value;
             const taxRate = parseFloat(taxRateSelect) / 100 || 0;
             const taxAmount = salary * taxRate;
-            const realPay = salary - taxAmount;
+            const bonusInput = document.querySelector('input[name="bonus"]').value;
+            const bonus = parseFloat(bonusInput) || 0;
+            const realPay = salary - taxAmount + bonus;
             const realPayInput = document.querySelector(".pay_box");
             realPayInput.value = realPay.toFixed(0);
-            consonl.log("sesseion.emp_idx")
+            console.log("Calculated real pay: " + realPay);
         }
 
         function adminPayDetailUpdateOk() {
-            const realPay = parseFloat(document.querySelector(".pay_box").value) || 0;
-            const emp_idx = "${sessionScope.user_idx}";
-            location.href = "/admin_Pay_Detail_Update_Ok?emp_idx=" + emp_idx +"&pay="+realPay;
+            const baseSalary = parseFloat(document.querySelector('input[name="base_salary"]').value) || 0;
+            const bonus = parseFloat(document.querySelector('input[name="bonus"]').value) || 0;
+            const paymentDate = document.querySelector('input[name="payment_date"]').value;
+            const taxRate = document.querySelector('select[name="taxRate"]').value;
+            const emp_idx = document.querySelector('input[name="emp_idx"]').value;
+
+            if (baseSalary <= 0) {
+                alert("기본급을 숫자로 입력하세요.");
+                return;
+            }
+            if (!paymentDate) {
+                alert("지급일을 선택하세요.");
+                return;
+            }
+            if (!taxRate) {
+                alert("세율을 선택하세요.");
+                return;
+            }
+            if (!emp_idx) {
+                alert("직원 코드가 없습니다.");
+                return;
+            }
+
+            // 폼 제출
+            document.getElementById("payForm").submit();
         }
 
         document.addEventListener("DOMContentLoaded", function () {

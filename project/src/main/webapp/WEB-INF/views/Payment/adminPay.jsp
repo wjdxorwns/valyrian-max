@@ -1,3 +1,4 @@
+<!-- 작성자: 정택준 | 기여자: 김재겸 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -32,7 +33,7 @@
     <jsp:include page="/resources/jsp/Header.jsp" />
 
     <main style="margin: 80px auto auto;">
-    <jsp:include page="/resources/jsp/PayAside.jsp" />
+        <jsp:include page="/resources/jsp/PayAside.jsp" />
         <div id="title">
             <h2>급여 기본 정보 조회 및 수정</h2>
             <p>내용 설명 - 전체 직원 급여 조회 및 수정 (관리자용)</p>
@@ -101,12 +102,13 @@
                             </c:forEach>
                         </c:otherwise>
                     </c:choose>
-                </tbody>  
+                </tbody>
             </table>
         </div>
 
         <div id="but">
-            <button onclick="paySelected()">지급하기</button>
+            <button onclick="payUpdate()">수정하기</button>
+            <button onclick="insert()">지급하기</button>
             <button onclick="cancelSelection()">취소</button>
         </div>
     </main>
@@ -114,21 +116,32 @@
     <jsp:include page="/resources/jsp/Footer.jsp" />
 
     <script type="text/javascript">
+        function payUpdate() {
+            const checked = document.querySelector('input[name="employeeIds"]:checked');
+            if (!checked) {
+                alert("수정할 직원을 선택하세요.");
+                return;
+            }
+            const emp_idx = checked.value;
+            location.href = "/pay_detail?emp_idx=" + emp_idx;
+        }
 
-        function paySelected() {
-        	const checked = document.querySelector('input[name="employeeIds"]:checked');
+        function insert() {
+            const checked = document.querySelector('input[name="employeeIds"]:checked');
             if (!checked) {
                 alert("지급할 직원을 선택하세요.");
                 return;
             }
             const emp_idx = checked.value;
-            location.href= "/pay_detail?emp_idx="+emp_idx ;       
+            location.href = "/pay_insert?emp_idx=" + emp_idx;
         }
-        
-        
+
+        function cancelSelection() {
+            document.querySelectorAll('input[name="employeeIds"]').forEach(cb => cb.checked = false);
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             const checkboxes = document.querySelectorAll('input[name="employeeIds"]');
-				
             checkboxes.forEach(cb => {
                 cb.addEventListener('change', function () {
                     if (this.checked) {
@@ -141,11 +154,6 @@
                 });
             });
         });
-
-       
-        function cancelSelection() {
-            document.querySelectorAll('input[name="employeeIds"]').forEach(cb => cb.checked = false);
-        }
     </script>
 </body>
 </html>

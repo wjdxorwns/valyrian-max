@@ -1,0 +1,39 @@
+package com.ict.project.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class PersonnelDAO {
+	
+	@Autowired
+    private SqlSession sqlSession;
+
+	public List<Map<String, Object>> searchEmployeesByName(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByEmpNameContaining", searchKeyword);
+    }
+
+    public List<Map<String, Object>> searchEmployeesByDepartment(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByDeptNameContaining", searchKeyword);
+    }
+
+    public List<Map<String, Object>> searchEmployeesByPosition(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByPositionContaining", searchKeyword);
+    }
+
+    public List<Map<String, Object>> serchpaydetail(String emp_idx) {
+        return sqlSession.selectList("personnel.paydtail", emp_idx);
+    }
+
+	public List<Map<String, Object>> serchpaylist(String payment_date) {
+		return sqlSession.selectList("personnel.payList",payment_date);
+	}
+
+
+	
+
+}

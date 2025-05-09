@@ -1,113 +1,108 @@
-<!-- 정택준 일반이 돈확인창  -->
-<!-- 작성자: 정택준 | 기여자 : 김재겸 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<!-- 정택준 일반이 돈확인창 -->
+<!-- 작성자: 정택준 | 기여자: 김재겸 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>3부상조 - 메인 페이지</title>
-<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/>"
-	rel="stylesheet">
-<link
-	href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/>"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>"
-	rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_table.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/CSS_jungtakejun.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Header.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css'/>" rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
-
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
 <body>
-
-	<jsp:include page="/resources/jsp/Header.jsp" />
-
-
-	<main style="margin: 80px auto auto;">
-		<jsp:include page="/resources/jsp/PayAside.jsp" />
-
-		<div class="main-item">
-			<div id="title">
-				<h2>나의 급여 정보</h2>
-				<p>내용설명 본인급여 조회(직원용)</p>
-			</div>
-			<p>
-				지급년월 <input type="date" id="paymentYearMonth" name="payment_date">
-				<button id="serch" onclick="searchPayroll()">조회</button>
-			</p>
-
-			<div class="emp_information">
-				<table class="emp_table">
-					<thead>
-						<tr>
-							<th>직원코드</th>
-							<th>이름</th>
-							<th>지급기준일</th>
-							<th>지급차수</th>
-							<th>부서</th>
-							<th>직책</th>
-							<th>고용형태</th>
-							<th>급여</th>
-							<th>보너스</th>
-						</tr>
-					</thead>
-					<tbody id="payrollTableBody">
-						<c:choose>
-							<c:when test="${empty paylist}">
-								<tr>
-									<td colspan="9">
-										<h3>내용이 없습니다</h3>
-									</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-							<c:forEach var="pay" items="${paylist}">
-							<tr>
-							 <td>${pay.emp_idx}</td>
-							 <td>${pay.emp_name}</td>
-							 <td>${pay.payment_date}</td>
-							 <td>${pay.pay_grade}</td>
-							 <td>${pay.team}</td>
-							 <td>${pay.position}</td>
-							 <td>${pay.employment_type}</td>
-							 <td>${pay.pay}</td>
-							 <td>${pay.bonus}</td>
-							</tr>
-							</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
-			</div>
-
-			<div id="but">
-				<button onclick="downloadExcel()">다운로드</button>
-				<button onclick="cancel()">취소</button>
-			</div>
-		</div>
-
-	</main>
-	<jsp:include page="/resources/jsp/Footer.jsp" />
-
-	<script type="text/javascript">
-	
+    <jsp:include page="/resources/jsp/Header.jsp" />
+    <main style="margin: 80px auto auto;">
+        <jsp:include page="/resources/jsp/PayAside.jsp" />
+        <div class="main-item">
+            <div id="title">
+                <h2>나의 급여 정보</h2>
+                <p>내용설명 본인급여 조회(직원용)</p>
+            </div>
+            <p>
+                지급년월 <input type="date" id="paymentYearMonth" name="payment_date">
+                세율 <select name="taxRate" id="taxRate">
+                    <option value="1">1%</option>
+                    <option value="2">2%</option>
+                    <option value="3">3%</option>
+                </select>
+                <button id="serch" onclick="searchPayroll()">조회</button>
+            </p>
+            <div class="emp_information">
+                <table class="emp_table">
+                    <thead>
+                        <tr>
+                            <th>직원코드</th>
+                            <th>이름</th>
+                            <th>지급기준일</th>
+                            <th>지급차수</th>
+                            <th>부서</th>
+                            <th>직책</th>
+                            <th>고용형태</th>
+                            <th>급여</th>
+                            <th>보너스</th>
+                            <th>세율</th>
+                            <th>실수령액</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payrollTableBody">
+                        <c:choose>
+                            <c:when test="${empty paylist}">
+                                <tr>
+                                    <td colspan="11">
+                                        <h3>내용이 없습니다</h3>
+                                    </td>
+                                </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="pay" items="${paylist}">
+                                    <tr>
+                                        <td>${pay.emp_idx}</td>
+                                        <td>${pay.emp_name}</td>
+                                        <td>${pay.payment_date}</td>
+                                        <td>${pay.pay_grade}</td>
+                                        <td>${pay.team}</td>
+                                        <td>${pay.position}</td>
+                                        <td>${pay.employment_type}</td>
+                                        <td>${pay.base_salary}</td>
+                                        <td>${pay.bonus}</td>
+                                        <td>${pay.tax_rate * 100}%</td>
+                                        <td>${pay.real_pay}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
+                </table>
+            </div>
+            <div id="but">
+                <button onclick="downloadExcel()">다운로드</button>
+                <button onclick="cancel()">취소</button>
+            </div>
+        </div>
+    </main>
+    <jsp:include page="/resources/jsp/Footer.jsp" />
+    <script type="text/javascript">
         function searchPayroll() {
-        	const payment_date = document.querySelector("input[name='payment_date']").value;
-            const emp_idx = "${sessionScope.user_idx}";
-        	location.href="/paylist?emp_idx="+emp_idx+"&payment_date="+payment_date;    
-        	
+            const paymentDateInput = document.querySelector("input[name='payment_date']").value;
+            const taxRate = document.querySelector("select[name='taxRate']").value;
+            const emp_idx = "${sessionScope.emp_idx}";
+            if (!paymentDateInput) {
+                alert("지급일을 선택하세요.");
+                return;
+            }
+            if (!taxRate) {
+                alert("세율을 선택하세요.");
+                return;
+            }
+            location.href = "/paylist?emp_idx=" + emp_idx + "&payment_date=" + encodeURIComponent(paymentDateInput) + "&taxRate=" + taxRate;
         }
 
-        
         function downloadExcel() {
             const userIdx = "${sessionScope.emp_idx}";
             if (!userIdx) {
@@ -115,12 +110,10 @@
                 window.location.href = "<c:url value='/login' />";
                 return;
             }
-           
             window.location.href = "<c:url value='/downloadExcel' />?user_idx=" + userIdx;
         }
 
         function cancel() {
-         
             window.history.back();
         }
     </script>
