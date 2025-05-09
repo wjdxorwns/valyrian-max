@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ict.project.repository.PersonnelDAO">
+<!-- 휴가 신청 리스트 -->
+	<select id="getAllVacations" resultType="java.util.HashMap">
+		SELECT  
+			v.vacation_id, 
+			e.position, 
+			u.emp_name, 
+			DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date, 
+            DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date, 
+			v.vacation_type, 
+			v.status, 
+			v.comment 
+		FROM 
+		Vacation v 
+			INNER JOIN Request r ON v.request_idx = r.request_idx 
+			INNER JOIN Employee e ON r.emp_idx = e.emp_idx 
+			INNER JOIN Users u ON e.user_idx = u.user_idx 
+		WHERE  
+			u.remove = 0 
+		ORDER BY  
+			v.start_date DESC 
+	</select>
+	
+	<!-- 휴가 신청 대기 리스트 -->
+	<select id="getAllApprovals" resultType="java.util.HashMap">
+		SELECT  
+			v.vacation_id, 
+			v.request_idx, 
+			e.team, 
+			e.position, 
+			u.emp_name, 
+			e.emp_idx, 
+			DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date, 
+            DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date, 
+			v.vacation_type, 
+			v.status, 
+			v.comment 
+		FROM 
+		Vacation v 
+			INNER JOIN Request r ON v.request_idx = r.request_idx 
+			INNER JOIN Employee e ON r.emp_idx = e.emp_idx 
+			INNER JOIN Users u ON e.user_idx = u.user_idx 
+		WHERE  
+			u.remove = 0 
+		ORDER BY  
+			v.start_date DESC 
+	</select>
+	<!-- 휴가 승인 -->
+	<update id="updateVacationStatus">
+		UPDATE Vacation 
+		set status = #{status}, comment = #{comment} 
+		WHERE vacation_id = #{vacation_id}
+	</update>
+	<!-- 승인 로그 삽입 -->
+	<insert id="insertVacationLogging" parameterType="com.ict.project.vo.management.RequestLoggingVO">
+		INSERT INTO RequestLogging(
+		request_idx, logging_vacation, reject, logging_date) 
+		VALUES(
+		#{request_idx}, #{logging_vacation}, #{reject}, NOW())
+	</insert>
+	
+	<!-- 개인 휴가 현황 -->
+	<select id="getAllInquiry" resultType="java.util.HashMap">
+		SELECT 
+			e.emp_idx, 
+			u.emp_name, 
+			e.position, 
+			e.pay_grade, 
+			e.vacation_balance
+		FROM 
+		Employee e 
+            INNER JOIN Users u ON e.user_idx = u.user_idx 
+        WHERE  
+            u.remove = 0 
+        ORDER BY 
+            u.emp_name
+	</select>
+	<!-- 사용자별 휴가 현황 -->
+	<select id="getUserInquiry" parameterType="int" resultType="java.util.HashMap">
+		SELECT 
+            e.emp_idx, 
+            u.emp_name, 
+            e.position, 
+            e.vacation_balance, 
+            v.vacation_id, 
+            v.vacation_type, 
+            DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date, 
+            DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date, 
+            v.comment,
+            v.status
+        FROM 
+            Vacation v 
+            INNER JOIN Request r ON v.request_idx = r.request_idx 
+            INNER JOIN Employee e ON r.emp_idx = e.emp_idx 
+            INNER JOIN Users u ON e.user_idx = u.user_idx 
+        WHERE 
+            u.remove = 0 
+            AND u.user_idx = #{user_idx}
+        ORDER BY 
+            v.start_date DESC
+    </select>
+	
+	<!-- 사용자별 잔여 연차 조회 -->
+	<select id="getUserVacationDays" parameterType="int" resultType="java.util.HashMap">
+		SELECT 
+            e.emp_idx, 
+            u.emp_name, 
+            e.position, 
+            e.vacation_balance
+        FROM 
+            Employee e  
+            INNER JOIN Users u ON e.user_idx = u.user_idx 
+        WHERE 
+            u.remove = 0 
+            AND u.user_idx = #{user_idx}
+	</select>
+	<!-- 휴가 차감 -->
+    <update id="deductVacationDays">
+        UPDATE Employee
+        SET vacation_balance = vacation_balance - (
+            SELECT DATEDIFF(v.end_date, v.start_date) + 1
+            FROM Vacation v
+            WHERE v.vacation_id = #{vacation_id}
+            AND v.status = '승인'
+        )
+        WHERE emp_idx = (
+            SELECT r.emp_idx
+            FROM Request r
+            INNER JOIN Vacation v ON r.request_idx = v.request_idx
+            WHERE v.vacation_id = #{vacation_id}
+        )
+    </update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
