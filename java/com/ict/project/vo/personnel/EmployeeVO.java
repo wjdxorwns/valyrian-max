@@ -3,56 +3,62 @@ package com.ict.project.vo.personnel;
 public class EmployeeVO {	//	2. 직원
 	
 	//	직원고유키, 회원고유키, 직원고유코드, 비밀번호, 부서명, 직책, 호봉, 입사일, 퇴사일, 근무방식, 퇴사자
-	private int user_idx, pay_grade, vacation_balance;
-	private String emp_idx, emp_id, dept_name, position, hire_date, 
+	private int user_idx, pay_grade;
+	private String emp_idx, emp_id, dept_name, position, hire_date, team, location,
 				resignation_date, attitude_type, quitter, employment_type ;
 	
-	public int getVacation_balance() {
-		return vacation_balance;
-	}
-	public void setVacation_balance(int vacation_balance) {
-		this.vacation_balance = vacation_balance;
-	}
 	public String getEmp_idx() {
+
 		return emp_idx;
 	}
 	public void setEmp_idx(String emp_idx) {
+
 		this.emp_idx = emp_idx;
 	}
 	public int getUser_idx() {
+
 		return user_idx;
 	}
 	public void setUser_idx(int user_idx) {
+
 		this.user_idx = user_idx;
 	}
 	public int getPay_grade() {
+
 		return pay_grade;
 	}
 	public void setPay_grade(int pay_grade) {
+
 		this.pay_grade = pay_grade;
 	}
 	public String getEmp_id() {
+
 		return emp_id;
 	}
 	public void setEmp_id(String emp_id) {
+
 		this.emp_id = emp_id;
 	}
 	public String getDept_name() {
+
 		return dept_name;
 	}
 	public void setDept_name(String dept_name) {
+
 		this.dept_name = dept_name;
 	}
 	public String getPosition() {
+
 		return position;
 	}
 	public void setPosition(String position) {
+
 		this.position = position;
 	}
 	public String getHire_date() {
-		return hire_date;
-	}
+		return hire_date;}
 	public void setHire_date(String hire_date) {
+
 		this.hire_date = hire_date;
 	}
 	public String getResignation_date() {
@@ -79,4 +85,21 @@ public class EmployeeVO {	//	2. 직원
 	public void setEmployment_type(String employment_type) {
 		this.employment_type = employment_type;
 	}
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
 }
