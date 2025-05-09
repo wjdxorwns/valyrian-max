@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="manager">
+    <select id="list" resultType="map">
+        SELECT
+        p.emp_idx,
+        u.emp_name,
+        e.dept_name,
+        p.can_access_employee,
+        p.can_access_worktype,
+        p.can_access_personnel,
+        p.can_access_salary,
+        p.can_access_vacation
+        FROM Permission p
+        INNER JOIN Employee e ON p.emp_idx = e.emp_idx
+        INNER JOIN Users u ON e.user_idx = u.user_idx
+        WHERE e.dept_name = '관리자'
+    </select>
+
+    <update id="updatePermissions" parameterType="map">
+        UPDATE Permission
+        SET can_access_employee = #{permissions.can_access_employee},
+            can_access_worktype = #{permissions.can_access_worktype},
+            can_access_personnel = #{permissions.can_access_personnel},
+            can_access_salary = #{permissions.can_access_salary},
+            can_access_vacation = #{permissions.can_access_vacation}
+        WHERE emp_idx = #{userId}
+    </update>
+</mapper>
