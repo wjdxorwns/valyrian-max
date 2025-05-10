@@ -1,0 +1,105 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>급여 목록</title>
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<jsp:include page="/resources/jsp/Header.jsp" />
+
+<div class="container">
+    <h2>급여 리스트</h2>
+
+    <div class="form-container">
+        <form action="/paylist" method="get">
+            <label for="searchType">검색 조건:</label>
+            <select name="searchType" id="searchType">
+                <option value="all">전체</option>
+                <option value="emp_idx">직원 ID</option>
+                <option value="payment_date">지급년월</option>
+            </select>
+
+            <input type="text" name="keyword" placeholder="검색어 입력" id="textKeyword" style="display: inline-block;" />
+            <input type="month" name="payment_date" id="paymentYearMonth" style="display: none;" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>직원 ID</th>
+                <th>이름</th>
+                <th>지급일</th>
+                <th>직급</th>
+                <th>팀</th>
+                <th>포지션</th>
+                <th>고용형태</th>
+                <th>기본급</th>
+                <th>보너스</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="pay" items="${paylist}">
+                <tr>
+                    <td>${pay.emp_idx}</td>
+                    <td>${pay.emp_name}</td>
+                    <td>${pay.payment_date}</td>
+                    <td>${pay.pay_grade}</td>
+                    <td>${pay.team}</td>
+                    <td>${pay.position}</td>
+                    <td>${pay.employment_type}</td>
+                    <td>${pay.base_salary}</td>
+                    <td>${pay.bonus}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
+
+<jsp:include page="/resources/jsp/Footer.jsp" />
+
+<!-- 공통 스크립트 로딩 -->
+<script src="/resources/js/jquery-3.6.0.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#searchType').change(function() {
+            const selected = $(this).val();
+            if (selected === 'payment_date') {
+                $('#textKeyword').hide();
+                $('#paymentYearMonth').show();
+            } else if (selected === 'emp_idx') {
+                $('#textKeyword').show().attr('placeholder', '직원 ID를 입력하세요');
+                $('#paymentYearMonth').hide();
+            } else {
+                $('#textKeyword').show().attr('placeholder', '전체 검색');
+                $('#paymentYearMonth').hide();
+            }
+        });
+    });
+</script>
+</body>
+</html>

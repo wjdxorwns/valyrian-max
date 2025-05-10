@@ -1,5 +1,7 @@
 package com.ict.project.repository;
 
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,19 +43,31 @@ public class PersonnelDAO {
         return sqlSession.update("personnel.updatePay", params);
     }
 
-    public Map<String, Object> checkPayRecord(Map<String, Object> params) {
-        return sqlSession.selectOne("personnel.checkPayRecord", params);
+    public boolean isPayRecordExists(String emp_idx, Date payment_date) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("emp_idx", emp_idx);
+        param.put("payment_date", payment_date);
+        Integer count = sqlSession.selectOne("personnel.checkPayRecord", param);
+        return count != null && count > 0;
     }
 
     public void updateEmployeePay(Map<String, Object> params) {
         sqlSession.update("personnel.updateEmployeePay", params);
     }
 
-    public int insertRequestLog(Map<String, Object> params) {
-        return sqlSession.insert("personnel.insertRequestLog", params);
+    public List<Map<String, Object>> serchpaylistAll(String emp_idx) {
+        return sqlSession.selectList("personnel.payListAll", emp_idx);
     }
 
-    public int getLastRequestIdx(String emp_idx) {
-        return sqlSession.selectOne("personnel.getLastRequestIdx", emp_idx);
+    public void updateLatestSalary(Map<String, Object> params) {
+        sqlSession.update("personnel.updateLatestSalary", params);
+    }
+
+    public Map<String, Object> getLatestSalary(String emp_idx) {
+        return sqlSession.selectOne("personnel.getLatestSalary", emp_idx);
+    }
+
+    public void updatePayById(Map<String, Object> params) {
+        sqlSession.update("personnel.updatePayById", params);
     }
 }

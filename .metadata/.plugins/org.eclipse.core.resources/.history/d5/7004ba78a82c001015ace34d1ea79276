@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="personnel">
+
+    <!-- 직원 검색 -->
+    <select id="findByEmpNameContaining" resultType="map">
+        SELECT *
+        FROM Employee e
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+    <select id="findByDeptNameContaining" resultType="map">
+        SELECT *
+        FROM Employee e
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE e.team LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+    <select id="findByPositionContaining" resultType="map">
+        SELECT *
+        FROM Employee e
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE e.position LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+    <!-- 직원 상세 정보 조회 -->
+    <select id="paydtail" parameterType="String" resultType="map">
+        SELECT *
+        FROM Employee e
+        JOIN Users u ON e.user_idx = u.user_idx
+        WHERE e.emp_idx = #{emp_idx}
+    </select>
+
+    <!-- 급여 내역 조회 -->
+    <select id="payList" parameterType="map" resultType="map">
+        SELECT *
+        FROM Salary
+        WHERE emp_idx = #{emp_idx}
+        <if test="payment_date != null">
+            AND DATE_FORMAT(payment_date, '%Y-%m') = DATE_FORMAT(#{payment_date}, '%Y-%m')
+        </if>
+        ORDER BY payment_date DESC
+    </select>
+
+    <!-- 급여 삽입 -->
+    <insert id="payinsert" parameterType="map">
+        INSERT INTO Salary (emp_idx, base_salary, bonus, payment_date)
+        VALUES (#{emp_idx}, #{base_salary}, #{bonus}, #{payment_date})
+    </insert>
+
+    <!-- 급여 수정 -->
+    <update id="updatePay" parameterType="map">
+        UPDATE Salary
+        SET base_salary = #{base_salary}, bonus = #{bonus}, payment_date = #{payment_date}
+        WHERE emp_idx = #{emp_idx} AND payment_date = #{payment_date}
+    </update>
+
+    <!-- 동일한 급여 기록 여부 확인 -->
+    <select id="checkPayRecord" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM Salary
+        WHERE emp_idx = #{emp_idx} AND payment_date = #{payment_date}
+    </select>
+
+    <!-- 최신 급여 정보 Employee 테이블에 반영 -->
+    <update id="updateEmployeePay" parameterType="map">
+        UPDATE Employee
+        SET pay = #{pay}
+        WHERE emp_idx = #{emp_idx}
+    </update>
+
+</mapper>

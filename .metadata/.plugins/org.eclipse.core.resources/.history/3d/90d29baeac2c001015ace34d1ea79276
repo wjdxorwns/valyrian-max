@@ -1,0 +1,57 @@
+package com.ict.project.repository;
+
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class PersonnelDAO {
+
+    @Autowired
+    private SqlSession sqlSession;
+
+    public List<Map<String, Object>> searchEmployeesByName(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByEmpNameContaining", searchKeyword);
+    }
+
+    public List<Map<String, Object>> searchEmployeesByDepartment(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByDeptNameContaining", searchKeyword);
+    }
+
+    public List<Map<String, Object>> searchEmployeesByPosition(String searchKeyword) {
+        return sqlSession.selectList("personnel.findByPositionContaining", searchKeyword);
+    }
+
+    public Map<String, Object> serchpaydetail(String emp_idx) {
+        return sqlSession.selectOne("personnel.paydtail", emp_idx);
+    }
+
+    public List<Map<String, Object>> serchpaylist(Map<String, Object> params) {
+        return sqlSession.selectList("personnel.payList", params);
+    }
+
+    public int insertPay(Map<String, Object> params) {
+        return sqlSession.insert("personnel.payinsert", params);
+    }
+
+    public int updatePay(Map<String, Object> params) {
+        return sqlSession.update("personnel.updatePay", params);
+    }
+
+    public boolean isPayRecordExists(String emp_idx, Date payment_date) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("emp_idx", emp_idx);
+        param.put("payment_date", payment_date);
+        Integer count = sqlSession.selectOne("personnel.checkPayRecord", param);
+        return count != null && count > 0;
+    }
+
+    public void updateEmployeePay(Map<String, Object> params) {
+        sqlSession.update("personnel.updateEmployeePay", params);
+    }
+}

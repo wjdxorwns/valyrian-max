@@ -1,11 +1,12 @@
 package com.ict.project.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
 public interface PersonnelService {
 
-    List<Map<String, Object>> searchEmployeesByName(String searchKeyword);
+	List<Map<String, Object>> searchEmployeesByName(String searchKeyword);
 
     List<Map<String, Object>> searchEmployeesByDepartment(String searchKeyword);
 
@@ -19,11 +20,17 @@ public interface PersonnelService {
 
     int updatePay(Map<String, Object> params);
 
-    boolean isPayRecordExists(String emp_idx, java.sql.Date payment_date);
+    boolean isPayRecordExists(String emp_idx, Date payment_date);
 
     void updateEmployeePay(Map<String, Object> params);
 
-    int insertRequestLog(Map<String, Object> params);
+	List<Map<String, Object>> serchpaylistAll(String emp_idx);
 
-    int getLastRequestIdx(String emp_idx);
+	void updateLatestSalary(Map<String, Object> updateParams);
+
+	Map<String, Object> getLatestSalary(String emp_idx);
+
+	void updatePayById(Map<String, Object> updateParams);
+
+
 }

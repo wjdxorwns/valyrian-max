@@ -115,14 +115,14 @@
                     <div class="pay">
                         <div>기본급 : </div>
                         <div class="choice">
-                            <input class="in" type="number" name="base_salary" min="0">
+                            <input class="in" type="number" name="base_salary" min="0" value="${user.base_salary}">
                             <button class="button3" type="button" onclick="calculateRealPay()">계산</button>
                         </div>
                     </div>
                     <div class="bonus" style="display:flex; align-items: baseline;">
                         <div>보너스 : </div>
                         <div class="choice">
-                            <input class="in" type="number" name="bonus" min="0">
+                            <input class="in" type="number" name="bonus" min="0"value="${user.bonus} ">
                         </div>
                     </div>
                     <div class="tex">
@@ -136,18 +136,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="payment_date">
-                        <div>지급일 : </div>
-                        <div class="choice">
-                            <input class="in" type="date" name="payment_date" required>
-                        </div>
-                    </div>
                     <div class="real_pay">실수령 금액</div>
                     기본급 - (세금×기본급) + 보너스 = 실수령 금액
                     <div>
                         <input class="pay_box" type="text" name="realPay" readonly>
                     </div>
                     <input type="hidden" name="emp_idx" value="${user.emp_idx}">
+                    <input type="hidden" name="salary_id" value="${user.salary_id}">
                     <div>
                         <input type="button" class="button2" value="저장하기" onclick="adminPayDetailUpdateOk()">
                         <input type="button" class="button2" value="돌아가기" onclick="history.back()">
@@ -175,16 +170,11 @@
         function adminPayDetailUpdateOk() {
             const baseSalary = parseFloat(document.querySelector('input[name="base_salary"]').value) || 0;
             const bonus = parseFloat(document.querySelector('input[name="bonus"]').value) || 0;
-            const paymentDate = document.querySelector('input[name="payment_date"]').value;
             const taxRate = document.querySelector('select[name="taxRate"]').value;
             const emp_idx = document.querySelector('input[name="emp_idx"]').value;
 
             if (baseSalary <= 0) {
                 alert("기본급을 숫자로 입력하세요.");
-                return;
-            }
-            if (!paymentDate) {
-                alert("지급일을 선택하세요.");
                 return;
             }
             if (!taxRate) {

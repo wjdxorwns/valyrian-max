@@ -1,6 +1,6 @@
 package com.ict.project.service;
 
-import java.util.HashMap;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.project.repository.PersonnelDAO;
+
 
 @Service
 public class PersonnelServiceImpl implements PersonnelService {
@@ -22,19 +23,16 @@ public class PersonnelServiceImpl implements PersonnelService {
 
     @Override
     public List<Map<String, Object>> searchEmployeesByDepartment(String searchKeyword) {
-        // TODO Auto-generated method stub
         return personnelDAO.searchEmployeesByDepartment(searchKeyword);
     }
 
     @Override
     public List<Map<String, Object>> searchEmployeesByPosition(String searchKeyword) {
-        // TODO Auto-generated method stub
         return personnelDAO.searchEmployeesByPosition(searchKeyword);
     }
 
     @Override
     public Map<String, Object> serchpaydetail(String emp_idx) {
-        // TODO Auto-generated method stub
         return personnelDAO.serchpaydetail(emp_idx);
     }
 
@@ -54,11 +52,8 @@ public class PersonnelServiceImpl implements PersonnelService {
     }
 
     @Override
-    public boolean isPayRecordExists(String emp_idx, java.sql.Date payment_date) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("emp_idx", emp_idx);
-        params.put("payment_date", payment_date);
-        return personnelDAO.checkPayRecord(params) != null;
+    public boolean isPayRecordExists(String emp_idx, Date payment_date) {
+        return personnelDAO.isPayRecordExists(emp_idx, payment_date);
     }
 
     @Override
@@ -66,13 +61,28 @@ public class PersonnelServiceImpl implements PersonnelService {
         personnelDAO.updateEmployeePay(params);
     }
 
-    @Override
-    public int insertRequestLog(Map<String, Object> params) {
-        return personnelDAO.insertRequestLog(params);
-    }
+	@Override
+	public List<Map<String, Object>> serchpaylistAll(String emp_idx) {
+		return personnelDAO.serchpaylistAll(emp_idx);
+	}
 
-    @Override
-    public int getLastRequestIdx(String emp_idx) {
-        return personnelDAO.getLastRequestIdx(emp_idx);
-    }
+	@Override
+	public void updateLatestSalary(Map<String, Object> updateParams) {
+	    personnelDAO.updateLatestSalary(updateParams);
+	}
+
+	@Override
+	public Map<String, Object> getLatestSalary(String emp_idx) {
+		return personnelDAO.getLatestSalary(emp_idx);
+	}
+
+	@Override
+	public void updatePayById(Map<String, Object> params) {
+	    personnelDAO.updatePayById(params);
+	}
+
+
+	
+	
+
 }
