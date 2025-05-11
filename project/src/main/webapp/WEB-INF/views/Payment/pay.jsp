@@ -83,7 +83,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="but">
+			<div id="but" style="margin-bottom: 50px;">
 				<button onclick="downloadExcel()">다운로드</button>
 				<button onclick="loadAllMyPayroll()">전체 보기</button>
 				<button onclick="cancel()">취소</button>

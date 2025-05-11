@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+
+<head>
+<style type="text/css">
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e8ecef;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+            background-color: #f8fafc;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #00c73c;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+   
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        button, .cancel-link {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"] {
+            background-color: #00c73c;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #00a331;
+        }
+
+        .cancel-link {
+            background-color: #e8ecef;
+            color: #555;
+            display: inline-block;
+        }
+
+        .cancel-link:hover {
+            background-color: #d8dfe6;
+        }
+
+</style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+    <h2>문의사항 작성</h2>
+
+    <form id="qnaForm" action="/qnaWriteOk" method="post">
+        <label for="question_title">제목:</label><br>
+        <input type="text" id="question_title" name="question_title" required><br><br>
+
+        <label for="question_details">내용:</label><br>
+        <textarea id="question_details" name="question_details" rows="6" cols="50" required></textarea><br><br>
+
+        <!-- 필요 시 emp_idx나 emp_name hidden으로 넘기기 -->
+        <!-- <input type="hidden" name="emp_idx" value="${emp_idx}"> -->
+
+        <input type="button" value="등록" onclick="submitQnaForm()">
+        <input type="button" value="취소" onclick="closePopup()">
+    </form>
+
+<script type="text/javascript">
+
+
+
+</script>
+
+
+</body>
+</html>

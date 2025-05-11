@@ -145,12 +145,12 @@ public class PersonnelController {
         }
         try {
             String emp_idx = paramMap.get("emp_idx");
-            int salary_id = Integer.parseInt(paramMap.get("salary_id")); // 추가
+            int salary_id = Integer.parseInt(paramMap.get("salary_id"));
             double base_salary = Double.parseDouble(paramMap.get("base_salary"));
             double bonus = Double.parseDouble(paramMap.get("bonus"));
 
             Map<String, Object> updateParams = new HashMap<>();
-            updateParams.put("salary_id", salary_id); // 수정 포인트
+            updateParams.put("salary_id", salary_id); 
             updateParams.put("base_salary", base_salary);
             updateParams.put("bonus", bonus);
 

@@ -74,6 +74,12 @@
     .back-link:hover {
         background-color: #d8dfe6;
     }
+    textarea {
+  padding: 8px;
+  line-height: 1.4;
+  vertical-align: top;
+  resize: vertical;
+}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -85,44 +91,102 @@
 </head>
 <body>
 
+<c:set var="dept_name" value="${sessionScope.dept_name}" />
+<c:set var="emp_idx" value="${sessionScope.emp_idx}" />
+
 <jsp:include page="/resources/jsp/Header.jsp" />
+
 <main style="margin: 80px auto 200px auto;">
-<h2>QnA 내용</h2>
-<table>
+<h2 style=" margin-tpo: 80px;">QnA 내용</h2>
+<form method="post" action="${pageContext.request.contextPath}/qnaUpdate">
+  <input type="hidden" name="answer_id" value="${qna.answer_id}" />
+  <table>
     <tr>
-        <th>제목</th>
-        <td>${q.question_title}</td>
+      <th>제목</th>
+      <td>
+        <c:choose>
+          <c:when test="${dept_name eq '직원' && emp_idx eq qna.emp_idx}">
+            <input type="text" name="question_title" value="${qna.question_title}" style="width: 1070px" />
+          </c:when>
+          <c:otherwise>
+          ${qna.question_title}
+          <input type="hidden" name="question_title" value="${qna.question_title}" />
+          </c:otherwise>
+        </c:choose>
+      </td>
     </tr>
+	<tr>
+		<th>이름</th>
+		<td>${qna.emp_name}</td>
+	</tr>
+	<tr>
+		<th>날짜</th>
+		<td>${qna.question_date}</td>
+	</tr>
     <tr>
-        <th>작성자</th>
-        <td>${q.writer}</td>
+      <th>내용</th>
+      <td>
+        <c:choose>
+          <c:when test="${dept_name eq '직원' && emp_idx eq qna.emp_idx}">
+            <textarea name="question_details" rows="30" cols="130">${qna.question_details}</textarea>
+          </c:when>
+          <c:otherwise>
+			<textarea name="question_details" rows="30" cols="130" readonly>${qna.question_details}</textarea>          </c:otherwise>
+        </c:choose>
+      </td>
     </tr>
+
     <tr>
-        <th>등록일</th>
-        <td>${q.question_date}</td>
+      <th>답변</th>
+      <td>
+        <c:choose>
+          <c:when test="${dept_name eq '관리자' || dept_name eq '슈퍼관리자'}">
+            <textarea name="answer_comment" rows="5" style="width:100%;">${qna.answer_comment}</textarea>
+          </c:when>
+          <c:otherwise>
+            ${qna.answer_comment}
+            <input type="hidden" name="answer_status" value="${qna.answer_comment}" />
+          </c:otherwise>
+        </c:choose>
+      </td>
     </tr>
+
     <tr>
-        <th>내용</th>
-        <td class="content-cell">${q.question_content}</td>
+      <th>답변 상태</th>
+      <td>
+        <c:choose>
+          <c:when test="${dept_name eq '관리자' || dept_name eq '슈퍼관리자'}">
+            <select name="answer_status">
+              <option value="대기" <c:if test="${qna.answer_status eq '대기'}">selected</c:if>>대기</option>
+              <option value="완료" <c:if test="${qna.answer_status eq '완료'}">selected</c:if>>완료</option>
+            </select>
+          </c:when>
+          <c:otherwise>
+            ${qna.answer_status}
+           <input type="hidden" name="answer_status" value="${qna.answer_status}" />
+          </c:otherwise>
+        </c:choose>
+      </td>
     </tr>
-    <tr>
-    	<th>답변</th>
-        <td class="content-cell">${q.question_content}</td>
-    </tr>
-    <tr>
-        <th>답변 상태</th>
-        <td>${q.answer_status}</td>
-    </tr>
-</table>
-<div class="button-container">
-    <a href="${pageContext.request.contextPath}/qnaWrite?answer_id=${q.answer_id}" class="edit-button">수정</a>
-    <a href="qna.jsp" class="back-link">목록</a>
-</div>
+  </table>
+
+  <div class="button-container">
+    <button type="submit" class="edit-button">수정</button>
+    <button type="button" onclick="deleteQna(${qna.answer_id})" class="edit-button">삭제</button>
+    <a href="qna" class="back-link">목록</a>
+  </div>
+</form>
+
 </main>
 	<jsp:include page="/resources/jsp/Footer.jsp" />
-
-
-
-
 </body>
+
+<script>
+function deleteQna(answer_id) {
+  if (confirm("정말 삭제하시겠습니까?")) {
+    location.href = '/qnaDelete?answer_id=' +answer_id;
+  }
+}
+</script>
+
 </html>

@@ -72,6 +72,7 @@ public class NorLoginAndRegisterController {
             session.setAttribute("userVO", user); 
             session.setAttribute("emp_email", user.getEmp_email());
             session.setAttribute("emp_idx", employee.getEmp_idx());
+            session.setAttribute("dept_name", employee.getDept_name());
             
             // 부서 정보 설정
             String deptName = employee.getDept_name();  // EmployeeVO에서 dept_name 가져오기

@@ -1,0 +1,27 @@
+package com.ict.project.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class QnaDAO {
+	
+	 private SqlSession sqlSession;
+	
+
+	public List<Map<String, Object>> getAllQna() {
+		return sqlSession.selectList(null);
+	}
+
+
+	public List<Map<String, Object>> getQnaByEmpIdx(String empIdx) {
+		return sqlSession.selectList(empIdx);
+	}
+
+
+
+
+}

@@ -1,0 +1,30 @@
+package com.ict.project.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class QnaDAO {
+	
+	 @Autowired
+	    private SqlSession sqlSession;
+
+	public List<Map<String, Object>> getAllQna() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("qna.allqna");
+	}
+
+	public List<Map<String, Object>> getQnaByEmpIdx(String empIdx) {
+		return sqlSession.selectList("qna.empidxlist", empIdx);
+	}
+	
+
+
+
+
+
+}

@@ -1,0 +1,32 @@
+package com.ict.project.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.ict.project.repository.QnaDAO;
+
+@Service
+public class QnaServiceImpl implements QnaService {
+	 
+	@Autowired
+	    private QnaDAO qnaDAO;
+
+	@Override
+	public List<Map<String, Object>> getAllQna() {
+		return qnaDAO.s("qna.AllQna");
+	}
+
+	@Override
+	public List<Map<String, Object>> getQnaByEmpIdx(String empIdx) {
+		return qnaDAO.getQnaByEmpIdx("qna.empidxqna",empIdx);
+	}
+
+
+	
+	
+
+}

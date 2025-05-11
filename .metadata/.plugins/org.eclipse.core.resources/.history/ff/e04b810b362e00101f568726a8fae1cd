@@ -1,0 +1,87 @@
+	package com.ict.project.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.project.service.QnaService;
+
+@Controller
+public class QnaController {
+
+		@Autowired
+		private QnaService qnaService;
+	
+		@GetMapping("/qna")
+		public ModelAndView getQna(HttpSession session) {
+		    String empIdx = (String) session.getAttribute("emp_idx");
+		    String deptName = (String) session.getAttribute("dept_name");
+
+		    ModelAndView mv = new ModelAndView();
+		    List<Map<String, Object>> qnaList;
+
+		    if ("관리자".equals(deptName) || "슈퍼관리자".equals(deptName)) {
+		        qnaList = qnaService.getAllQna(); // 모든 QnA 조회
+		    } else {
+		        qnaList = qnaService.getQnaByEmpIdx(empIdx); // 본인 QnA만 조회
+		    }
+
+		    mv.addObject("qnaList", qnaList);
+		    mv.setViewName("QnA/Qna");
+		    return mv;
+		}
+	
+    @GetMapping("/qnaWrite")
+    public ModelAndView getQnaWrite() {
+    	return new ModelAndView("QnA/qnaWrite");
+    }
+    
+    @PostMapping("/qnaWriteOk")
+    public ModelAndView postQnaWrite(@RequestParam Map<String, Object> param, HttpSession session) {
+        String emp_idx = (String) session.getAttribute("emp_idx");
+
+        Map<String, Object> user = qnaService.getUserInfoByEmpIdx(emp_idx);
+        param.put("emp_idx", emp_idx);
+        param.put("emp_name", user.get("emp_name"));
+        
+        qnaService.insertQna(param);
+
+        
+        ModelAndView mv = new ModelAndView("QnA/qnaWrite");
+        mv.addObject("writeComplete", true); 
+        return mv;
+    }
+    
+    @GetMapping("/qnaDetail")
+    public ModelAndView getQnaDetail() {
+    	ModelAndView mv = new ModelAndView();
+    	
+    	mv.setViewName("redirect:qnaDetail");
+    	return mv;
+    }
+    
+    @GetMapping("/qnaUdate")
+    public ModelAndView getQnaUdate( @RequestParam("answer_id") String answer_id) {
+    	ModelAndView mv = new ModelAndView();
+    	
+    	
+    	
+    	
+    	
+    	return mv;
+    }
+    
+    
+    
+    
+    
+    
+}
