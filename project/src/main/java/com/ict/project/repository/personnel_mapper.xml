@@ -27,7 +27,7 @@
                 GROUP BY emp_idx
             )
         ) s ON e.emp_idx = s.emp_idx
-        WHERE u.emp_name LIKE CONCAT('%', #{keyword}, '%')
+        WHERE u.emp_name LIKE CONCAT('%', #{keyword}, '%')AND u.remove = 0
     </select>
 
     <select id="findByDeptNameContaining" resultType="java.util.Map">
@@ -52,7 +52,7 @@
                 GROUP BY emp_idx
             )
         ) s ON e.emp_idx = s.emp_idx
-        WHERE e.dept_name LIKE CONCAT('%', #{keyword}, '%')
+        WHERE e.dept_name LIKE CONCAT('%', #{keyword}, '%')AND u.remove = 0
     </select>
 
     
@@ -79,7 +79,7 @@ LEFT JOIN (
         GROUP BY emp_idx
     ) s2 ON s1.emp_idx = s2.emp_idx AND s1.payment_date = s2.max_date
 ) s ON e.emp_idx = s.emp_idx
-WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')
+WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')AND u.remove = 0
     </select>
 
  
@@ -109,7 +109,7 @@ WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')
         INNER JOIN users u ON e.user_idx = u.user_idx
         LEFT JOIN salary s ON e.emp_idx = s.emp_idx
         WHERE s.payment_date = #{payment_date}
-        AND e.emp_idx = #{emp_idx}
+        AND e.emp_idx = #{emp_idx}AND u.remove = 0
     </select>
 
     
@@ -125,7 +125,7 @@ WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')
             bonus = #{bonus},
             payment_date = #{payment_date}
         WHERE emp_idx = #{emp_idx}
-        AND payment_date = #{payment_date};
+        AND payment_date = #{payment_date}AND u.remove = 0;
     </update>
 
   

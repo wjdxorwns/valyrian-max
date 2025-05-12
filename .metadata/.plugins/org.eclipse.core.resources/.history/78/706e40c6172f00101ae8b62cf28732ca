@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="man">
+
+
+<select id="resignList" resultType="Map">
+select * 
+from Employee e
+join users u on u.user_idx= e.user_idx
+where u.remove = 0;
+</select>
+
+<select id="keyword" parameterType="map" resultType="map">
+    SELECT *
+    FROM Employee e
+    JOIN users u ON u.user_idx = e.user_idx
+    WHERE u.remove = 0
+    AND
+   <choose>
+    <when test="searchType == 'emp_id'">
+        e.emp_id LIKE #{keyword}
+    </when>
+    <when test="searchType == 'emp_name'">
+        u.emp_name LIKE #{keyword}
+    </when>
+    <when test="searchType == 'team'">
+        e.team LIKE #{keyword}
+    </when>
+    <when test="searchType == 'position'">
+        e.position LIKE #{keyword}
+    </when>
+    <when test="searchType == 'quitter'">
+        e.quitter = #{keyword} AND u.remove = 1
+    </when>
+    <otherwise>
+        1=1
+    </otherwise>
+</choose>
+</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

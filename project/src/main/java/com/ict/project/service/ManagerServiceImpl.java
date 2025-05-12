@@ -1,6 +1,7 @@
 package com.ict.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,30 @@ public class ManagerServiceImpl implements ManagerService{
     public List<UsersVO> getEmpIdSearch(UsersVO uVO) {
         return managerDAO.getEmpIdSearch(uVO);
     }
+
+	@Override
+	public List<Map<String, Object>> getSearchResign() {
+		// TODO Auto-generated method stub
+		return managerDAO.getSearchResign();
+	}
+
+	@Override
+	public List<Map<String, Object>> getSearchKeyWord(Map<String, Object> paramMap) {
+		return managerDAO.getSearchKeyWord(paramMap);
+	}
+
+	@Override
+	public void updateQuitter(Map<String, Object> paramMap) {
+		managerDAO.updateQuitter(paramMap);
+	}
+
+	@Override
+	public void updateUserRemove(Map<String, Object> paramMap) {
+		managerDAO.updateUserRemove(paramMap);
+		
+	}
+
+
+
+
 }

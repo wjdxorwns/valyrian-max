@@ -1,0 +1,83 @@
+package com.ict.project.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+// 작성자 : 김재겸
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ict.project.service.ManagerService;
+
+
+@Controller
+public class ManagerController {
+	@Autowired
+    private ManagerService managerService;
+
+    @GetMapping("/employee_Infor_Form")
+    public ModelAndView getemployee_Infor_Form() {
+        return new ModelAndView("PersonnelManagement/EmpManagement/employee_Infor_Form");
+    }
+
+    @PostMapping("/emp_list")
+    public ModelAndView getEmpList() {
+        ModelAndView mv = new ModelAndView("PersonnelManagement/EmpManagement/employee_Infor_Form");
+        try {
+            mv.addObject("emplist", managerService.getAllEmp());
+        } catch (Exception e) {
+            e.printStackTrace();
+            mv.addObject("error", "검색결과없음검색결과없음");
+        }
+        return mv;
+    }
+    //권한부여 
+    
+    
+    @GetMapping("/hrManagement")
+    public ModelAndView getResignGo() {
+    	ModelAndView mv = new ModelAndView("PersonnelManagement/ResignManagement/resignDateList");
+        List<Map<String, Object>> employeeList = managerService.getSearchResign();
+        
+        
+        if (employeeList != null) {
+            for (Map<String, Object> emp : employeeList) {
+                Object genderObj = emp.get("gender");
+                if (genderObj != null) {
+                    String genderCode = genderObj.toString();
+                    if ("0".equals(genderCode)) {
+                        emp.put("gender", "남자");
+                    } else if ("1".equals(genderCode)) {
+                        emp.put("gender", "여자");
+                    } else {
+                        emp.put("gender", "-");
+                    }
+                }
+            }
+        }
+        
+
+        mv.addObject("employeeList", employeeList);
+        
+    	return mv;
+    }
+    
+    @GetMapping("/resignedEmployees")
+    public ModelAndView getresignedEmployees(@RequestParam("searchType")) {
+    	ModelAndView mv= new ModelAndView()
+    	
+    			
+    	
+     return mv;
+    }
+    
+    
+    
+    
+}

@@ -1,6 +1,7 @@
 package com.ict.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ict.project.vo.personnel.UsersVO;
 
@@ -8,4 +9,9 @@ public interface ManagerService {
 	List<UsersVO> getAllEmp();
     List<UsersVO> getEmpNameSearch(UsersVO uVO);
     List<UsersVO> getEmpIdSearch(UsersVO uVO);
+	List<Map<String, Object>> getSearchResign();
+	List<Map<String, Object>> getSearchKeyWord(Map<String, Object> paramMap);
+	void updateQuitter(Map<String, Object> paramMap);
+	void updateUserRemove(Map<String, Object> paramMap);
+	
 }

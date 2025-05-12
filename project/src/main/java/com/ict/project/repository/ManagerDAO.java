@@ -1,6 +1,7 @@
 package com.ict.project.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,27 @@ public class ManagerDAO {
 	            return null;
 	        }
 	    }
+
+		public List<Map<String, Object>> getSearchResign() {
+			return sqlSessionTemplate.selectList("man.resignList");
+		}
+
+
+
+
+
+		public List<Map<String, Object>> getSearchKeyWord(Map<String, Object> paramMap) {
+			return sqlSessionTemplate.selectList("man.keyword",paramMap);
+		}
+
+
+		public void updateQuitter(Map<String, Object> paramMap) {
+			sqlSessionTemplate.update("man.update",paramMap);
+		}
+
+
+		public void updateUserRemove(Map<String, Object> paramMap) {
+			sqlSessionTemplate.update("man.updateUserRemove",paramMap);
+			
+		}
 }

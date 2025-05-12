@@ -1,5 +1,9 @@
 package com.ict.project.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 // 작성자 : 김재겸
@@ -7,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.project.service.ManagerService;
@@ -34,6 +39,74 @@ public class ManagerController {
         return mv;
     }
     //권한부여 
+    
+    
+    @GetMapping("/hrManagement")
+    public ModelAndView getResignGo() {
+    	ModelAndView mv = new ModelAndView("PersonnelManagement/ResignManagement/resignDateList");
+        List<Map<String, Object>> employeeList = managerService.getSearchResign();
+        
+        
+        if (employeeList != null) {
+            for (Map<String, Object> emp : employeeList) {
+                Object genderObj = emp.get("gender");
+                if (genderObj != null) {
+                    String genderCode = genderObj.toString();
+                    if ("0".equals(genderCode)) {
+                        emp.put("gender", "남자");
+                    } else if ("1".equals(genderCode)) 	{
+                        emp.put("gender", "여자");
+                    } else {
+                        emp.put("gender", "-");
+                    }
+                }
+            }
+        }
+        
 
+        mv.addObject("employeeList", employeeList);
+        
+    	return mv;
+    }
+    
+    @GetMapping("/resignedEmployees")
+    public ModelAndView getresignedEmployees(@RequestParam("searchType") String searchType,
+    										 @RequestParam("keyword") String keyword) {
+    	ModelAndView mv= new ModelAndView("PersonnelManagement/ResignManagement/resignDateList");
+    	Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("searchType", searchType);
+        paramMap.put("keyword",keyword);
+    	
+    	
+    	 List<Map<String, Object>> employeeList = managerService.getSearchKeyWord(paramMap);
+
+    	 mv.addObject("employeeList", employeeList);
+     return mv;
+    }
+    
+    @PostMapping("/updateQuitter")
+    public ModelAndView updateQuitterStatus(@RequestParam("emp_id") List<String> emp_id,
+                                            @RequestParam("quitter") List<String> quitter) {
+       
+        for (int i = 0; i < emp_id.size(); i++) {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("emp_id", emp_id.get(i));
+            paramMap.put("quitter", quitter.get(i));
+            managerService.updateQuitter(paramMap);
+            managerService.updateUserRemove(paramMap);
+        }
+
+        List<Map<String, Object>> employeeList = managerService.getSearchResign();
+
+        ModelAndView mv = new ModelAndView("PersonnelManagement/ResignManagement/resignDateList");
+        mv.addObject("employeeList", employeeList);
+
+        return mv;
+    }
+    
+    
+    
+    
+    
     
 }
