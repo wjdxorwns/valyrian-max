@@ -76,6 +76,51 @@ td:last-child:contains( '답변완료 ') {
 td:last-child:contains( '미답변 ') {
 	color: #ff4d4f;
 }
+
+
+
+
+table tfoot ol.paging {
+	list-style: none;
+}
+
+table tfoot ol.paging li {
+	float: left;
+	margin-right: 8px;
+}
+
+table tfoot ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	border: 1px solid #00B3DC;
+	color: #2f313e;
+	font-weight: bold;
+}
+
+table tfoot ol.paging li a:hover {
+	background: #00B3DC;
+	color: white;
+	font-weight: bold;
+}
+
+.disable {
+	padding: 3px 7px;
+	border: 1px solid silver;
+	color: silver;
+}
+
+.now {
+	padding: 3px 7px;
+	border: 1px solid #4682b4;
+	background: #4682b4;
+	color: white;
+	font-weight: bold;
+}
+a { text-decoration: none; }
+
+
+
+
 </style>
 </head>
 <link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>"
@@ -97,7 +142,7 @@ td:last-child:contains( '미답변 ') {
 
 	<main style="margin: 80px auto 200px auto;">
 		<h2 style="margin-top: 80px;">QnA 게시판</h2>
-
+	
 		<a href="qnaWrite.jsp"
 			onclick="window.open('${pageContext.request.contextPath}/qnaWrite', 'qnaPopup', 'width=600,height=600,scrollbars=yes'); return false;">글쓰기</a>
 
@@ -112,36 +157,61 @@ td:last-child:contains( '미답변 ') {
 				</tr>
 			</thead>
 			<tbody>
+			<c:set var="count" value="${paging.totalRecord - (paging.nowPage - 1) * paging.numPerPage}" />
 				<c:forEach var="q" items="${qnaList}" varStatus="v">
 					<tr>
-						<td>${qnaList.size() - v.index}</td>
+						<td>${count}</td>
 						<td><a href="qnaDetail?answer_id=${q.answer_id}">${q.question_title}</a></td>
 						<td>${q.emp_name}</td>
 						<td>${q.question_date}</td>
 						<td>${q.answer_status}</td>
 					</tr>
+					 <c:set var="count" value="${count - 1}" />
 				</c:forEach>
 			</tbody>
+<tfoot>
+  <tr>
+    <td colspan="5" style="text-align: center;">
+      <ol class="paging">
+
+        <!-- 이전 페이지 (1페이지보다 작아지면 비활성화) -->
+        <c:choose>
+          <c:when test="${paging.nowPage <= 1}">
+            <li class="disable">«</li>
+          </c:when>
+          <c:otherwise>
+            <li><a href="/qna?nowPage=${paging.nowPage - 1}">«</a></li>
+          </c:otherwise>
+        </c:choose>
+
+        <!-- 페이지 번호 -->
+        <c:forEach begin="${paging.beginBlock}" end="${paging.endBlock}" var="k">
+          <c:choose>
+            <c:when test="${k == paging.nowPage}">
+              <li class="now">${k}</li>
+            </c:when>
+            <c:otherwise>
+              <li><a href="/qna?nowPage=${k}">${k}</a></li>
+            </c:otherwise>
+          </c:choose>
+        </c:forEach>
+
+        <!-- 다음 페이지 (마지막 페이지 이상이면 비활성화) -->
+        <c:choose>
+          <c:when test="${paging.nowPage >= paging.totalPage}">
+            <li class="disable">»</li>
+          </c:when>
+          <c:otherwise>
+            <li><a href="/qna?nowPage=${paging.nowPage + 1}">»</a></li>
+          </c:otherwise>
+        </c:choose>
+
+      </ol>
+    </td>
+  </tr>
+</tfoot>
 		</table>
-		<div style="text-align: center; margin-top: 30px;">
-			<c:if test="${paging.beginBlock > 1}">
-				<a href="qna?nowPage=${paging.beginBlock - 1}">[이전]</a>
-			</c:if>
-			<c:forEach var="i" begin="${paging.beginBlock}"
-				end="${paging.endBlock}">
-				<c:choose>
-					<c:when test="${i == paging.nowPage}">
-						<strong>[${i}]</strong>
-					</c:when>
-					<c:otherwise>
-						<a href="qna?nowPage=${i}">[${i}]</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${paging.endBlock < paging.totalPage}">
-				<a href="qna?nowPage=${paging.endBlock + 1}">[다음]</a>
-			</c:if>
-		</div>
+		
 
 
 

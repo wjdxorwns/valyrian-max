@@ -75,7 +75,7 @@
     SELECT * FROM question
     WHERE deletable = 0
     ORDER BY answer_id DESC
-    LIMIT #{limit} OFFSET #{offset}
+    LIMIT #{numPerPage} OFFSET #{offset}
 </select>
 
 <select id="selectByEmpIdxPaging" parameterType="map" resultType="map">
@@ -83,7 +83,7 @@
     WHERE emp_idx = #{empIdx}
     AND deletable = 0
     ORDER BY answer_id DESC
-    LIMIT #{limit} OFFSET #{offset}
+    LIMIT #{numPerPage} OFFSET #{offset}
 </select>
 	
 	
