@@ -2,15 +2,24 @@
 package com.ict.project.repository;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.project.vo.management.PermissionVO;
+import com.ict.project.vo.management.RequestVO;
 import com.ict.project.vo.personnel.EmployeeVO;
+import com.ict.project.vo.personnel.PersonnelChangeVO;
 import com.ict.project.vo.personnel.UsersVO;
+import com.ict.project.vo.personnel.WorkTypeVO;
+import com.ict.project.vo.personnel.VacationVO;
+import com.ict.project.vo.personnel.SalaryVO;
 import com.ict.project.vo.personnel.pFile.EmpPictureVO;
+import com.ict.project.vo.personnel.pFile.UsersignVO;
 
 @Repository
 public class ManagerDAO {
@@ -33,7 +42,7 @@ public class ManagerDAO {
 			return sqlSessionTemplate.selectOne("manager.checkEmpIdxDuplicate", emp_idx);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0; // 예외 발생 시 중복 아님으로 간주
+			return 0;
 		}
 	}
 
@@ -61,16 +70,52 @@ public class ManagerDAO {
 			sqlSessionTemplate.insert("manager.insertEmpPicture", vo);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException("직원 사진 등록 중 오류가 발생했습니다.", e);
+		}
+	}
+	
+	
+	
+	// 서명 등록
+	public void insertUsersign(UsersignVO usersign) {
+		try {
+			sqlSessionTemplate.insert("manager.insertUsersign", usersign);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
+	// 요청 등록
+	public void insertRequest(EmployeeVO employee) {
+		try {
+			sqlSessionTemplate.insert("manager.insertRequest", employee);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 권한 등록
+	public void insertPermission(EmployeeVO employee) {
+		try {
+			sqlSessionTemplate.insert("manager.insertPermission", employee);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// permission 테이블에서 emp_idx 제거
+		public int removePermission(String emp_idx) {
+	    return sqlSessionTemplate.delete("manager.removePermission", emp_idx);
+	}
+	
+	
 	// 직원아이디(email) 중복 확인
 	public int countByEmail(String email) {
 		try {
 			return sqlSessionTemplate.selectOne("manager.checkEmailDuplicate", email);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0; // 실패 시 기본값
+			return 0;
 		}
 	}
 
@@ -80,17 +125,113 @@ public class ManagerDAO {
 			return sqlSessionTemplate.selectOne("manager.checkEmpIdDuplicate", empId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0; // 실패 시 기본값
+			return 0;
 		}
 	}
 
-	// 중복확인
+	// 전화번호 중복 확인
 	public int countByPhoneNumber(String phoneNumber) {
 		try {
 			return sqlSessionTemplate.selectOne("manager.checkPhoneNumberDuplicate", phoneNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return 0; // 실패 시 기본값
+			return 0;
 		}
 	}
+	// employee 테이블 업데이트
+	public int updateEmployee(EmployeeVO employee) {
+	    return sqlSessionTemplate.update("manager.updateEmployee", employee);
+	}
+	// user 테이블 업데이트
+	public int updateUser(Map<String, Object> param) {
+	    return sqlSessionTemplate.update("manager.updateUser", param);
+	}
+	// 사진 테이블 업데이트
+	public int updateProfileImage(EmpPictureVO picture) {
+	    return sqlSessionTemplate.update("manager.updateProfileImage", picture);
+	}
+
+	
+
+	// 직원 정보 전체 조회 (Map 형태로 반환)
+	public List<Map<String, Object>> getAllEmployees(String searchType, String keyword) {
+		try {
+			Map<String, Object> params = new HashMap<>();
+			params.put("searchType", searchType);
+			params.put("keyword", keyword);
+			return sqlSessionTemplate.selectList("manager.getAllEmployees", params);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
+	}
+
+	// 직원 상세 정보 조회 (통합)
+	public Map<String, Object> getEmployeeDetail(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getEmployeeDetail", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Collections.emptyMap();
+		}
+	}
+
+	// 사용자 정보 조회
+	public UsersVO getUserByEmpIdx(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getUserByEmpIdx", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 인사 발령 정보 조회
+	public PersonnelChangeVO getPersonnelChangeByEmpIdx(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getPersonnelChangeByEmpIdx", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 근무 방식 정보 조회
+	public WorkTypeVO getWorkTypeByEmpIdx(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getWorkTypeByEmpIdx", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 휴가 정보 조회
+	public VacationVO getVacationByEmpIdx(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getVacationByEmpIdx", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+	// 권한 정보 조회
+	public PermissionVO getPermissionByEmpIdx(String emp_idx) {
+		try {
+			return sqlSessionTemplate.selectOne("manager.getPermissionByEmpIdx", emp_idx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 직원 상세 조회
+	public Map<String, Object> getEmployeeById(String emp_idx) {
+		System.out.println("DAO emp_idx: " + emp_idx);
+	    return sqlSessionTemplate.selectOne("manager.getEmployeeById", emp_idx);
+	    
+	}
+	 
 }
