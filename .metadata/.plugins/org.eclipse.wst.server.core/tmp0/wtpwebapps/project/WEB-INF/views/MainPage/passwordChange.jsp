@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경 - 3부상조</title>
-<link href="<c:url value='/resources/css/Header.css' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/Footer.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/Header.css' />"
+	rel="stylesheet">
+<link href="<c:url value='/resources/css/Footer.css' />"
+	rel="stylesheet">
 
 <style>
 .reset-container {
@@ -96,14 +98,21 @@
 			<div class="reset-box">
 				<h2 class="reset-title">비밀번호 변경</h2>
 				<p class="reset-subtitle">새 비밀번호를 입력하세요.</p>
-				<form id="resetForm" action="<c:url value='/reset-password/submit' />" method="post">
+				<form id="resetForm"
+					action="<c:url value='/reset-password/submit' />" method="post">
 					<div class="input-group">
-						<label for="new_password">새 비밀번호</label>
-						<input type="password" id="new_password" name="new_password" placeholder="새 비밀번호를 입력하세요" required>
+						<label for="emp_email">이메일</label> <input type="email"
+							id="emp_email" name="emp_email" placeholder="이메일을 입력하세요" required>
 					</div>
 					<div class="input-group">
-						<label for="confirm_password">새 비밀번호 확인</label>
-						<input type="password" id="confirm_password" name="confirm_password" placeholder="비밀번호를 다시 입력하세요" required>
+						<label for="new_password">새 비밀번호</label> <input type="password"
+							id="new_password" name="new_password" placeholder="새 비밀번호를 입력하세요"
+							required>
+					</div>
+					<div class="input-group">
+						<label for="confirm_password">새 비밀번호 확인</label> <input
+							type="password" id="confirm_password" name="confirm_password"
+							placeholder="비밀번호를 다시 입력하세요" required>
 					</div>
 					<button type="submit" class="reset-button">비밀번호 변경</button>
 				</form>
@@ -115,19 +124,27 @@
 	<jsp:include page="/resources/jsp/Footer.jsp" />
 
 	<script>
-		document.getElementById('resetForm').addEventListener('submit', function(e) {
-			const newPassword = document.getElementById('new_password').value;
-			const confirmPassword = document.getElementById('confirm_password').value;
-			if (!newPassword || !confirmPassword) {
-				e.preventDefault();
-				alert('모든 비밀번호 입력란을 채워주세요.');
-				return;
-			}
-			if (newPassword !== confirmPassword) {
-				e.preventDefault();
-				alert('비밀번호가 일치하지 않습니다.');
-			}
-		});
-	</script>
+    document.getElementById('resetForm').addEventListener('submit', function (e) {
+        const empEmail = document.getElementById('emp_email').value;
+        const newPassword = document.getElementById('new_password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        if (!empEmail) {
+            e.preventDefault();
+            alert('이메일을 입력하세요.');
+            return;
+        }
+        if (!newPassword || !confirmPassword) {
+            e.preventDefault();
+            alert('모든 비밀번호 입력란을 채워주세요.');
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+    });
+</script>
 </body>
 </html>

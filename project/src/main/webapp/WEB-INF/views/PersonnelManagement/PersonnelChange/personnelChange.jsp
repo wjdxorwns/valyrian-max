@@ -1,268 +1,398 @@
-<!-- 작성자: 김기섭 | 기여자: 김재겸 -->
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 작성자 : 한찬욱 | 기여자 : 김재겸, 김용호 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="3부상조 - 보직 발령">
-<title>3부상조 - 보직 발령</title>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="<c:url value='/resources/css/Main.css' />" rel="stylesheet">
-    <link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
-    <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
-    <link href="<c:url value='resources/css/KimKS/CSS_personnel_change_detail.css' />" rel="stylesheet">
-    <link href="<c:url value='resources/css/KimKS/CSS_name_search' />" rel="stylesheet">
-    <!-- Font Awesome for social icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
-    <style type="text/css">
-        /* Override and enhance styles for payroll info page */
-        body {
-            font-family: 'Roboto', sans-serif; /* Use Roboto for consistency */
-        }
+<meta charset="UTF-8">
+<title>관리자 - 발령 승인 화면</title>
+<!-- 폰트 로드 -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+	rel="stylesheet">
+<!-- Font Awesome for social icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- CSS 파일 링크 -->
+<link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
+<link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
 
-        main {
-            margin-top: 60px;
-            margin-left: 200px;
-            padding: 2rem;
-            max-width: calc(100% - 200px);
-            min-height: calc(100vh - 60px);
-            background: none; /* Remove background image for clarity */
-            color: #333;
-            text-align: left;
-        }
-
-        .employee-section {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            max-width: 100%;
-        }
-
-        .employee-section h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 1rem;
-            margin-left: 0; /* Override CSS_working_ways.css */
-        }
-
-        .employee-section h4 {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-            margin-left: 0; /* Override CSS_working_ways.css */
-        }
-
-        /* Search and Filter Area */
-        .search-filter {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .search-filter input[type="text"] {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            width: 200px;
-        }
-
-        .search-filter select {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            width: 150px;
-            appearance: none;
-            padding-right: 2rem;
-        }
-
-        .search-filter .total-cost {
-            font-size: 1rem;
-            color: #333;
-            font-weight: bold;
-        }
-
-		
-
-        /* Table Styles (Enhanced from CSS.css) */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        table th,
-        table td {
-            padding: 1rem;
-            border: 1px solid #ddd;
-        }
-        
-        /* 체크박스 열 너비 조정 */
-	tbody td:first-child,
-	thead th:first-child {
-    width: 100px;
-    text-align: center;
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/KimYH/CSS_vacation.css">
+<style type="text/css">
+#standby {
+	border: 1px solid black;
+	background-color: #fff;
+	margin-top: 10px;
+	overflow: hidden;
 }
 
-        table thead {
-            background-color: #87ceeb; /* Sky blue theme */
-            color: #fff;
-        }
-
-        table tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        table tbody tr:hover {
-            background-color: #e0f4ff; /* Light sky blue on hover */
-        }
-
-        table input[type="checkbox"] {
-            cursor: pointer;
-        }
-        
-        tbody td {
-    	text-align: center;		
+#standby p {
+	text-align: center;
+	margin-top: 10px;
 }
 
-        /* Action Buttons */
-        .action-buttons {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
+#complete {
+	border: 1px solid black;
+	background-color: #fff;
+	margin-top: 50px;
+	overflow: hidden;
+}
 
-        .action-buttons button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
+#complete p {
+	text-align: center;
+	margin-top: 10px;
+}
 
-        .download-btn {
-            background-color: #87ceeb;
-            color: #fff;
-        }
+/* 공통 */
+table {
+	margin-top: 10px;
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
+	width: 100%;
+}
 
-        .download-btn:hover {
-            background-color: #6ab7d5;
-        }
+th, td {
+	height: 50px;
+	text-align: center;
+	border: 1px solid black;
+	padding: 8px;
+}
 
-        .cancel-btn {
-            background-color: #ccc;
-            color: #333;
-        }
+#button {
+	margin: 5px;
+	padding: 5px;
+	align-items: flex-end;
+	justify-content: flex-end;
+	float: right;
+}
 
-        .cancel-btn:hover {
-            background-color: #bbb;
-        }
+tbody tr:hover {
+	background-color: #f5f5f5; /* 마우스 오버 시 배경색 */
+}
 
+#personChange_detail {
+	display: none;
+	position: fixed;
+}
 
+/* 모달 스타일 */
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+}
+
+.detail-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%;
+	position: relative;
+}
+
+.button-area {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.button-area input[type="button"] {
+	margin: 0 10px;
+	padding: 5px 15px;
+}
+
+.close {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
+
 	<!-- Header -->
-    <jsp:include page="/resources/jsp/Header.jsp" />
-    <header id="main-header">
-        <div id="logo"><a href="/">3부상조</a></div>
-        <nav>
-            <ul class="nav-items">
-        <li><a href="/">직원등록</a></li>
-        <li><a href="/">근무 지정</a></li>
-        <li><a href="/">인사 관리</a></li>
-        <li><a href="/">급여</a></li>
-        <li><a href="/">휴가</a></li>
-      </ul>
-        </nav>
-    </header>
+	<jsp:include page="/resources/jsp/Header.jsp" />
 
-    <!-- Sidebar -->
-    <aside id="sidebar">
-        <nav>
-            <ul>
-                <li><a href="/">인사관리</a></li>
-                <li><a href="/payrollInfo">보직 이동</a></li>
-            </ul>
-        </nav>
-    </aside>
-    
-<!-- Main Content -->
+	<!-- Aside -->
+	<jsp:include page="/resources/jsp/VacationAside.jsp" />
 
-<main>
-	 <section class="employee-section">
-		<h2>보직 이동</h2>
-		<h4>관리자가 임직원의 호봉, 부서 등 인사정보 관리</h4>
-		
-		<!-- Search and Filter -->
-			<div id="NameSearch">		
-			<input type="text" value="" placeholder="직원명/직원번호 입력 "> 
-			<input type="button" value="검색">
+	<main>
+		<h2>직원 근무지 이동 신청 사항</h2>
+			<div id="title">
+			</div>
+			<!-- 발령 대기 목록 Request Table Request_idx, request_personnelchange, request_text, team, position, emp_name, user_email -->
+			<div id="standby">
+				<p>근무지 이동 신청 목록</p>
+				<table>
+					<thead>
+						<tr>
+							<th style="width: 150px;">사원 번호</th>
+							<th>부서</th>
+							<th>직급</th>
+							<th>이름</th>
+							<th>e-mail</th>
+							<th>이전 근무지</th>
+							<th>새 근무지</th>
+							<th>결제</th>
+							<th>비고(사유)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${empty personChangeList}">
+								<tr>
+									<td colspan="9" class="no-data">근무지 이동 신청 내역이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="request" items="${personChangeList}">
+									<c:if test="${request.status == 0 or empty request.status}">
+										<tr>
+											<td>${request.emp_id}</td>
+											<td>${request.team}</td>
+											<td>${request.position}</td>
+											<td>${request.emp_name}</td>
+											<td>${request.emp_email}</td>
+											<td>${request.prev_dept_id}</td>
+											<td>${request.new_dept_id}</td>
+											<td><input type="button" value="승인/반려" onclick="showModal(${request.request_idx}, event)"></td>
+											<td><input type="text" name="comment_${request.request_idx}" value="${request.request_text}"></td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
+				<input id="button" type="button" value="변경" onclick="showModal()">
 			</div>
 
-		 <!-- Detail Table -->
-    <table>
-        <thead>
-            <tr>
-                <th>직원번호</th>
-                <th>직원명</th>
-                <th>부서</th>
-                <th>직책</th>
-                <th>발령 구분</th>
-                <th>발령 부서</th>
-                <th>발령일</th>
-                <th>발령사항</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- 데이터 로딩 -->
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
-    </table>
-   
-   <div class="detail-section">
-  <h3>세부 내용</h3>
-  <div class="detail-row">
-    <label>직원명:</label> <input type="text" name="empName" />
-  </div>
-  <div class="detail-row">
-    <label>발령 구분:</label> <input type="text" name="changeType" />
-  </div>
-  <div class="detail-row">
-    <label>발령 사항:</label> <input type="text" name="changeDesc" />
-  </div>
-  <div class="detail-row">
-    <label>발령일:</label> <input type="date" name="changeDate" />
-  </div>
-  <div class="detail-row">
-    <label>발령 부서:</label> <input type="text" name="newDept" />
-  </div>
-</div>
-  <!-- Action Buttons -->
-    	<div class="action-buttons">
-    		<button class="create-btn">신규</button>
-    		<button class="update-btn">저장</button>
-    		<button class="cancel-btn">취소</button>
-		</div>
-	</section>
-</main>
-   <!-- Footer -->
-    <jsp:include page="/resources/jsp/Footer.jsp" />
-</body>
+			<div id="complete">
+				<p>근무지 이동 승인 목록</p>
+				<table>
+					<thead>
+						<tr>
+							<th style="width: 150px;">사원 번호</th>
+							<th>부서</th>
+							<th>직급</th>
+							<th>이름</th>
+							<th>e-mail</th>
+							<th>이전 근무지</th>
+							<th>새 근무지</th>
+							<th>결제</th>
+							<th>비고(사유)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${empty personChangeList}">
+								<tr>
+									<td colspan="9" class="no-data">발령 승인 내역이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="request" items="${personChangeList}">
+									<c:if test="${request.status == 1}">
+										<tr>
+											<td>${request.emp_id}</td>
+											<td>${request.team}</td>
+											<td>${request.position}</td>
+											<td>${request.emp_name}</td>
+											<td>${request.emp_email}</td>
+											<td>${request.prev_dept_id}</td>
+											<td>${request.new_dept_id}</td>
+											<td>
+												<select name="status_${request.change_id}">
+													<option value="승인">승인</option>
+													<option value="반려">반려</option>
+												</select>
+											</td>
+											<td>${request.request_text}</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
+			</div>
 
+
+			<div id="personChange_detail" class="modal">
+				<div class="detail-content">
+					<input type="hidden" id="modal_request_idx" value="">
+					<div id="title">
+						<h2>근무지 이동 신청 상세</h2>
+					</div>
+					<table>
+						<tbody>
+							<tr>
+								<th>사원번호</th>
+								<td id="detail_emp_id"></td>
+							</tr>
+							<tr>
+								<th>부서</th>
+								<td id="detail_team"></td>
+							</tr>
+							<tr>
+								<th>직급</th>
+								<td id="detail_position"></td>
+							</tr>
+							<tr>
+								<th>이름</th>
+								<td id="detail_emp_name"></td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td id="detail_emp_email"></td>
+							</tr>
+							<tr>
+								<th>이전 근무지</th>
+								<td id="detail_prev_dept"></td>
+							</tr>
+							<tr>
+								<th>새 근무지</th>
+								<td id="detail_new_dept"></td>
+							</tr>
+							<tr>
+								<th>결제</th>
+								<td><select name="modal_status">
+										<option value="1">승인</option>
+										<option value="0">반려</option>
+								</select></td>
+							</tr>
+							<tr>
+								<th>비고(사유)</th>
+								<td><input type="text" name="modal_comment" value=""></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="button-area">
+						<input type="button" value="적용" onclick="Approval_ok()">
+						<input type="button" value="취소" class="close">
+					</div>
+				</div>
+			</div>
+	</main>
+
+	<!-- Footer -->
+	<jsp:include page="/resources/jsp/Footer.jsp" />
+
+	<script type="text/javascript">
+	
+		// 모달 관련 변수
+		const modal = document.getElementById("personChange_detail");
+		const closeBtn = document.getElementsByClassName("close")[0];
+
+		// 테이블 행 클릭 이벤트
+		document.querySelectorAll("#standby tbody tr").forEach(row => {
+			row.addEventListener("click", function() {
+				const cells = row.getElementsByTagName("td");
+				
+				// 모달 내용 업데이트
+				document.getElementById("detail_emp_idx").textContent = cells[0].textContent;
+				document.getElementById("detail_team").textContent = cells[1].textContent;
+				document.getElementById("detail_position").textContent = cells[2].textContent;
+				document.getElementById("detail_emp_name").textContent = cells[3].textContent;
+				document.getElementById("detail_emp_email").textContent = cells[4].textContent;
+				
+				// select 값 설정
+				const modalSelect = document.querySelector("select[name='modal_status']");
+				modalSelect.value = cells[5].querySelector("select").value;
+				
+				// input 값 설정
+				const modalInput = document.querySelector("input[name='modal_comment']");
+				modalInput.value = cells[6].querySelector("input").value;
+				
+				// 모달 표시
+				modal.style.display = "block";
+			});
+		});
+
+		// 모달 닫기 버튼
+		closeBtn.onclick = function() {
+			modal.style.display = "none";
+		};
+
+		// 모달 외부 클릭시 닫기
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+
+		// Approval_ok 함수 수정
+		function Approval_ok(f) {
+			const approvals = [];
+			
+			if (modal.style.display === "block") {
+				// 모달이 열려있을 때는 모달의 데이터만 처리
+				approvals.push({
+					request_idx: document.getElementById("modal_request_idx").value,
+					status: document.querySelector("select[name='modal_status']").value === "승인" ? "승인" : "반려",
+					comment: document.querySelector("input[name='modal_comment']").value
+				});
+			} else {
+				// 모달이 닫혀있을 때는 테이블의 모든 행 처리
+				const rows = document.querySelectorAll("#standby tbody tr");
+				rows.forEach(row => {
+					const button = row.querySelector("input[type='button']");
+					const request_idx = button.getAttribute("onclick").match(/\d+/)[0];
+					
+					approvals.push({
+						request_idx: request_idx,
+						status: row.querySelector("select").value === "승인" ? "승인" : "반려",
+						comment: row.querySelector("input[type='text']").value
+					});
+				});
+			}
+			
+			// AJAX로 서버에 전송
+		    fetch('/updatePersonChangeStatus', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(approvals)
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        if (data.success) {
+		            alert("승인 처리가 완료되었습니다.");
+		            location.reload();
+		        } else {
+		            alert("오류가 발생했습니다.");
+		        }
+		    })
+		    .catch(error => console.error('Error:', error));
+		}
+		
+		function showModal(request_idx, event) {
+			if (!event) event = window.event;
+			const row = event.target.closest('tr');
+			const cells = row.getElementsByTagName("td");
+			
+			// request_idx를 hidden input에 저장
+			document.getElementById("modal_request_idx").value = request_idx;
+			
+			// 모달 내용 업데이트
+			document.getElementById("detail_emp_id").textContent = cells[0].textContent;
+			document.getElementById("detail_team").textContent = cells[1].textContent;
+			document.getElementById("detail_position").textContent = cells[2].textContent;
+			document.getElementById("detail_emp_name").textContent = cells[3].textContent;
+			document.getElementById("detail_emp_email").textContent = cells[4].textContent;
+			document.getElementById("detail_prev_dept").textContent = cells[5].textContent;
+			document.getElementById("detail_new_dept").textContent = cells[6].textContent;
+			
+			// 모달 표시
+			modal.style.display = "block";
+		}
+		
+	</script>
+
+</body>
 </html>

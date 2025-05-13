@@ -109,3 +109,43 @@ nav .dropdown-menu li a:hover {
     background-color: #e6f0fa;
     color: #003399;
 }
+/* 알림 아이콘 컨테이너 스타일 */
+.nav-item.notification-icon {
+    margin-left: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    line-height: 1;
+}
+
+/* 알림 아이콘 자체 스타일 (종 모양 아이콘) */
+.nav-item.notification-icon a {
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* 마우스를 올렸을 때 알림 아이콘의 스타일 */
+.nav-item.notification-icon a:hover {
+    color: #e6f0fa;
+}
+
+/* 알림 뱃지 스타일 (숫자 표시 부분) */
+.notification-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 10px;
+    position: absolute;
+    top: 20px;
+    right: -5px;
+    transform: translate(0%, -50%);
+    line-height: 1;
+    min-width: 18px;
+    text-align: center;
+    box-sizing: border-box;
+    white-space: nowrap;
+    z-index: 10000;
+}

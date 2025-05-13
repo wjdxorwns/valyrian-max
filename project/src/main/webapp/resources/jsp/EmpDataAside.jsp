@@ -17,7 +17,6 @@ aside {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 9997; 
     height: -webkit-fill-available;
-    
 }
 
 aside .aside-item {
@@ -64,10 +63,10 @@ aside .aside-item ul li a:hover {
 	<div class= "aside-item">
      <h2>인사관리</h2>
         <ul>
-            <li><a href="/hrTransfer">직원 근무지 등록</a></li>
-            <li><a href="/hrRetirement">직원 리스트 조회 및 관리</a></li>
+            <li><a href="/personnelChange">직원 근무지 등록</a></li>
+            <li><a href="/empDataList">직원 현황 관리</a></li>
             <li><a href="/hrManagement">퇴사 데이터 관리</a></li> <!-- 슈퍼어드민만 접근할 수 있도록 -->
-            <li><a href="/hrManagement">직원 등록</a></li>
+            <li><a href="/empDataRegister">신규 직원 등록</a></li>
         </ul>
        </div>
 </aside>

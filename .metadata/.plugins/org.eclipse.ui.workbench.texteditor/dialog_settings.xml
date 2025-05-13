@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="id"/>
+		<item key="selection" value="다운로드"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="다운로드"/>
+			<item value="다운"/>
+			<item value="날짜"/>
+			<item value="adminPay"/>
+			<item value="String"/>
 			<item value="id"/>
 			<item value="personnelservice"/>
 			<item value="updatePayById"/>
@@ -18,11 +23,6 @@
 			<item value="getPayList"/>
 			<item value="보너스"/>
 			<item value="&lt;!-- 어드민 급여 확인 --&gt;"/>
-			<item value="package com.ict.project.vo.personnel;"/>
-			<item value="50"/>
-			<item value="asid"/>
-			<item value="hei"/>
-			<item value="back"/>
 		</list>
 		<list key="replacehistory">
 		</list>

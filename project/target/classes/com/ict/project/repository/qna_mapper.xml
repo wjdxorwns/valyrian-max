@@ -12,7 +12,6 @@
 		ORDER BY question_date DESC
 	</select>
 
-
 	<select id="empidxlist" parameterType="string" resultType="map">
 		SELECT *
 		FROM question
@@ -29,10 +28,10 @@
 	</select>
 
 	<insert id="insert" parameterType="map">
-		insert into question (emp_idx,emp_name,question_title,question_details)
-		value(#{emp_idx},#{emp_name},#{question_title},#{question_details})
+		<!-- 신규 삽입 시 deletable을 0으로 설정 -->
+		INSERT INTO question (emp_idx, emp_name, question_title, question_details, deletable)
+		VALUES (#{emp_idx}, #{emp_name}, #{question_title}, #{question_details}, 0)
 	</insert>
-
 
 	<select id="qnaDetail" parameterType="string"
 		resultType="com.ict.project.vo.personnel.pFile.QuestionVO">
@@ -54,37 +53,36 @@
 
 	<update id="delete"
 		parameterType="com.ict.project.vo.personnel.pFile.QuestionVO">
-	update question
-	set
-	deletable = 1
-	where answer_id = #{answer_id} 
+		update question
+		set
+		deletable = 1
+		where answer_id = #{answer_id} 
 	</update>
 	
-	
-<select id="totalCount" resultType="int">
-    SELECT COUNT(*) FROM question WHERE deletable = 0
-</select>
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) FROM question WHERE deletable = 0
+	</select>
 
+	<select id="totalCountByEmpIdx" resultType="int" parameterType="String">
+		<!-- 삭제된 항목(deletable = 1) 제외, 활성 항목(deletable = 0)만 카운트 -->
+		SELECT COUNT(*) FROM question WHERE emp_idx = #{empIdx} AND deletable = 0
+	</select>
 
-<select id="totalCountByEmpIdx" resultType="int" parameterType="String">
-    SELECT COUNT(*) FROM question WHERE emp_idx = #{empIdx} AND deletable = 1
-</select>
+	<select id="selectAllPaging" parameterType="com.ict.project.common.QnaPaeging" resultType="map">
+		SELECT * FROM question
+		WHERE deletable = 0
+		ORDER BY answer_id DESC
+		LIMIT #{numPerPage} OFFSET #{offset}
+	</select>
 
-
-<select id="selectAllPaging" parameterType="com.ict.project.common.QnaPaeging" resultType="map">
-    SELECT * FROM question
-    WHERE deletable = 0
-    ORDER BY answer_id DESC
-    LIMIT #{numPerPage} OFFSET #{offset}
-</select>
-
-<select id="selectByEmpIdxPaging" parameterType="map" resultType="map">
-    SELECT * FROM question
-    WHERE emp_idx = #{empIdx}
-    AND deletable = 0
-    ORDER BY answer_id DESC
-    LIMIT #{numPerPage} OFFSET #{offset}
-</select>
+	<select id="selectByEmpIdxPaging" parameterType="map" resultType="map">
+		<!-- 동적 LIMIT과 OFFSET 사용하여 페이지네이션 적용 -->
+		SELECT * FROM question
+		WHERE emp_idx = #{empIdx}
+		AND deletable = 0
+		ORDER BY answer_id DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
 	
 	
 	

@@ -41,7 +41,7 @@
 							required>
 					</div>
 					<div class="options">
-						<a href=" " class="forgot-password">비밀번호 찾기</a>
+						<a href="passwordFind" class="forgot-password">비밀번호 찾기</a>
 					</div>
 					<button type="submit" class="login-button">로그인</button>
 					<c:if test="${loginchk == 'fail'}">

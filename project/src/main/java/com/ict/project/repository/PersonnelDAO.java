@@ -1,3 +1,4 @@
+// PersonnelDAO.java
 package com.ict.project.repository;
 
 import java.sql.Date;
@@ -9,11 +10,62 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.project.vo.management.RequestLoggingVO;
+
 @Repository
 public class PersonnelDAO {
 
     @Autowired
     private SqlSession sqlSession;
+
+    // --- Vacation Related Methods ---
+    // 신청 된 모든 휴가
+    public List<Map<String, Object>> getAllVacations() {
+        // Changed namespace from "com.ict.project.repository.PersonnelDAO" to "personnel"
+        return sqlSession.selectList("personnel.getAllVacations");
+    }
+
+    // 휴가 승인 대기
+    public List<Map<String, Object>> getAllApprovals() {
+        // Changed namespace
+        return sqlSession.selectList("personnel.getAllApprovals");
+    }
+
+    // 휴가 승인 상태 업데이트 (승인/반려)
+    public void updateVacationStatus(Map<String, Object> approval) {
+        // Changed namespace
+        sqlSession.update("personnel.updateVacationStatus", approval);
+    }
+
+    // 휴가 승인 데이터 로그 삽입
+    public void insertVacationLogging(RequestLoggingVO logging) {
+        // Changed namespace
+        sqlSession.insert("personnel.insertVacationLogging", logging);
+    }
+
+    // 개인 휴가 현황 (Overall Inquiry - though controller only uses getUserInquiry)
+    public List<Map<String, Object>> getAllInquiry() {
+        // Changed namespace
+        return sqlSession.selectList("personnel.getAllInquiry");
+    }
+
+    // 특정 사용자 휴가 현황
+    public List<Map<String, Object>> getUserInquiry(int user_idx) {
+        // Changed namespace
+        return sqlSession.selectList("personnel.getUserInquiry", user_idx);
+    }
+
+    // 특정 사용자 잔여 연차 조회
+    public Map<String, Object> getUserVacationDays(int user_idx){
+        // Changed namespace
+        return sqlSession.selectOne("personnel.getUserVacationDays", user_idx);
+    }
+
+    // 휴가 차감
+    public void deductVacationDays(Map<String, Object> approval) {
+        // Changed namespace
+        sqlSession.update("personnel.deductVacationDays", approval);
+    }
 
     public List<Map<String, Object>> searchEmployeesByName(String searchKeyword) {
         return sqlSession.selectList("personnel.findByEmpNameContaining", searchKeyword);
@@ -70,4 +122,20 @@ public class PersonnelDAO {
     public void updatePayById(Map<String, Object> params) {
         sqlSession.update("personnel.updatePayById", params);
     }
+    
+	// 한찬욱
+	// 관리자의 근무지 이동 신청을 받은 테이블 조회
+	public List<Map<String, Object>> getPersonChangeInfor(Map<String, Object> params) {
+	
+        return sqlSession.selectList("personnel.getPersonChangeInfor", params);
+	}
+
+    // 관리자의 근무지 이동 승인 페이지 승인/반려 처리
+    public int updatePersonChangeStatus(List<Map<String, Object>> requestData) {
+        return sqlSession.update("personnel.updatePersonChangeStatus", requestData);  // int 그대로 반환
+    }
+
+   
+
+
 }

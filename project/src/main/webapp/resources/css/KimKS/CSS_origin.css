@@ -1,4 +1,4 @@
-/* 김기섭 기여자:김용호*/
+/* 김기섭 */
 @charset "UTF-8";
        
        /* main CSS */
@@ -8,7 +8,7 @@
 
         main {
             margin-top: 60px;
-            margin-left: 260px;
+            margin-left: 200px;
             padding: 2rem;
             max-width: calc(100% - 200px);
             min-height: calc(100vh - 60px);
@@ -23,7 +23,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             max-width: 100%;
-            overflow-x: auto;
         }
 
         .employee-section h2 {
@@ -83,6 +82,7 @@
             margin: 0;
             font-size: 1rem;
             text-align: center;
+            
         }
 
         table th,
@@ -176,7 +176,6 @@ input, button {
 }
 
 
-
         /* Action Buttons */
         .directory-btn {
             margin-right: 35px;
@@ -242,12 +241,11 @@ input, button {
   	/* 직원 검색 부분 */
 	.search-form {
     display: flex;
+    gap: 10px;
+    margin-left: 600px;
     margin-top: 20px;
-    margin-bottom:20px;
     padding: 0px;
-    align-items: flex-start;
-    justify-content:flex-start;
-    float: none;
+    justify-content: right;
 }
 
 #generate {
@@ -271,3 +269,6 @@ input, button {
 	width: 187px;
 	padding: 5px 10px;
 }
+
+
+

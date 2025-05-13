@@ -41,7 +41,7 @@
         <!-- 1. 로그인 체크가 필요한 페이지 경로 설정 -->
         <mvc:interceptor>
             <mvc:mapping path="/EmployeeRegistration"/>      <!-- 직원 등록(큰 글씨) -->
-            <mvc:mapping path="/employeesRegister"/>        <!-- 직원 등록 -->
+            <mvc:mapping path="/empDataRegister"/>        		<!-- 직원 등록 -->
             <mvc:mapping path="/employeesList"/>            <!-- 직원 리스트 조회 -->
             <mvc:mapping path="/employeesDetails"/>         <!-- 직원 상세 조회 -->
             
@@ -54,25 +54,20 @@
             <mvc:mapping path="/hrRetirement"/>             <!-- 퇴직 관리 -->
             <mvc:mapping path="/hrManagement"/>             <!-- 인사 관리 -->
             
-            <mvc:mapping path="/PayrollManagement"/>        <!-- 급여 관리(큰 글씨) -->
-            <mvc:mapping path="/payrollList"/>              <!-- 급여 리스트 조회 -->
-            <mvc:mapping path="/payrollGrade"/>             <!-- 직급별 급여 리스트 -->
+            <mvc:mapping path="/adminPay"/>       			 <!-- 급여 관리(큰 글씨) -->
+            <mvc:mapping path="/admin_pay_list"/>            <!-- 급여 리스트 조회 -->
+            <mvc:mapping path="/PayrollManagement"/>         <!-- 직급별 급여 리스트 -->
             
-            <mvc:mapping path="/LeaveManagement"/>          <!-- 휴가 관리(큰 글씨) -->
-            <mvc:mapping path="/leaveList"/>                <!-- 휴가 리스트 조회 -->
-            <mvc:mapping path="/leaveRequest"/>             <!-- 휴가 조정 및 신청 -->
+            <mvc:mapping path="/VacationManagement"/>		<!-- 휴가 관리(큰 글씨) -->
+			<mvc:mapping path="/vacationList"/>				<!-- 휴가 리스트 조회 -->
+			<mvc:mapping path="/vacationApproval"/>			<!-- 휴가 조정 및 신청 -->
+			<mvc:mapping path="/vacationInquiry"/>	
             
             <mvc:mapping path="/userProfile"/>              <!-- 내 정보(마이페이지) -->
             
-            <mvc:mapping path="/notice"/>                   <!-- 공지사항 -->
-            <mvc:mapping path="/noticeone"/>                <!-- 최근 게시글 1번째 -->
-            <mvc:mapping path="/noticetwo"/>                <!-- 최근 게시글 2번째 -->
-            <mvc:mapping path="/noticethree"/>              <!-- 최근 게시글 3 번째 -->
-            <mvc:mapping path="/notice_detail"/>            <!-- 공지사항-세부내용 -->
-            <mvc:mapping path="/notice_registeration"/>     <!-- 공지사항-등록 -->
-            
             <mvc:mapping path="/attendance"/>               <!-- 출퇴근기능 -->
             <mvc:mapping path="/electronicpayment"/>        <!-- 전자결제 -->
+            <mvc:mapping path="/calendar"/>                 <!-- 캘린더 -->
             
             <beans:bean class="com.ict.project.common.LoginCheckInterceptor"/>
         </mvc:interceptor>

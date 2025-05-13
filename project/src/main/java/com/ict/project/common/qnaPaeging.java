@@ -28,7 +28,6 @@ public class QnaPaeging {
 		//한번에 가져올 블록의 시작과 끝
 		private int beginBlock =0;
 		private int endBlock =0;
-		
 		public int getNowPage() {
 			return nowPage;
 		}

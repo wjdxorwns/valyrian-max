@@ -105,15 +105,14 @@
 		}
 
 		function downloadExcel() {
-			const userIdx = "${sessionScope.emp_idx}";
-			if (!userIdx) {
-				alert("로그인이 필요합니다.");
-				window.location.href = "<c:url value='/login' />";
-				return;
-			}
-			window.location.href = "<c:url value='/downloadExcel' />?user_idx="
-					+ userIdx;
-		}
+            const emp_idx = "${sessionScope.emp_idx}";
+            if (!emp_idx) {
+                alert("로그인이 필요합니다.");
+                window.location.href = "<c:url value='/login' />";
+                return;
+            }
+            window.location.href = "<c:url value='/downloadExcel' />?emp_idx=" + emp_idx;
+        }
 
 		function cancel() {
 			window.history.back();

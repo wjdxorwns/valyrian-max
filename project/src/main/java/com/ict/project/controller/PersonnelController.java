@@ -1,25 +1,143 @@
 package com.ict.project.controller;
 
+import java.net.URLEncoder;
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.project.service.PersonnelService;
+import com.ict.project.vo.management.RequestLoggingVO;
+import com.ict.project.vo.personnel.UsersVO; // Assuming UsersVO exists and is used for session user
 
 @Controller
 public class PersonnelController {
 
     @Autowired
-    private PersonnelService personnelservice;
+    private PersonnelService personnelService;
 
-    // 관리자 메인 급여 페이지 이동
+    // 휴가 리스트
+    @GetMapping("/vacationList")
+    public ModelAndView VacationListPageGO(HttpSession session) {
+
+        UsersVO user = (UsersVO) session.getAttribute("userVO");
+        if (user == null) {
+            System.out.println("No user in session, redirecting to login");
+            return new ModelAndView("redirect:/login");
+        }
+
+        ModelAndView mv = new ModelAndView("Vacation/vacationList");
+        List<Map<String, Object>> vacationList = personnelService.getAllVacations();
+        Map<String, Map<String, Object>> vacationMap = new HashMap<>();
+        for (Map<String, Object> vacation : vacationList) {
+            vacationMap.put(String.valueOf(vacation.get("vacation_id")), vacation);
+        }
+
+        // ModelAndView에 Map 추가
+        mv.addObject("vacationMap", vacationMap);
+        return mv;
+    }
+
+    // 휴가 승인 및 대기
+    @GetMapping("/vacationApproval")
+    public ModelAndView vacationApprovalPageGO(HttpSession session) {
+
+        UsersVO user = (UsersVO) session.getAttribute("userVO");
+        if (user == null) {
+            System.out.println("No user in session, redirecting to login");
+            return new ModelAndView("redirect:/login");
+        }
+
+        ModelAndView mv = new ModelAndView("Vacation/vacationApproval");
+        List<Map<String, Object>> vacationApproval = personnelService.getAllApprovals();
+        Map<String, Map<String, Object>> vacationMap = new HashMap<>();
+        for (Map<String, Object> vacation : vacationApproval) {
+            vacationMap.put(String.valueOf(vacation.get("vacation_id")), vacation);
+        }
+
+        // ModelAndView에 Map 추가
+        mv.addObject("vacationMap", vacationMap);
+        return mv;
+    }
+
+    @PostMapping("/updateVacationStatus")
+    public ResponseEntity<Map<String, Boolean>> updateVacationStatus(@RequestBody List<Map<String, Object>> approvals) {
+        System.out.println("Received /updateVacationStatus request with approvals: " + approvals);
+        boolean success = personnelService.updateVacationStatuses(approvals);
+
+        if(success) {
+            for(Map<String, Object> approval : approvals) {
+                RequestLoggingVO logging = new RequestLoggingVO();
+                // Ensure request_idx and logging_vacation are correctly mapped from the incoming request body
+                Object requestIdxObj = approval.get("request_idx");
+                if (requestIdxObj instanceof Number) {
+                    logging.setRequest_idx(((Number) requestIdxObj).intValue());
+                } else if (requestIdxObj != null) {
+                    try {
+                        logging.setRequest_idx(Integer.parseInt(String.valueOf(requestIdxObj)));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid request_idx format: " + requestIdxObj);
+                        // Handle error or skip logging for this entry
+                    }
+                }
+                logging.setLogging_vacation(String.valueOf(approval.get("status"))); // 승인 또는 반려
+                logging.setReject(approval.get("comment") != null ? String.valueOf(approval.get("comment")) : ""); // 반려 사유
+
+                personnelService.insertVacationLogging(logging);
+            }
+        }
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("success", success);
+        System.out.println("Returning response: " + response);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/vacationInquiry")
+    public ModelAndView vacationInquiryPageGO(HttpSession session) {
+
+        UsersVO user = (UsersVO) session.getAttribute("userVO");
+        if(user == null) {
+            System.out.println("No user in session, redirecting to login");
+            return new ModelAndView("redirect:/login");
+        }
+
+        ModelAndView mv = new ModelAndView("Vacation/vacationInquiry");
+
+        // 사용자별 휴가 기록 조회
+        List<Map<String, Object>> vacationInquiry = personnelService.getUserInquiry(user.getUser_idx());
+        Map<String, Map<String, Object>> vacationMap = new HashMap<>();
+        for (Map<String, Object> vacation : vacationInquiry) {
+            vacationMap.put(String.valueOf(vacation.get("vacation_id")), vacation);
+        }
+        // 사용자별 잔여 연차 정보 조회
+        Map<String, Object> vacationDays = personnelService.getUserVacationDays(user.getUser_idx());
+
+        mv.addObject("vacationMap", vacationMap);
+        mv.addObject("vacationDays", vacationDays);
+        mv.addObject("user", user);
+        return mv;
+    }
+
+ // 관리자 메인 급여 페이지 이동
     @GetMapping("/adminPay")
     public ModelAndView goToAdminPay() {
         return new ModelAndView("redirect:/admin_pay_list");
@@ -29,7 +147,7 @@ public class PersonnelController {
     @GetMapping("/admin_pay_list")
     public ModelAndView adminPayList() {
         ModelAndView mv = new ModelAndView("Payment/adminPay");
-        List<Map<String, Object>> employeeList = personnelservice.searchEmployeesByName("");
+        List<Map<String, Object>> employeeList = personnelService.searchEmployeesByName("");
         mv.addObject("employeeList", employeeList);
         return mv;
     }
@@ -63,13 +181,13 @@ public class PersonnelController {
 
         switch (searchType) {
             case "name":
-                employeeList = personnelservice.searchEmployeesByName(searchKeyword);
+                employeeList = personnelService.searchEmployeesByName(searchKeyword);
                 break;
             case "department":
-                employeeList = personnelservice.searchEmployeesByDepartment(searchKeyword);
+                employeeList = personnelService.searchEmployeesByDepartment(searchKeyword);
                 break;
             case "position":
-                employeeList = personnelservice.searchEmployeesByPosition(searchKeyword);
+                employeeList = personnelService.searchEmployeesByPosition(searchKeyword);
                 break;
             default:
                 mv.addObject("error", "잘못된 검색 기준입니다.");
@@ -87,7 +205,7 @@ public class PersonnelController {
     	if (!"ok".equals(session.getAttribute("admin"))) {
         	return new ModelAndView("redirect:/index");
         }
-        Map<String, Object> user = personnelservice.serchpaydetail(emp_idx);
+        Map<String, Object> user = personnelService.serchpaydetail(emp_idx);
         
         if (user != null && user.get("gender") != null) {
             String genderCode = user.get("gender").toString();
@@ -100,7 +218,7 @@ public class PersonnelController {
             }
         }
         
-        Map<String, Object> latestSalary = personnelservice.getLatestSalary(emp_idx);
+        Map<String, Object> latestSalary = personnelService.getLatestSalary(emp_idx);
 
         if (latestSalary != null) {
         	 user.put("base_salary", latestSalary.get("base_salary"));
@@ -120,7 +238,7 @@ public class PersonnelController {
         if (!"ok".equals(session.getAttribute("admin"))) {
             return new ModelAndView("redirect:/index");
         }
-        Map<String, Object> user = personnelservice.serchpaydetail(emp_idx);
+        Map<String, Object> user = personnelService.serchpaydetail(emp_idx);
         if (user != null && user.get("gender") != null) {
             String genderCode = user.get("gender").toString();
             if ("0".equals(genderCode)) {
@@ -154,13 +272,13 @@ public class PersonnelController {
             updateParams.put("base_salary", base_salary);
             updateParams.put("bonus", bonus);
 
-            personnelservice.updatePayById(updateParams); // 이 메서드로 변경
+            personnelService.updatePayById(updateParams); // 이 메서드로 변경
 
             Map<String, Object> empParams = new HashMap<>();
             empParams.put("emp_idx", emp_idx);
             empParams.put("base_salary", base_salary);
             empParams.put("bonus", bonus);
-            personnelservice.updateEmployeePay(empParams);
+            personnelService.updateEmployeePay(empParams);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +298,7 @@ public class PersonnelController {
             double bonus = Double.parseDouble(paramMap.get("bonus"));
             Date payment_date = Date.valueOf(paramMap.get("payment_date"));
 
-            if (base_salary <= 0 || personnelservice.isPayRecordExists(emp_idx, payment_date)) {
+            if (base_salary <= 0 || personnelService.isPayRecordExists(emp_idx, payment_date)) {
                 return new ModelAndView("redirect:/admin_pay_list");
             }
 
@@ -190,12 +308,12 @@ public class PersonnelController {
             insertParams.put("bonus", bonus);
             insertParams.put("payment_date", payment_date);
 
-            personnelservice.insertPay(insertParams);
+            personnelService.insertPay(insertParams);
 
             Map<String, Object> empParams = new HashMap<>();
             empParams.put("emp_idx", emp_idx);
             empParams.put("pay", base_salary);
-            personnelservice.updateEmployeePay(empParams);
+            personnelService.updateEmployeePay(empParams);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,19 +328,17 @@ public class PersonnelController {
         ModelAndView mv = new ModelAndView("Payment/pay");
         Map<String, Object> params = new HashMap<>();
         params.put("emp_idx", emp_idx);
-
-        if (payment_date != null && !payment_date.isEmpty()) {
-            if (payment_date.length() == 7) payment_date += "-01";
-            params.put("payment_date", payment_date);
-        }
+        params.put("payment_date", payment_date);
+      
 
         List<Map<String, Object>> paylist;
-        if (params.containsKey("payment_date")) {
-            paylist = personnelservice.serchpaylist(params);
+        if (payment_date != null && !payment_date.isEmpty()) {
+            params.put("payment_date", payment_date);
+            paylist = personnelService.serchpaylist(params);
         } else {
-            paylist = personnelservice.serchpaylistAll(emp_idx);  // ← 새로 추가
+            paylist = personnelService.serchpaylistAll(emp_idx);
         }
-
+        mv.addObject("emp_idx",emp_idx);
         mv.addObject("paylist", paylist);
         return mv;
     }
@@ -235,4 +351,117 @@ public class PersonnelController {
         mv.addObject("emp_idx", emp_idx);
         return mv;
     }
+    
+
+    @GetMapping("/downloadExcel")
+    public void downloadExcel(@RequestParam("emp_idx") String emp_idx, HttpServletResponse response) {
+        try {
+            // 1. 데이터 준비 (예시: 급여 리스트 조회)
+            List<Map<String, Object>> payList = personnelService.serchpaylistAll(emp_idx);
+
+            // 2. 엑셀 생성
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("급여내역");
+
+            // 3. 헤더 작성
+            String[] headers = {"지급일", "기본급", "보너스", "총액"};
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+            }
+
+            // 4. 데이터 작성
+            int rowNum = 1;
+            for (Map<String, Object> pay : payList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(String.valueOf(pay.get("payment_date")));
+                row.createCell(1).setCellValue(Double.parseDouble(String.valueOf(pay.get("base_salary"))));
+                row.createCell(2).setCellValue(Double.parseDouble(String.valueOf(pay.get("bonus"))));
+                row.createCell(3).setCellValue(
+                    Double.parseDouble(String.valueOf(pay.get("base_salary"))) +
+                    Double.parseDouble(String.valueOf(pay.get("bonus")))
+                );
+            }
+
+            // 5. 응답 헤더 설정 및 전송
+            String fileName = "급여내역_" + emp_idx + ".xlsx";
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileName, "UTF-8") + "\"");
+
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    // 한찬욱 
+ 	// 관리자의 근무지 이동 신청을 받은 테이블 조회
+ 	@GetMapping("/personnelChange")
+ 	public ModelAndView getPersonnelChangeRequests(HttpSession session) {
+ 		try{
+ 			ModelAndView mv = new ModelAndView();
+ 			//	세션에서 직접 emp_idx 가져오기 
+ 			String empIdx = (String) session.getAttribute("emp_idx");
+ 				
+ 			if(empIdx == null){
+ 				return new ModelAndView("redirect:/login");
+ 			}
+ 				
+ 			Map<String, Object> params = new HashMap<>();
+ 			params.put("empIdx", empIdx);
+
+				List<Map<String, Object>> personChangeList = personnelService.getPersonChangeInfor(params);
+ 				
+				if (personChangeList == null) {
+ 					return new ModelAndView("error");
+ 				}
+
+ 				mv.addObject("personChangeList", personChangeList);
+ 				mv.setViewName("PersonnelManagement/PersonnelChange/personnelChange");
+ 				return mv;
+
+ 			}catch(Exception e){
+ 				e.printStackTrace();
+ 				return new ModelAndView("error");
+ 			}
+ 		}
+
+ 		// 관리자의 근무지 이동 승인/반려 처리
+ 		@PostMapping("/updatePersonChangeStatus")
+ 		public ResponseEntity<Map<String, Boolean>> updatePersonChangeStatus(@RequestBody List<Map<String, Object>> requestData) {
+ 			try{
+ 				boolean success = personnelService.updatePersonChangeStatus(requestData);
+ 				Map<String, Boolean> response = new HashMap<>();
+ 				response.put("success", success);
+ 				return ResponseEntity.ok(response);
+ 			}catch(Exception e){
+ 				e.printStackTrace();
+ 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+ 			}
+ 		}
+
+
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
 }
