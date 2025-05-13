@@ -1,0 +1,112 @@
+/* CSS_table.css (모든 테이블에 적용될 수 있는 범용 스타일) */
+
+/* .content-table table, .main_body table 등 테이블의 공통 속성 정의 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd; /* 전체 테이블 테두리 */
+    font-size: 14px;
+    table-layout: auto; /* 필요에 따라 fixed로 변경 가능 */
+}
+
+th, td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #f5f5f5;
+    vertical-align: middle;
+}
+
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+thead th {
+    background-color: #eef4f7;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding: 15px 8px;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9fbfc;
+}
+
+tbody tr:hover {
+    background-color: #e0f2f7;
+}
+
+/* "데이터가 없습니다." 메시지 스타일 (CSS_table.css에 넣는다면) */
+/* .content-table tbody td[colspan="7"] {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-style: italic;
+} */
+
+
+/* select box 스타일 (테이블 내에 있다면 여기에) */
+select {
+    width: calc(100% - 4px); /* 부모의 패딩을 고려한 너비 */
+    padding: 6px;
+    border: 1px solid #c9d6df;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 13px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20200.4%2018.3%2075.1a17.6%2017.6%200%200%200-23.2%2024.5l137%20125.2c7.2%206.6%2017.6%206.6%2024.8%200l137-125.2a17.6%2017.6%200%200%200-13-24.5z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    background-size: 10px;
+    cursor: pointer;
+}
+
+/* 작은 화면에서 테이블 공통 조정 */
+@media (max-width: 600px) {
+    table {
+        display: block;
+        width: 100%;
+        min-width: unset;
+    }
+    thead {
+        display: none;
+    }
+    tbody {
+        display: block;
+        width: 100%;
+    }
+    tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 5px 0;
+        position: relative;
+        padding-left: 40%;
+    }
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 35%;
+        text-align: left;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    select {
+        width: 100%;
+        padding: 4px;
+        font-size: 11px;
+    }
+}
