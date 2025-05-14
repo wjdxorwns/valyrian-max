@@ -575,3 +575,27 @@
 5월 11, 2025 18:40:55.428 [26488:664:0511/184055.427:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 5 rejected by interface blink.mojom.WidgetHost
 5월 11, 2025 19:38:47.936 [26488:664:0511/193847.935:ERROR:components\device_event_log\device_event_log_impl.cc:202] [19:38:47.936] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: �슂�냼媛� �뾾�뒿�땲�떎. (0x490)
 5월 11, 2025 20:28:28.44 [26488:664:0511/202828.043:ERROR:chrome\browser\ui\webui\new_tab_page\new_tab_page_handler.cc:1353] NewTabPage loaded into a non-browser-tab context
+
+5월 14, 2025 10:41:29.919 NEW SESSION
+5월 14, 2025 10:41:29.919 Created TensorFlow Lite XNNPACK delegate for CPU.
+5월 14, 2025 10:41:29.947 [12808:22864:0514/104129.947:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 14, 2025 10:41:39.886 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.887 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:39.888 [12808:2824:0514/104139.886:ERROR:CONSOLE:1] "Request Extensions.getStorageItems failed. {"code":-32600,"message":"Extension not found."}", source: devtools://devtools/bundled/core/protocol_client/protocol_client.js (1)
+5월 14, 2025 10:41:51.291 [12808:22864:0514/104151.291:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+5월 14, 2025 10:42:12.181 [12808:2824:0514/104212.181:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 14, 2025 10:42:12.182 [12808:2824:0514/104212.181:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:725] Message 1 rejected by interface blink.mojom.WidgetHost
+5월 14, 2025 10:42:40.204 [12808:22864:0514/104240.204:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
