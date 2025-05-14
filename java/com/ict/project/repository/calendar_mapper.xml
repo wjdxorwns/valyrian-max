@@ -5,40 +5,57 @@
   
 <mapper namespace="calendar">
 	 <select id="getAllEvents" resultType="com.ict.project.vo.personnel.CalendarVO">
-        SELECT * FROM calendar
+        SELECT 
+            c.calendar_idx,
+            c.emp_idx,
+            c.title,
+            c.comment,
+            DATE_FORMAT(c.start_day, '%Y-%m-%d') as start_day,
+            DATE_FORMAT(c.end_day, '%Y-%m-%d') as end_day
+        FROM Calendar c
+        ORDER BY c.start_day DESC
     </select>
 
     <select id="getEventById" parameterType="int" resultType="com.ict.project.vo.personnel.CalendarVO">
-        SELECT * FROM calendar WHERE calendar_idx = #{calendar_idx}
+        SELECT 
+            c.calendar_idx,
+            c.emp_idx,
+            c.title,
+            c.comment,
+            DATE_FORMAT(c.start_day, '%Y-%m-%d') as start_day,
+            DATE_FORMAT(c.end_day, '%Y-%m-%d') as end_day
+        FROM Calendar c
+        WHERE c.calendar_idx = #{calendar_idx}
     </select>
 
     <insert id="insertEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
-        INSERT INTO calendar (emp_idx, title, comment, start_day, end_day)
-        VALUES (#{emp_idx}, #{title}, #{comment}, #{start_day}, #{end_day})
+        INSERT INTO Calendar (
+            emp_idx,
+            title,
+            comment,
+            start_day,
+            end_day
+        ) VALUES (
+            #{emp_idx},
+            #{title},
+            #{comment},
+            #{start_day},
+            #{end_day}
+        )
     </insert>
 
     <delete id="deleteEvent" parameterType="int">
-        DELETE FROM calendar WHERE calendar_idx = #{calendar_idx}
+        DELETE FROM Calendar 
+        WHERE calendar_idx = #{calendar_idx}
     </delete>
 
     <update id="updateEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
-        UPDATE calendar
-        SET title = #{title}, comment = #{comment}, start_day = #{start_day}, end_day = #{end_day}
+        UPDATE Calendar
+        SET 
+            title = #{title},
+            comment = #{comment},
+            start_day = #{start_day},
+            end_day = #{end_day}
         WHERE calendar_idx = #{calendar_idx}
     </update>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

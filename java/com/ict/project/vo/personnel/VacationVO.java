@@ -1,3 +1,4 @@
+
 package com.ict.project.vo.personnel;
 /* 작성자: 한찬욱 */
 public class VacationVO {				//	6. 휴가
@@ -50,4 +51,9 @@ public class VacationVO {				//	6. 휴가
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	
+	
+
 }

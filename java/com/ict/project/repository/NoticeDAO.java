@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.ict.project.common.Paging;
 import com.ict.project.vo.Board.BoardVO;
 
-/**
- * 공지사항 데이터 액세스 객체(DAO) 클래스
- */
 @Repository
 public class NoticeDAO {
 
@@ -45,6 +42,18 @@ public class NoticeDAO {
     }
 
     public void deleteNotice(int boardId) {
-        sqlSession.update(NS + ".deleteNotice", boardId); // 삭제 쿼리 호출
+        sqlSession.update(NS + ".deleteNotice", boardId);
+    }
+
+    public List<BoardVO> getRecentNotices(int limit) {
+        return sqlSession.selectList(NS + ".getRecentNotices", limit);
+    }
+
+    public String getLastUpdatedTime() {
+        return sqlSession.selectOne(NS + ".getLastUpdatedTime");
+    }
+
+    public BoardVO getDefaultNotice() {
+        return sqlSession.selectOne(NS + ".getDefaultNotice");
     }
 }

@@ -71,7 +71,6 @@ public class NoticeServiceImpl implements NoticeService {
     public void updateNotice(BoardVO boardVO, MultipartFile file, String uploadPath) {
         try {
             if (file != null && !file.isEmpty()) {
-                // 새 파일 업로드 처리
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
@@ -79,13 +78,11 @@ public class NoticeServiceImpl implements NoticeService {
                 String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
                 File dest = new File(uploadPath, fileName);
                 file.transferTo(dest);
-                boardVO.setF_name(fileName); // 새 파일명 설정
+                boardVO.setF_name(fileName);
                 logger.info("File uploaded successfully: {}", fileName);
             } else {
                 logger.info("No file uploaded. Existing file name will be used if present.");
             }
-
-            // 공지사항 업데이트 실행
             noticeDAO.updateNotice(boardVO);
             logger.info("Database updated successfully for board_id: {}", boardVO.getBoard_id());
         } catch (Exception e) {
@@ -99,4 +96,24 @@ public class NoticeServiceImpl implements NoticeService {
         logger.info("Deleting notice for boardId: {}", boardId);
         noticeDAO.deleteNotice(boardId);
     }
+
+    @Override
+    public List<BoardVO> getRecentNotices(int limit) {
+        logger.info("Fetching {} recent notices", limit);
+        return noticeDAO.getRecentNotices(limit);
+    }
+
+    @Override
+    public String getLastUpdatedTime() {
+        logger.info("Fetching last updated time for notices");
+        return noticeDAO.getLastUpdatedTime();
+    }
+
+    @Override
+    public BoardVO getDefaultNotice() {
+        logger.info("Fetching default notice");
+        return noticeDAO.getDefaultNotice();
+    }
+    
+    
 }

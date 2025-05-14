@@ -1,7 +1,7 @@
 package com.ict.project.service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Map; // Map import 추가
 
 import com.ict.project.vo.management.PermissionVO;
 import com.ict.project.vo.management.RequestVO;
@@ -11,10 +11,11 @@ import com.ict.project.vo.personnel.UsersVO;
 import com.ict.project.vo.personnel.pFile.EmpPictureVO;
 import com.ict.project.vo.personnel.pFile.UsersignVO;
 
+
 public interface ManagerService {
-    // 직원 등록
+	 // 직원 등록
     void registerEmployee(EmployeeVO employee, UsersVO user, UsersignVO usersign, 
-            PersonnelChangeVO change, RequestVO request, PermissionVO permission) throws Exception;
+             RequestVO request, PermissionVO permission) throws Exception;
     
     // 직원 사진 등록
     void registerEmpPicture(EmployeeVO employeeVO, EmpPictureVO picVO) throws Exception;
@@ -54,5 +55,19 @@ public interface ManagerService {
     // permission 테이블에서 emp_idx 제거
     void removePermission(String emp_idx);
     
+    // 퇴사시 직원 리스트에서 블라 처리
+    List<Map<String, Object>> getResignEmployees();
     
+    
+    
+    
+    List<Map<String, String>> getAllPermissionList();
+	void updatePermissions(String userId, Map<String, Integer> permissions);
+
+	
+	List<Map<String, Object>> getSearchResign();
+	List<Map<String, Object>> getSearchKeyWord(Map<String, Object> paramMap);
+	void updateQuitter(Map<String, Object> paramMap);
+	void updateUserRemove(Map<String, Object> paramMap);
+
 }
