@@ -1,0 +1,423 @@
+@charset "UTF-8";
+/* Font */
+@font-face {
+    font-family: "Noto Sans Kr";
+    font-weight: 100;
+    font-style: normal;
+    src: url("../fonts/NotoSans-Thin.eot") format("eot"),
+        url("../fonts/NotoSans-Thin.otf") format("opentype"),
+        url("../fonts/NotoSans-Thin.woff") format("woff"),
+        url("../fonts/NotoSans-Thin.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Noto Sans Kr";
+    font-weight: 200;
+    font-style: normal;
+    src: url("../fonts/NotoSans-Light.eot") format("eot"),
+        url("../fonts/NotoSans-Light.otf") format("opentype"),
+        url("../fonts/NotoSans-Light.woff") format("woff"),
+        url("../fonts/NotoSans-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Noto Sans Kr";
+    font-weight: 300;
+    font-style: normal;
+    src: url("../fonts/NotoSans-Medium.eot") format("eot"),
+        url("../fonts/NotoSans-Medium.otf") format("opentype"),
+        url("../fonts/NotoSans-Medium.woff") format("woff"),
+        url("../fonts/NotoSans-Medium.woff2") format("woff2");
+}
+
+/* 공통 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Kr', 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* 레이아웃 */
+.wrap {
+    position: relative;
+    width: 100%;
+    min-width: 1280px;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.content {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 150px;
+}
+
+/* Visual Section */
+.visual {
+    position: relative;
+    height: 600px;
+    background: linear-gradient(120deg, #4386cc 0%, #54b7d6 98%),
+        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')
+        no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.visual .txt-box {
+    text-align: center;
+}
+
+.visual .txt-main {
+    position: relative;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.075em;
+    font-weight: 200;
+    font-size: 60px;
+}
+
+.visual .txt-main span {
+    font-weight: 200;
+}
+
+.visual .txt-main::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    margin-left: -13px;
+    width: 26px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.visual .txt-sub {
+    line-height: 1.5;
+    letter-spacing: -0.05em;
+    font-weight: 100;
+    font-size: 22px;
+}
+
+.visual .strong {
+    display: block;
+}
+
+/* Shortcut Section */
+.shortcut {
+    margin-top: -100px;
+    position: relative;
+    z-index: 99;
+}
+
+.shortcut .container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.shortcut .shortcut-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    list-style: none; /* 불릿 제거 */
+}
+
+.shortcut .shortcut-list li {
+    flex: 1;
+    position: relative;
+}
+
+.shortcut-list a {
+    position: relative;
+    padding: 40px 30px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-right: 1px solid #e0e5eb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+    color: #333;
+}
+
+.shortcut-list li:last-child a {
+    border-right: none;
+}
+
+.shortcut-list a:hover {
+    transform: translateY(-5px);
+    background-color: #f8fafc;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.shortcut .txt-main {
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    font-size: 24px;
+    color: #1a2b49;
+    transition: color 0.3s ease;
+}
+
+.shortcut-list a:hover .txt-main {
+    color: #003399;
+}
+
+.shortcut .txt-sub {
+    line-height: 1.6;
+    letter-spacing: -0.03em;
+    font-size: 15px;
+    color: #5a6a85;
+}
+
+.shortcut .img-box {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.shortcut .img-box::before {
+    content: '\f054';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 18px;
+    color: #003399;
+    transition: color 0.3s ease;
+}
+
+.shortcut-list a:hover .img-box {
+    transform: scale(1.1);
+}
+
+.shortcut-list a:hover .img-box::before {
+    color: #4386cc;
+}
+
+/* Article General Styles */
+.article {
+    padding: 80px 0;
+}
+
+.article .txt-box, .article .graphic-box {
+    float: left;
+}
+
+.article .txt-box {
+    width: 30%;
+}
+
+.article .graphic-box {
+    width: 70%;
+}
+
+.article .txt-main {
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: -0.065em;
+    font-size: 40px;
+    color: #000;
+}
+
+.article .txt-sub {
+    line-height: 1.5;
+    letter-spacing: -0.065em;
+    font-size: 18px;
+    color: #666;
+}
+
+.article .txt-sub2 {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 100;
+    letter-spacing: -0.065em;
+    font-size: 18px;
+    color: #000;
+}
+
+.article .txt-sub3 {
+    display: block;
+    padding-top: 20px;
+    font-size: 16px;
+    color: #666;
+    letter-spacing: -0.065em;
+}
+
+/* Recent Posts Section */
+.recent-posts {
+    background-color: #fff;
+}
+
+.recent-posts .graphic-box {
+    padding-left: 40px;
+}
+
+.recent-posts .post-list {
+    list-style: none;
+}
+
+.recent-posts .post-item {
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.recent-posts .post-item:last-child {
+    border-bottom: none;
+}
+
+.recent-posts .post-item a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.recent-posts .post-item:hover a {
+    color: #003399;
+}
+
+.recent-posts .post-title {
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: -0.05em;
+    margin-bottom: 10px;
+}
+
+.recent-posts .post-meta {
+    font-weight: 200;
+    font-size: 14px;
+    color: #666;
+    letter-spacing: -0.05em;
+}
+
+.recent-posts .post-meta span {
+    margin-right: 15px;
+}
+
+/* Info Step Section */
+.info-step {
+    background-color: #f5f7fa;
+}
+
+.info-step .graphic-box {
+    padding-left: 40px;
+}
+
+.info-step .div-step {
+    position: relative;
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.info-step .div-step::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -16px;
+    width: 15px;
+    height: 32px;
+    background: url('../images/common/icon/icon-arrow-right.png') no-repeat;
+}
+
+.info-step .div-step:last-child::after {
+    display: none;
+}
+
+.info-step .step-txt {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    letter-spacing: -0.025em;
+    font-size: 14px;
+    color: #003399;
+}
+
+.info-step .step-num {
+    display: block;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.info-step .step-txt-sub {
+    line-height: 1.5;
+    font-weight: 300;
+    letter-spacing: -0.075em;
+    font-size: 16px;
+    color: #222;
+}
+
+/* Company Info Section */
+.company-info {
+    background-color: #fff;
+}
+
+.company-info .graphic-box {
+    padding-left: 40px;
+}
+
+.company-info .info-details {
+    margin-bottom: 30px;
+}
+
+.company-info .info-details p {
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: -0.05em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.company-info .info-details p strong {
+    font-weight: 400;
+    color: #003399;
+}
+
+.company-info .map-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.1);
+}
+
+.company-info .map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

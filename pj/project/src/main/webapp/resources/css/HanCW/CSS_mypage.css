@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/* 작성자: 한찬욱 */
+
+
+
+.main_body{
+
+	margin-bottom: 100px;
+	}
+
+.container_left {
+	text-align: center;
+	align-items: center; 
+	justify-content: center;
+	}
+
+.infor_table {
+	display: flex;
+	width: 598px;
+	height: 300px;
+	}
+
+.info_title {
+	border: 1px solid black;
+	width: 80px;
+	line-height: 50px;
+	}
+
+
+.und_table {display: flex;}
+
+.set {
+	display: flex;
+	height: 50px;
+	text-align: center;
+	}
+
+.box1 {
+	width: 219px;
+	height: 50px;
+	text-align: center;
+	}
+
+.box2 {
+	width: 219px;
+	height: 50px;
+	text-align: center;
+	}
+
+.box3 {
+	width: 518px;
+	height: 50px;
+	text-align: center;
+	}
+
+
+
+
+.buttons{
+	display: flex;
+	margin-top: 10px;
+	gap: 10px;
+	}
+
+button[type="button"]{
+	width : 100px;
+	}   
+
+
