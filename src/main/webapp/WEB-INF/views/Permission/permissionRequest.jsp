@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- 작성자: 한찬욱 | 기여자: 김재겸-->
+<!-- 작성자: 김재겸 | 기여자: 한찬욱, 김용호 -->
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +12,8 @@
 
 <!-- 화면(CSS) 링크 -->
 
-<link href="<c:url value='/resources/css/Main.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/KimYH/permission.css' />"
+	rel="stylesheet">
 <link href="<c:url value='/resources/css/Header.css' />"
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css' />"
@@ -27,203 +28,12 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-<style type="text/css">
-/* 기본 스타일 */
-.main_body {
-	margin-top: 50px;
-	margin-left: 200px;
-}
-
-table {
-	width: 100%
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	text-align: center;
-	padding: 2px;
-}
-
-tr, th, td {
-	width: 100px;
-}
-
-tr {
-	background-color: skyblue;
-}
-
-button {
-	width: 70px;
-	padding: 2px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.select_box {
-	border: none;
-	background: none;
-	font-size: inherit;
-}
-
-.buttons {
-	text-align: right;
-	margin-right: 50px;
-}
-
-/* 모달 스타일 - 네임스페이스 적용 */
-.perm-request-modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 9999;
-	opacity: 0;
-	transition: opacity 0.3s ease-in-out;
-}
-
-.perm-request-modal.show {
-	opacity: 1;
-}
-
-.perm-request-modal .modal-content {
-	background: #fff;
-	margin: 5% auto;
-	padding: 20px;
-	width: 80%;
-	max-width: 700px;
-	border-radius: 8px;
-	position: relative;
-	max-height: 80vh;
-	overflow: hidden;
-}
-
-.perm-request-modal .close-btn {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-	cursor: pointer;
-	font-size: 24px;
-	z-index: 10000;
-}
-
-.perm-request-modal .modal-body-wrapper {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.perm-request-modal .modal-content-inner {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	/* 모달 내부 컨텐츠 스타일 초기화 */
-	all: initial;
-	display: block;
-	font-family: inherit;
-}
-
-.perm-request-modal .loading {
-	text-align: center;
-	padding: 20px;
-	font-size: 18px;
-	color: #666;
-}
-
-/* 모달 내부 컨텐츠 스타일 격리 */
-.perm-request-modal .modal-content-inner * {
-	box-sizing: border-box;
-	font-family: inherit;
-}
-
-.perm-request-modal .modal-content-inner table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.perm-request-modal .modal-content-inner th, .perm-request-modal .modal-content-inner td
-	{
-	padding: 8px;
-	border: 1px solid #ddd;
-}
-
-/* workingArrangement.jsp 스타일 통합 */
-.perm-request-modal .modal-content-inner .working_arrange_main {
-	padding: 20px;
-}
-
-.perm-request-modal .modal-content-inner .style_input {
-	margin-bottom: 20px;
-}
-
-.perm-request-modal .modal-content-inner .style_input input {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-}
-
-.perm-request-modal .modal-content-inner .container_table {
-	width: 100%;
-	overflow-x: auto;
-}
-
-.perm-request-modal .modal-content-inner .style_table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 20px;
-}
-
-.perm-request-modal .modal-content-inner .style_table thead {
-	background-color: #003399;
-	color: white;
-}
-
-.perm-request-modal .modal-content-inner .style_table th,
-	.perm-request-modal .modal-content-inner .style_table td {
-	padding: 12px;
-	text-align: center;
-	border: 1px solid #ddd;
-}
-
-.perm-request-modal .modal-content-inner .style_table select {
-	width: 100%;
-	padding: 6px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-}
-
-.perm-request-modal .modal-content-inner .style_button {
-	text-align: right;
-	margin-top: 20px;
-}
-
-.perm-request-modal .modal-content-inner .style_button button {
-	padding: 8px 20px;
-	background-color: #003399;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.perm-request-modal .modal-content-inner .style_button button:hover {
-	background-color: #002266;
-}
-</style>
-
-
 </head>
 
 <body>
 	<!-- Header -->
 	<jsp:include page="/resources/jsp/Header.jsp" />
 
-	<jsp:include page="/resources/jsp/PayAside.jsp" />
 
 	<main>
 		<div class="main_body">
@@ -235,9 +45,7 @@ button {
 				</div>
 				<br>
 				<c:if test="${not empty message}">
-					<div class="alert alert-info" role="alert">
-						${message}
-					</div>
+					<div class="alert alert-info" role="alert">${message}</div>
 				</c:if>
 				<table>
 					<thead>
@@ -245,7 +53,6 @@ button {
 							<th>부서</th>
 							<th>이름</th>
 							<th>권한 종류</th>
-							<th>상태</th>
 							<th style="width: 150px;">본인 사인</th>
 							<th style="width: 150px;">관리자 사인</th>
 						</tr>
@@ -266,7 +73,6 @@ button {
 										<c:when test="${sessionScope.role == '관리자'}">
 											<option>휴가 요청</option>
 											<option>근무지 이동 요청</option>
-											<option>보직 이동 요청</option>
 											<option>퇴사 요청</option>
 										</c:when>
 										<c:when test="${sessionScope.role == '슈퍼관리자'}">
@@ -277,16 +83,14 @@ button {
 										<c:otherwise>
 											<option>휴가 요청</option>
 											<option>근무지 이동 요청</option>
-											<option>보직 이동 요청</option>
 											<option>퇴사 요청</option>
 										</c:otherwise>
 									</c:choose>
 							</select></td>
-							<!-- 상태 자동 지정정 -->
-							<td><input type="hidden" name="agree" value="대기"> <span>대기</span>
-								</input></td>
-							<td rowspan="2"></td>
-							<td rowspan="2"></td>
+							<!-- 본인 사인 -->
+							<td><span>사인 없음</span></td>
+							<!-- 관리자 사인 -->
+							<td><span>사인 없음</span></td>
 						</tr>
 
 					</tbody>
@@ -295,8 +99,8 @@ button {
 				<!-- 팝업창으로 이동 -->
 				<div class="buttons">
 					<button type="button" onclick="submitForm()">신 청</button>
+					<button type="button" onclick="goToMain()">돌아가기</button>
 				</div>
-				<br> <br>
 
 				<c:if
 					test="${sessionScope.role == '관리자' or sessionScope.role == '슈퍼관리자'}">
@@ -393,9 +197,7 @@ button {
 				</c:if>
 			</div>
 
-			<div class="buttons">
-				<button type="button" onclick="goToMain()">돌아가기</button>
-			</div>
+
 
 		</div>
 		<br>
@@ -410,7 +212,6 @@ button {
 			const permissionModalMap = {
 				'휴가 요청': '/vacationApproval?emp_idx=${sessionScope.employeeVO.emp_idx}',
 				'근무지 이동 요청': '/workingArrangement?emp_idx=${sessionScope.employeeVO.emp_idx}',
-				'보직 이동 요청': '~~~보직이동 요청 경로~~~~',
 				'퇴사 요청': '~~~퇴사 요청 경로~~~~'	
 			};
 		
@@ -423,6 +224,8 @@ button {
 
 				if (nameInput && nameInput.value.trim() !== '') {
 					openPopup(permissionModalMap[selectedPermission]);
+					// 팝업창이 열린 후 사인 삽입 버튼 표시
+					showSignatureUploadButton();
 				} else {
 					alert('모든 필수 입력값을 입력해주세요.');
 				}
@@ -454,6 +257,5 @@ button {
 					}
 				});
 			});
-			</script>
-
+	</script>
 </html>

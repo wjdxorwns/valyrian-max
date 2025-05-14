@@ -1,4 +1,4 @@
-<!-- 작성자: 김기섭 | 기여자: 김재겸 -->
+<!-- 작성자: 김기섭 | 기여자: 김재겸, 김용호 -->
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,26 +11,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="3부상조 - 퇴사자 리스트 조회(슈퍼관리자)">
 <title>3부상조 - 퇴사자 리스트 조회(슈퍼관리자)</title>
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/Main.css' />" rel="stylesheet">
+
+<link href="<c:url value='/resources/css/KimYH/resign.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/KimYH/re.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
 <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
-<link href="<c:url value='resources/css/KimKS/CSS_origin.css' />"
-	rel="stylesheet">
+
 <!-- Font Awesome for social icons -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 <style type="text/css">
-.emp_information {
-	width: 1215px;
-	overflow-x: auto;
+
+.container1{
+	margin: 30px;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #fff;
+	min-width: 950px;
+	
+}
+.text{
+	margin:10px;
+	margin-left: 0px;
+	margin-bottom:40px;
+}
+.text h1{
+margin-bottom: 10px;
+}
+.search-form{
+margin-bottom:10px;
+}
+.employee{
+padding: 5px;
+margin-right: 10px;
+}
+.textbox{
+padding: 5px;
+}
+.serach{
+padding:2.5px;
 }
 
-.emp_table {
-	min-width: 2000px
+.emp_information{
+	overflow-x: auto;
+	width:100%;
+	max-width: 100%;
 }
+.emp_table{
+	min-width: 1200px;
+}
+th, td{
+min-width: 150px;
+height: 50px;
+}
+
+
 </style>
 </head>
 <body>
@@ -38,119 +73,85 @@
 	<jsp:include page="/resources/jsp/Header.jsp" />
 
 	<!-- Aside -->
-	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<jsp:include page="/resources/jsp/EmpDataAside.jsp" />
 
 	<!-- Main Content -->
 	<main>
-		<section class="employee-section">
-			<h2>퇴사 데이터 관리</h2>
-			<h4>슈퍼관리자가 퇴사자의 계정 동결 및 인사정보 조회</h4>
-			<!-- Search and Filter -->
-			<div>
+		<div class="container1">
+			<section class="employee-section">
+				<div class="text">
+					<h1>퇴사 데이터 관리</h2>
+					<h4>슈퍼관리자가 퇴사자의 계정 동결 및 인사정보 조회</h4>
+				</div>
+				<!-- Search and Filter -->
 				<div class="search-form">
 					<!-- Action Buttons -->
-					<div>
-						<select class="employee">
-							<option>직원명</option>
-							<option>직원번호</option>
-							<option>부서</option>
-							<option>직책</option>
-						</select> <input type="text" placeholder="검색">
-						<button>검색</button>
-					</div>
+					<select class="employee">
+						<option>직원명</option>
+						<option>직원번호</option>
+						<option>부서</option>
+						<option>직책</option>
+					</select> 
+					<input type="text" placeholder="검색" class="textbox">
+					<button class="serach">검색</button>
 				</div>
-			</div>
+				
 
-			<!-- Detail Table -->
-			<div class=" emp_information">
-				<table class=" emp_table">
-					<thead>
-						<tr>
-							<th>직원번호</th>
-							<th>직원명</th>
-							<th>부서이름</th>
-							<th>직책</th>
-							<th>아이디</th>
-							<th>생년월일</th>
-							<th>성별</th>
-							<th>전화번호</th>
-							<th>주소</th>
-							<th>상세주소</th>
-							<th>입사일</th>
-							<th>근무지</th>
-							<th>년차</th>
-							<th>고용타입</th>
-							<th>근무방식</th>
-							<th>부서명</th>
-							<th>퇴사일자</th>
-							<th>계정상태</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>001211</td>
-							<td>최진수</td>
-							<td>인사1팀</td>
-							<td>사원</td>
-							<td>cjs@gmail.com</td>
-							<td>1996-01-01</td>
-							<td>남성</td>
-							<td>010-1111-2222</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>2024.12.01</td>
-							<td>휴면</td>
-						</tr>
-						<tr>
-							<td>001222</td>
-							<td>나진수</td>
-							<td>인사2팀</td>
-							<td>대리</td>
-							<td>najs@gmail.com</td>
-							<td>1989-01-01</td>
-							<td>남성</td>
-							<td>010-5555-2222</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td>2025.01.15</td>
-							<td>휴면</td>
-						</tr>
-						<tr>
-							<td>001255</td>
-							<td>정진수</td>
-							<td>인사1팀</td>
-							<td>대리</td>
-							<td>jjs@gmail.com</td>
-							<td>1990-01-01</td>
-							<td>남성</td>
-							<td>010-1771-2222</td>
-							<td>서울특별시</td>
-							<td>광화문 광화로 광화오피스</td>
-							<td>2024.1.1</td>
-							<td>경기도 연천지부</td>
-							<td>1</td>
-							<td>정규직</td>
-							<td>회사</td>
-							<td>직원</td>
-							<td></td>
-							<td>정상</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
+				<!-- Detail Table -->
+				<div class=" emp_information">
+					<table class=" emp_table">
+						<thead>
+							<tr>
+								<th>직원번호</th>
+								<th>직원 이름</th>
+								<th>부서 이름</th>
+								<th>직책</th>
+								<th>이메일</th>
+								<th>생년월일</th>
+								<th>성별</th>
+								<th>휴대전화번호</th>
+								<th>주소</th>
+								<th>상세주소</th>
+								<th>입사일</th>
+								<th>근무지</th>
+								<th>년차</th>
+								<th>고용타입</th>
+								<th>근무방식</th>
+								<th>부서명</th>
+								<th>퇴사자</th>
+								<th>퇴사일자</th>
+								<th>계정상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="emp" items="${employeeList}">
+								<tr>
+									<td>${emp.emp_id}</td>
+									<td>${emp.emp_name}</td>
+									<td>${emp.team}</td>
+									<td>${emp.position}</td>
+									<td>${emp.emp_email}</td>
+									<td>${emp.birthday}</td>
+									<td>${emp.gender}</td>
+									<td>${emp.phone_number}</td>
+									<td>${emp.home}</td>
+									<td>${emp.detail_home}</td>
+									<td>${emp.hire_date}</td>
+									<td>${emp.location}</td>
+									<td>${emp.pay_grade}</td>
+									<td>${emp.employment_type}</td>
+									<td>${emp.attitude_type}</td>
+									<td>${emp.dept_name}</td>
+									<td>${emp.quitter}</td>
+									<td>${emp.resignation_date}</td>
+									<td>${emp.remove}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
 	</main>
 	<!-- Footer -->
 	<jsp:include page="/resources/jsp/Footer.jsp" />

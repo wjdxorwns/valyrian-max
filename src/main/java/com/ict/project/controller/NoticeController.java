@@ -1,6 +1,8 @@
 package com.ict.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.File;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,11 +33,16 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    // 공지사항 목록 페이지
+    // 공지사항 목록 페이지 이동
     @GetMapping
     public ModelAndView noticePageGo(@RequestParam(defaultValue = "1") int nowPage, HttpSession session) {
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return new ModelAndView("redirect:/login");
+        }
         String deptName = (String) session.getAttribute("user.dept_name");
-        logger.info("Accessing /notice, dept_name: {}", deptName);
+        logger.info("공지사항 목록 접근, 부서명: {}, 직원 ID: {}", deptName, empIdx);
         ModelAndView mv = new ModelAndView("MainPage/notice");
 
         Paging paging = new Paging();
@@ -56,126 +64,194 @@ public class NoticeController {
         return mv;
     }
 
-    // 공지사항 등록 페이지
+    // 공지사항 등록 페이지 이동
     @GetMapping("/write")
     public ModelAndView noticeRegistrationPageGo(HttpSession session) {
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return new ModelAndView("redirect:/login");
+        }
         String deptName = (String) session.getAttribute("user.dept_name");
-        logger.info("Accessing /notice/write, dept_name: {}", deptName);
+        logger.info("공지사항 등록 페이지 접근, 부서명: {}, 직원 ID: {}", deptName, empIdx);
         return new ModelAndView("MainPage/noticeRegistration");
     }
 
-    // 공지사항 등록
+    // 공지사항 등록 처리
     @PostMapping("/register")
     public String register(BoardVO boardVO, @RequestParam("image") MultipartFile file, HttpSession session) {
-        String deptName = (String) session.getAttribute("user.dept_name");
-        logger.info("Registering notice, dept_name: {}, emp_idx: {}", deptName, session.getAttribute("user.emp_idx"));
-        
-        String empIdx = (String) session.getAttribute("user.emp_idx");
+        String empIdx = (String) session.getAttribute("emp_idx");
         if (empIdx == null) {
-            logger.warn("Redirecting to /login due to missing emp_idx");
+            logger.warn("직원 ID 없음, 로그인 페이지로 리다이렉트");
             return "redirect:/login";
         }
+        String deptName = (String) session.getAttribute("dept_name");
+        logger.info("공지사항 등록 요청, 부서명: {}, 직원 ID: {}", deptName, empIdx);
+        
         boardVO.setEmp_idx(empIdx);
         try {
             noticeService.registerNotice(boardVO, file, session.getServletContext().getRealPath("/Uploads"));
-            logger.info("Notice registered successfully, board_id: {}", boardVO.getBoard_id());
+            logger.info("공지사항 등록 성공, 게시글 ID: {}", boardVO.getBoard_id());
+            List<BoardVO> recentNotices = noticeService.getRecentNotices(3);
+            String lastUpdatedTime = noticeService.getLastUpdatedTime();
+            session.setAttribute("latestNotices", recentNotices);
+            session.setAttribute("lastUpdateDate", lastUpdatedTime);
+            logger.info("세션에 최신 공지사항 갱신 완료");
         } catch (Exception e) {
-            logger.error("Failed to register notice: {}", e.getMessage(), e);
+            logger.error("공지사항 등록 실패: {}", e.getMessage(), e);
             return "redirect:/notice/write?error=registration_failed";
         }
         return "redirect:/notice";
     }
 
-    // 공지사항 상세 페이지
+    // 공지사항 상세 페이지 이동
     @GetMapping("/detail")
     public ModelAndView detail(@RequestParam("id") int boardId, HttpSession session) {
-        String deptName = (String) session.getAttribute("user.dept_name");
-        logger.info("Accessing /notice/detail?id={}, dept_name: {}", boardId, deptName);
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return new ModelAndView("redirect:/login");
+        }
+        String deptName = (String) session.getAttribute("dept_name");
+        logger.info("공지사항 상세 페이지 접근, 게시글 ID: {}, 부서명: {}", boardId, deptName);
         ModelAndView mv = new ModelAndView("MainPage/noticeDetail");
         BoardVO notice = noticeService.getNoticeDetail(boardId);
         if (notice != null) {
             noticeService.increaseViewCount(boardId);
             mv.addObject("board", notice);
         } else {
-            logger.warn("Notice not found, board_id: {}", boardId);
+            logger.warn("공지사항 없음, 게시글 ID: {}", boardId);
             mv.setViewName("redirect:/notice");
         }
         return mv;
     }
 
-    // 공지사항 수정 페이지
+    // 공지사항 수정 페이지 이동
     @GetMapping("/edit")
     public ModelAndView editPageGo(@RequestParam("id") int boardId, HttpSession session) {
-        String deptName = (String) session.getAttribute("user.dept_name");
-        logger.info("Accessing /notice/edit?id={}, dept_name: {}", boardId, deptName);
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return new ModelAndView("redirect:/login");
+        }
+        String deptName = (String) session.getAttribute("dept_name");
+        logger.info("공지사항 수정 페이지 접근, 게시글 ID: {}, 부서명: {}", boardId, deptName);
         
         ModelAndView mv = new ModelAndView("MainPage/noticeEdit");
         BoardVO notice = noticeService.getNoticeDetail(boardId);
         if (notice != null) {
             mv.addObject("board", notice);
         } else {
-            logger.warn("Notice not found, board_id: {}", boardId);
+            logger.warn("공지사항 없음, 게시글 ID: {}", boardId);
             mv.setViewName("redirect:/notice");
         }
         return mv;
     }
 
-    // 공지사항 수정
+    // 공지사항 수정 처리
     @PostMapping("/update")
     public String update(BoardVO boardVO, 
                          @RequestParam(value = "image", required = false) MultipartFile file, 
                          @RequestParam(value = "keepImage", required = false) Boolean keepImage, 
                          HttpSession session) {
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return "redirect:/login";
+        }
         try {
-            logger.info("Update request received for board_id: {}", boardVO.getBoard_id());
+            logger.info("공지사항 수정 요청, 게시글 ID: {}, 직원 ID: {}", boardVO.getBoard_id(), empIdx);
 
-            // 이미지가 없거나 유지하려는 경우 처리
             if (file == null || file.isEmpty()) {
                 if (keepImage == null || !keepImage) {
-                    boardVO.setF_name(null); // 기존 이미지를 제거
-                    logger.info("Existing image will be removed.");
+                    boardVO.setF_name(null);
+                    logger.info("기존 이미지 제거");
                 } else {
-                    logger.info("Existing image will be kept.");
+                    logger.info("기존 이미지 유지");
                 }
             } else {
-                // 새 이미지가 업로드된 경우 처리
                 String uploadPath = session.getServletContext().getRealPath("/Uploads");
-                logger.info("Upload path resolved: {}", uploadPath);
+                logger.info("업로드 경로: {}", uploadPath);
 
-                // 파일 저장
                 String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
                 File dest = new File(uploadPath, fileName);
                 file.transferTo(dest);
-                boardVO.setF_name(fileName); // 새 파일명 설정
-                logger.info("File uploaded successfully: {}", fileName);
+                boardVO.setF_name(fileName);
+                logger.info("파일 업로드 성공: {}", fileName);
             }
 
-            // 공지사항 업데이트: 누락된 매개변수를 포함하여 호출
             String uploadPath = session.getServletContext().getRealPath("/Uploads");
             noticeService.updateNotice(boardVO, file, uploadPath);
+            logger.info("공지사항 수정 성공, 게시글 ID: {}", boardVO.getBoard_id());
 
-            logger.info("Notice updated successfully, board_id: {}", boardVO.getBoard_id());
+            List<BoardVO> recentNotices = noticeService.getRecentNotices(3);
+            String lastUpdatedTime = noticeService.getLastUpdatedTime();
+            session.setAttribute("latestNotices", recentNotices);
+            session.setAttribute("lastUpdateDate", lastUpdatedTime);
+            logger.info("세션에 최신 공지사항 갱신 완료");
         } catch (Exception e) {
-            logger.error("Failed to update notice: {}", e.getMessage(), e);
+            logger.error("공지사항 수정 실패: {}", e.getMessage(), e);
             return "redirect:/notice/edit?id=" + boardVO.getBoard_id() + "&error=update_failed";
         }
         return "redirect:/notice";
     }
 
-    // 공지사항 삭제
+    // 공지사항 삭제 처리
     @GetMapping("/delete")
     public String delete(@RequestParam("id") int boardId, HttpSession session) {
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, 로그인 페이지로 리다이렉트");
+            return "redirect:/login";
+        }
         try {
-            String deptName = (String) session.getAttribute("user.dept_name");
+            String deptName = (String) session.getAttribute("dept_name");
             if (!"슈퍼관리자".equals(deptName)) {
+                logger.warn("슈퍼관리자 권한 없음, 직원 ID: {}", empIdx);
                 return "redirect:/notice?error=unauthorized";
             }
             noticeService.deleteNotice(boardId);
-            logger.info("Notice deleted successfully, board_id: {}", boardId);
+            logger.info("공지사항 삭제 성공, 게시글 ID: {}", boardId);
+
+            List<BoardVO> recentNotices = noticeService.getRecentNotices(3);
+            String lastUpdatedTime = noticeService.getLastUpdatedTime();
+            session.setAttribute("latestNotices", recentNotices);
+            session.setAttribute("lastUpdateDate", lastUpdatedTime);
+            logger.info("세션에 최신 공지사항 갱신 완료");
         } catch (Exception e) {
-            logger.error("Failed to delete notice: {}", e.getMessage(), e);
+            logger.error("공지사항 삭제 실패: {}", e.getMessage(), e);
             return "redirect:/notice?error=delete_failed";
         }
         return "redirect:/notice";
+    }
+
+    // 최신 공지사항 Ajax 요청 처리
+    @GetMapping("/latest-ajax")
+    @ResponseBody
+    public Map<String, Object> getLatestNoticesAjax(HttpSession session) {
+        String empIdx = (String) session.getAttribute("emp_idx");
+        if (empIdx == null) {
+            logger.warn("세션에 직원 ID 없음, Ajax 요청 거부");
+            return new HashMap<>();
+        }
+
+        logger.info("최신 공지사항 Ajax 요청, 직원 ID: {}", empIdx);
+        List<BoardVO> recentNotices = noticeService.getRecentNotices(3);
+
+        // 공지사항이 없으면 기본 공지사항 가져오기
+        if (recentNotices == null || recentNotices.isEmpty()) {
+            logger.warn("최신 공지사항 없음, 기본 공지사항 가져오기");
+            BoardVO defaultNotice = noticeService.getDefaultNotice();
+            if (defaultNotice != null) {
+                recentNotices.add(defaultNotice);
+            }
+        }
+
+        // 응답 데이터 구성
+        Map<String, Object> response = new HashMap<>();
+        response.put("notices", recentNotices);
+        response.put("lastUpdateDate", recentNotices.isEmpty() ? "" : recentNotices.get(0).getUpdated_at());
+
+        return response;
     }
 }

@@ -4,7 +4,217 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="manager">
-    <select id="list" resultType="map">
+	<!-- 1. Users 테이블에 회원 정보 저장 -->
+	<insert id="insertUser"
+		parameterType="com.ict.project.vo.personnel.UsersVO"
+		useGeneratedKeys="true"
+        keyProperty="user_idx">
+		INSERT INTO users (emp_email, emp_name, emp_password, home, detail_home,
+		phone_number, gender, birthday)
+		VALUES (#{emp_email}, #{emp_name}, #{emp_password}, #{home}, #{detail_home},
+		#{phone_number}, #{gender}, #{birthday})
+	</insert>
+
+	<!-- 2. 직원 이메일(로그인에서 아이디 역할) 중복확인 -->
+	<select id="checkEmpIdxDuplicate" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM employee WHERE emp_idx = #{empIdx}
+	</select>
+
+	<!-- 3. Employee 테이블에 직원 정보 저장 -->
+	<insert id="insertEmployee"
+		parameterType="com.ict.project.vo.personnel.EmployeeVO">
+		INSERT INTO employee (user_idx,emp_idx,emp_id,position,pay_grade,hire_date,team,location,attitude_type,employment_type)
+		VALUES (#{user_idx},#{emp_idx},#{emp_id},#{position},#{pay_grade},#{hire_date},#{team},#{location},#{attitude_type},#{employment_type})
+	</insert>
+
+	<!-- 4. Usersign 테이블에 서명 정보 저장 -->
+	<insert id="insertUsersign"
+		parameterType="com.ict.project.vo.personnel.pFile.UsersignVO">
+		INSERT INTO usersign (user_idx)
+		VALUES (#{user_idx})
+	</insert>
+
+	<!-- 5. Request 테이블에 emp_idx 저장 -->
+	<insert id="insertRequest"
+		parameterType="com.ict.project.vo.personnel.EmployeeVO">
+		INSERT INTO request (emp_idx) 
+		VALUES (#{emp_idx})
+	</insert>
+
+	<!-- 6. Permission 테이블에 emp_idx 저장 -->
+	<insert id="insertPermission"
+		parameterType="com.ict.project.vo.personnel.EmployeeVO">
+		INSERT INTO permission (emp_idx) 
+		VALUES (#{emp_idx})
+	</insert>
+
+	<!-- permission 테이블에서 emp_idx를 NULL로 업데이트 -->
+	<delete id="removePermission" parameterType="String">
+		  DELETE FROM permission
+   		 WHERE emp_idx = #{emp_idx}
+	</delete>
+
+	<!--  7. EmpPicture 테이블에 프로필 사진 정보 저장 -->
+	<insert id="insertEmpPicture"
+		parameterType="com.ict.project.vo.personnel.pFile.EmpPictureVO">
+		INSERT INTO emppicture (emp_idx, f_name, f_path, f_width, f_height)
+		VALUES (#{emp_idx}, #{f_name}, #{f_path}, #{f_width}, #{f_height})
+	</insert>
+	
+	
+	<!-- 8. 직원리스트에서 직원 데이터 불러오기 -->
+	<select id="selectEmployeeList"
+		resultType="com.ict.project.vo.personnel.EmployeeVO">
+		SELECT *
+		FROM employee
+	</select>
+
+	<!-- 9. 직원 이메일(로그인에서 아이디 역할) 중복확인 -->
+	<select id="checkEmailDuplicate" resultType="int">
+		SELECT COUNT(*) FROM users WHERE emp_email = #{email}
+	</select>
+
+	<!-- 10. 직원번호 중복확인 -->
+	<select id="checkEmpIdDuplicate" resultType="int">
+		SELECT COUNT(*) FROM employee WHERE emp_id = #{empId}
+	</select>
+
+
+	<!-- 12. 전화번호 중복확인 -->
+	<select id="checkPhoneNumberDuplicate" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM users WHERE phone_number = #{phone_Number}
+	</select>
+	
+	<!-- 직원 상세조회  -->
+	<select id="getEmployeeById" parameterType="String" resultType="java.util.Map">
+        SELECT 
+        	u.user_idx,
+            e.emp_idx,
+            e.emp_id,
+            u.emp_name,
+            e.team,
+            e.position,
+            u.emp_email,
+            u.birthday,
+            u.gender,
+            u.phone_number,
+            u.home,
+            u.detail_home,
+            e.hire_date,
+            e.location,
+            e.pay_grade,
+            e.employment_type,
+            e.attitude_type,
+            e.dept_name,
+            e.quitter,
+            e.resignation_date,
+            u.remove,
+            u.emp_password,
+            p.f_name,
+            p.f_path,
+            p.f_width,
+            p.f_height
+        FROM employee e
+        LEFT JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN emppicture p ON e.emp_idx = p.emp_idx
+        WHERE e.emp_idx = #{emp_idx}
+    </select>
+
+    <!-- 직원 정보 수정 -->
+    <update id="updateEmployee" parameterType="com.ict.project.vo.personnel.EmployeeVO">
+        UPDATE employee
+        SET  					
+            team = #{team},
+            position = #{position},					
+            hire_date = #{hire_date},
+            location = #{location},
+            pay_grade = #{pay_grade},
+            employment_type = #{employment_type},
+            attitude_type = #{attitude_type},
+            dept_name = #{dept_name},
+            quitter = #{quitter},
+            resignation_date = #{resignation_date}
+           
+           WHERE emp_idx = #{emp_idx}					 
+    </update>
+ <!-- 유저 정보 수정 -->
+	<update id="updateUser" parameterType="java.util.Map">
+        UPDATE users
+        SET 
+        	emp_name = #{emp_name},
+     		emp_email = #{emp_email},
+            birthday = #{birthday},
+           	gender = #{gender},
+            phone_number = #{phone_number},
+            home = #{home},
+            detail_home = #{detail_home}
+			WHERE user_idx = #{user_idx}
+    </update>
+
+    <!-- 프로필 이미지 수정 -->
+    <update id="updateProfileImage" parameterType="com.ict.project.vo.personnel.pFile.EmpPictureVO">
+        UPDATE emppicture
+        SET 
+            f_name = #{f_name},
+            f_path = #{f_path},
+            f_width = #{f_width},
+            f_height = #{f_height}
+        WHERE emp_idx = #{emp_idx}
+    </update>
+    
+    
+    <!-- 직원 리스트 조회  -->
+   <select id="getAllEmployees" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			e.emp_idx, 
+			e.emp_id,
+			u.emp_name,
+			e.team,
+			e.position,
+			u.emp_email,
+			u.birthday,
+			u.gender,
+			u.phone_number,
+			u.home,
+			u.detail_home,
+			e.hire_date,
+			e.location,
+			e.pay_grade,
+			e.employment_type,
+			e.attitude_type,
+			e.dept_name,
+			e.quitter,
+			e.resignation_date,
+			u.remove
+		FROM
+			users u
+		JOIN
+			employee e ON u.user_idx = e.user_idx
+		<where>
+            <if test="searchType != null and keyword != null and keyword != ''">
+                <choose>
+                    <when test="searchType == 'emp_name'">
+                        u.emp_name LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchType == 'emp_id'">
+                        e.emp_id LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchType == 'dept_name'">
+                        e.dept_name LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                    <when test="searchType == 'position'">
+                        e.position LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+                </choose>
+            </if>
+		</where>
+		ORDER BY e.emp_id AND u.remove = 0
+	</select> 
+	
+	
+	
+    
+   <select id="list" resultType="map">
         SELECT
         p.emp_idx,
         u.emp_name,
@@ -29,55 +239,61 @@
             can_access_vacation = #{permissions.can_access_vacation}
         WHERE emp_idx = #{userId}
     </update>
+
     
-    <!-- 전자결제 관련 쿼리 -->
-    <insert id="insertApproval" parameterType="map">
-        INSERT INTO electronic_approval (
-            approval_id,
-            emp_idx,
-            approval_type,
-            status,
-            signature_path,
-            created_at,
-            updated_at
-        ) VALUES (
-            #{approval_id},
-            #{emp_idx},
-            #{approval_type},
-            #{status},
-            #{signature_path},
-            NOW(),
-            NOW()
-        )
-    </insert>
+    <select id="resignList" resultType="Map">
+select * 
+from Employee e
+join users u on u.user_idx= e.user_idx
+where u.remove = 0;
+</select>
+
+
+<select id="keyword" parameterType="map" resultType="map">
+    SELECT *
+    FROM Employee e
+    JOIN users u ON u.user_idx = e.user_idx
+    WHERE
+   <choose>
+    <when test="searchType == 'emp_id'">
+        e.emp_id LIKE #{keyword} AND u.remove = 0
+    </when>
+    <when test="searchType == 'emp_name'">
+        u.emp_name LIKE #{keyword} AND u.remove = 0
+    </when>
+    <when test="searchType == 'team'">
+        e.team LIKE #{keyword} AND u.remove = 0
+    </when>
+    <when test="searchType == 'position'">
+        e.position LIKE #{keyword} AND u.remove = 0
+    </when>
+    <when test="searchType == 'quitter'">
+        e.quitter = #{keyword}
+    </when>
+    <otherwise>
+        1=1
+    </otherwise>
+</choose>
+</select>
+
+<update id="update" parameterType="map">
+ UPDATE Employee
+ SET quitter = #{quitter}
+ <if test="quitter == '퇴사'">
+        , resignation_date = NOW()
+    </if>
+ WHERE emp_id = #{emp_id}
+</update>
+
+<update id="updateUserRemove" parameterType="map">
+    UPDATE users
+    SET remove = 
+        <choose>
+            <when test="quitter == '퇴사'">1</when>
+            <otherwise>0</otherwise>
+        </choose>
+    WHERE user_idx = (SELECT user_idx FROM Employee WHERE emp_id = #{emp_id})
+</update>
     
-    <select id="getApprovalList" parameterType="string" resultType="map">
-        SELECT 
-            ea.*,
-            u.emp_name,
-            e.dept_name
-        FROM electronic_approval ea
-        INNER JOIN Employee e ON ea.emp_idx = e.emp_idx
-        INNER JOIN Users u ON e.user_idx = u.user_idx
-        WHERE ea.emp_idx = #{empIdx}
-        ORDER BY ea.created_at DESC
-    </select>
     
-    <select id="getApprovalDetail" parameterType="string" resultType="map">
-        SELECT 
-            ea.*,
-            u.emp_name,
-            e.dept_name
-        FROM electronic_approval ea
-        INNER JOIN Employee e ON ea.emp_idx = e.emp_idx
-        INNER JOIN Users u ON e.user_idx = u.user_idx
-        WHERE ea.approval_id = #{approvalId}
-    </select>
-    
-    <update id="updateApprovalStatus" parameterType="map">
-        UPDATE electronic_approval
-        SET status = #{status},
-            updated_at = NOW()
-        WHERE approval_id = #{approvalId}
-    </update>
 </mapper>

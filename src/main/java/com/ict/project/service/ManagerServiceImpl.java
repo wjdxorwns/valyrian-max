@@ -3,22 +3,195 @@ package com.ict.project.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map; // Map import 추가
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ict.project.repository.ManagerDAO;
 import com.ict.project.vo.management.PermissionVO;
+import com.ict.project.vo.management.RequestVO;
+import com.ict.project.vo.personnel.EmployeeVO;
+import com.ict.project.vo.personnel.PersonnelChangeVO;
 import com.ict.project.vo.personnel.UsersVO;
+import com.ict.project.vo.personnel.pFile.EmpPictureVO;
+import com.ict.project.vo.personnel.pFile.UsersignVO;
 
 @Service
-public class ManagerServiceImpl implements ManagerService {
-	@Autowired
+public class ManagerServiceImpl implements ManagerService{
+    @Autowired
     private ManagerDAO managerDAO;
-	
-	@Override
-	public List<Map<String, String>> getAllPermissionList() {
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void registerEmployee(EmployeeVO employee, UsersVO user, UsersignVO usersign,
+            PersonnelChangeVO change, RequestVO request, PermissionVO permission) throws Exception {
+       
+
+    	managerDAO.insertUser(user);
+    	int userIdx = user.getUser_idx();
+    	// 2. user_idx를 연관된 VO들에 설정
+        employee.setUser_idx(userIdx);
+        usersign.setUser_idx(userIdx);
+       
+        // emp_id 생성 (고용타입에 따라)
+        String empId = generateUniqueEmpId(employee.getEmployment_type());
+        employee.setEmp_id(empId);
+        
+        // emp_idx 생성 (랜덤값)
+        String empIdx = generateUniqueEmpIdx();
+        employee.setEmp_idx(empIdx);
+        
+        //  Employee 등록
+        managerDAO.insertEmployee(employee);
+        
+        // Request 테이블에 emp_idx 등록
+        managerDAO.insertRequest(employee);
+        
+        // usersign 테이블에 user_idx 등록
+        managerDAO.insertUsersign(usersign);
+
+        // 3. 권한(dept_name)이 "관리자" 또는 "슈퍼관리자"면 permission 테이블에도 등록
+        if ("관리자".equals(employee.getDept_name()) || "슈퍼관리자".equals(employee.getDept_name())) {
+            managerDAO.insertPermission(employee);
+        }
+        
+    }
+    
+    
+    private String generateUniqueEmpIdx() {
+        Random random = new Random();
+        String empIdx;
+        int loopCount = 0;
+
+        do {
+            int rand = 100000 + random.nextInt(900000); // 100000 ~ 999999
+            empIdx = String.valueOf(rand);
+            loopCount++;
+            if (loopCount > 100) throw new RuntimeException("중복 emp_idx 생성 실패");
+        } while (managerDAO.checkEmpIdxDuplicate(empIdx) > 0);
+
+        return empIdx;
+    }
+
+    private String generateUniqueEmpId(String employmentType) {
+        Random random = new Random();
+        String empId;
+        int loopCount = 0;
+        String prefix;
+
+        // 고용 타입에 따른 접두사 설정
+        switch (employmentType) {
+            case "정규직":
+                prefix = "E";
+                break;
+            case "계약직":
+                prefix = "T";
+                break;
+            case "아르바이트":
+                prefix = "P";
+                break;
+            default:
+                throw new IllegalArgumentException("유효하지 않은 고용 타입입니다: " + employmentType);
+        }
+
+        do {
+            int rand = 1 + random.nextInt(999); // 001 ~ 999
+            empId = prefix + String.format("%03d", rand); // E001, T001, P001 형식
+            loopCount++;
+            if (loopCount > 100) throw new RuntimeException("중복 emp_id 생성 실패");
+        } while (managerDAO.countByEmpId(empId) > 0);
+
+        return empId;
+    }
+
+    @Override
+    public void registerEmpPicture(EmployeeVO employeeVO, EmpPictureVO picVO) throws Exception {
+        if (employeeVO.getEmp_idx() == null || employeeVO.getEmp_idx().isEmpty()) {
+            throw new IllegalArgumentException("직원번호(emp_idx)가 비어 있습니다.");
+        }
+        
+        // employee 테이블에 해당 emp_idx가 존재하는지 확인
+        if (managerDAO.checkEmpIdxDuplicate(employeeVO.getEmp_idx()) == 0) {
+            throw new IllegalArgumentException("해당 직원번호(" + employeeVO.getEmp_idx() + ")가 employee 테이블에 존재하지 않습니다.");
+        }
+        
+        picVO.setEmp_idx(employeeVO.getEmp_idx());
+        managerDAO.insertEmpPicture(picVO);
+    }
+
+    
+    @Override
+    public int checkEmailDuplicate(String email) {
+        return managerDAO.countByEmail(email);
+    }
+
+    @Override
+    public int checkEmpIdDuplicate(String empId) {
+        return managerDAO.countByEmpId(empId);
+    }
+
+    @Override
+    public int checkPhoneDuplicate(String phoneNumber) {
+        return managerDAO.countByPhoneNumber(phoneNumber);
+    }
+
+  
+
+    
+    @Override
+    public boolean updateEmployee(EmployeeVO employee) {
+        return managerDAO.updateEmployee(employee) > 0;
+    }
+    @Override
+    public boolean updateUser(Map<String, Object> param) {
+        return managerDAO.updateUser(param) > 0;
+    }
+
+
+    @Override
+    public boolean updateProfileImage(EmpPictureVO picture) {
+        return managerDAO.updateProfileImage(picture) > 0;
+    }
+    
+    
+    @Override
+    public Map<String, Object> getEmployeeById(String emp_idx) {
+        return managerDAO.getEmployeeById(emp_idx);
+    }
+    
+    @Override
+    public void addPermissionIfNotExists(String emp_idx) {
+        // 이미 권한이 있으면 추가하지 않음
+        if (managerDAO.getPermissionByEmpIdx(emp_idx) == null) {
+            EmployeeVO vo = new EmployeeVO();
+            vo.setEmp_idx(emp_idx);
+            managerDAO.insertPermission(vo);
+        }
+    }
+    // 직원으로 강등되면 permission  삭제
+    @Override
+    public void removePermission(String emp_idx) {
+        managerDAO.removePermission(emp_idx);
+    }
+    
+
+
+    
+    
+    
+    
+    
+    
+    @Override
+    public List<Map<String, Object>> getAllEmployees(String searchType, String keyword) { // 파라미터 추가
+        // DAO에서 Map 형태로 조회된 결과를 그대로 반환
+        return managerDAO.getAllEmployees(searchType, keyword); // 파라미터 전달
+    }
+    
+    public List<Map<String, String>> getAllPermissionList() {
 	    List<Map<String, Object>> permissionList = managerDAO.getAllPermissionList();
 	    List<Map<String, String>> transformedList = new ArrayList<>();
 
@@ -60,28 +233,27 @@ public class ManagerServiceImpl implements ManagerService {
         // 각 권한을 업데이트하는 로직
     	managerDAO.updatePermissions(userId, permissions);
     }
-
-	@Override
-	public Map<String, Object> getEmployeeInfo(String emp_idx) {
+    
+    @Override
+	public List<Map<String, Object>> getSearchResign() {
 		// TODO Auto-generated method stub
-		return null;
+		return managerDAO.getSearchResign();
 	}
 
 	@Override
-	public boolean updateWorkType(String emp_idx, String workType) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<Map<String, Object>> getSearchKeyWord(Map<String, Object> paramMap) {
+		return managerDAO.getSearchKeyWord(paramMap);
 	}
 
 	@Override
-	public Map<String, Object> getVacationInfo(String emp_idx) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateQuitter(Map<String, Object> paramMap) {
+		managerDAO.updateQuitter(paramMap);
 	}
 
 	@Override
-	public boolean updateVacationStatus(String emp_idx, String status) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateUserRemove(Map<String, Object> paramMap) {
+		managerDAO.updateUserRemove(paramMap);
+		
 	}
+
 }

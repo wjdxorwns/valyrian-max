@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.project.repository.NorDAO;
+import com.ict.project.vo.management.PermissionVO;
 import com.ict.project.vo.personnel.EmployeeVO;
 import com.ict.project.vo.personnel.UsersVO;
 
-// 작성자: 최성현
 @Service
 public class NorServiceImpl implements NorService {
 
@@ -32,11 +32,6 @@ public class NorServiceImpl implements NorService {
     }
     
     @Override
-    public Map<String, Object> getEmployeeInfor(String emp_idx) {
-    	return norDAO.getEmployeeInfor(emp_idx);
-    }
-
-	@Override
 	public void updatePassword(int userIdx, String encryptedPassword) {
 		norDAO.updatePassword(userIdx, encryptedPassword);	
 	}
@@ -73,15 +68,15 @@ public class NorServiceImpl implements NorService {
 
 		// 2. 파일명 및 경로 설정
 		// 실제 운영 환경에서는 이 경로를 설정 파일 등에서 읽어오는 것이 좋습니다.
-		String uploadDirectory = "D:\\workspace\\pj\\project\\src\\main\\resources\\signature\\signature_uploads"; // 예시: 실제 서버 저장 경로
+		String uploadDirectory = "D:\\workspaces\\pj\\signature_uploads\\"; // 예시: 실제 서버 저장 경로
 		// 운영체제에 맞는 경로 구분자 사용 및 실제 경로 존재 확인 필요
 		// 예: String uploadDirectory = System.getProperty("user.home") + File.separator + "signature_uploads" + File.separator;
 		
 		// 디렉토리가 없으면 생성
 		File directory = new File(uploadDirectory);
-		if (!directory.exists()) {
-			directory.mkdirs(); // 중간 경로까지 모두 생성
-		}
+        if (!directory.exists()) {
+            directory.mkdirs(); // 중간 경로까지 모두 생성
+        }
 
 		String fileName = userIdx + "_" + System.currentTimeMillis() + ".png";
 		String fullFilePath = uploadDirectory + fileName;
@@ -116,4 +111,15 @@ public class NorServiceImpl implements NorService {
 		// 5. DAO 호출하여 DB 업데이트
 		norDAO.updateSignature(params); // norDAO는 해당 매퍼를 호출하는 인터페이스/클래스
 	}
+
+	@Override
+    public Map<String, Object> getEmployeeInfor(String emp_idx) {
+        return norDAO.getEmployeeInfor(emp_idx);
+    }
+
+	@Override
+    public PermissionVO getEmployeeByPermission(String emp_idx) {
+        return norDAO.getEmployeeByPermission(emp_idx);
+    }
+
 }

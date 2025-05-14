@@ -1,138 +1,125 @@
 <!-- 작성자 : 김용호 | 기여자 : 김재겸 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 - 휴가 승인 화면</title>
-<!-- 폰트 로드 -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-	rel="stylesheet">
-<!-- Font Awesome for social icons -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<!-- CSS 파일 링크 -->
-<link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
-<link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/KimYH/CSS_vacation.css">
+    <!-- 폰트 로드 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- CSS 파일 링크 -->
+    <link href="<c:url value='resources/css/Header.css' />" rel="stylesheet">
+    <link href="<c:url value='resources/css/Footer.css' />" rel="stylesheet">
+    <link href="<c:url value='resources/css/Aside.css' />" rel="stylesheet">
+    
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/KimYH/CSS_vacation.css">
 <style type="text/css">
-#standby {
-	border: 1px solid black;
-	background-color: #fff;
-	margin-top: 10px;
-	overflow: hidden;
-}
+#standby{
+border: 1px solid black;
+background-color: #fff;
 
-#standby p {
-	text-align: center;
-	margin-top: 10px;
+margin-top: 10px;
+overflow: hidden;
 }
-
-#complete {
-	border: 1px solid black;
-	background-color: #fff;
-	margin-top: 50px;
-	overflow: hidden;
+#standby p{
+text-align: center;
+margin-top: 10px;
 }
+#complete{
+border: 1px solid black;
+background-color: #fff;
 
-#complete p {
-	text-align: center;
-	margin-top: 10px;
+margin-top: 50px;
+overflow: hidden;
+}
+#complete p{
+text-align: center;
+margin-top: 10px;
 }
 
 /* 공통 */
-table {
-	margin-top: 10px;
-	border-bottom: 2px solid black;
-	border-top: 2px solid black;
+table{
+margin-top:10px;
+border-bottom: 2px solid black;
+border-top: 2px solid black;
 }
 
-th, td {
-	width: 150px;
-	height: 50px;
-	text-align: center;
-	border: 1px solid black;
+th, td{
+width:150px;
+height:50px;
+text-align: center;
+border:1px solid black;
 }
-
-#button {
-	margin: 5px;
-	padding: 5px;
-	align-items: flex-end;
-	justify-content: flex-end;
-	float: right;
+#button{
+margin:5px;
+padding:5px;
+align-items: flex-end;
+justify-content: flex-end;
+float: right;
 }
 /* 모달 창 */
 #vacation_detail {
-	display: none;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #fff;
-	border: 1px solid #ccc;
-	padding: 20px;
-	z-index: 1000;
-	width: 600px;
-	max-width: 90%;
-	border-radius: 8px;
+display: none;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: #fff;
+border: 1px solid #ccc;
+padding: 20px;
+z-index: 1000;
+width: 600px;
+max-width: 90%;
+border-radius: 8px;
 }
 /* 모달 오버레이 */
 #modal_overlay {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 999;
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 999;
+}
+#vacation_detail table th{
+width:150px;
+}
+.button{
+display:flex;
+justify-content: center;
+}
+.button button{
+margin:10px;
 }
 
-#vacation_detail table th {
-	width: 150px;
-}
 
-.button {
-	display: flex;
-	justify-content: center;
-}
-
-.button button {
-	margin: 10px;
-}
 </style>
 </head>
 <body>
 
 	<!-- Header -->
 	<jsp:include page="/resources/jsp/Header.jsp" />
-
+	
 	<!-- Aside -->
 	<jsp:include page="/resources/jsp/VacationAside.jsp" />
-
+	
 	<main>
 		<div id="title">
 			<h2>직원 휴가 신청 사항</h2>
 		</div>
-
+			
 		<div id="standby">
 			<p>승인 대기 목록</p>
 			<table>
 				<thead>
 					<tr>
-						<th style="width: 150px;">휴가ID</th>
-						<th>부서</th>
-						<th>직급</th>
-						<th>이름</th>
-						<th>사원id</th>
-						<th>기간</th>
-						<th>결재</th>
-						<th>비고(사유)</th>
+						<th style="width:150px;">휴가ID</th><th>부서</th><th>직급</th><th>이름</th><th>사원id</th><th>기간</th><th>결재</th><th>비고(사유)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -144,26 +131,21 @@ th, td {
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="entry" items="${vacationMap}">
-								<c:if
-									test="${entry.value.status eq '대기' or empty entry.value.status}">
+								<c:if test="${entry.value.status eq '대기' or empty entry.value.status}">
 									<tr data-request-idx="${entry.value.request_idx}">
 										<td>${entry.value.vacation_id }</td>
 										<td>${entry.value.team }</td>
-										<td>${entry.value.position }</td>
-										<!-- employee(직원) 테이블 -->
-										<td>${entry.value.emp_name }</td>
-										<!-- user(회원가입) 테이블 -->
-										<td>${entry.value.emp_idx }</td>
-										<!-- employee(직원) 테이블 -->
-										<td>${entry.value.start_date }~ ${entry.value.end_date }</td>
-										<!-- vacation(휴가) 테이블 -->
-										<td><select name="status_${entry.value.vacation_id }">
+										<td>${entry.value.position }</td> <!-- employee(직원) 테이블 -->
+										<td>${entry.value.emp_name }</td> <!-- user(회원가입) 테이블 -->
+										<td>${entry.value.emp_idx }</td> <!-- employee(직원) 테이블 -->
+										<td>${entry.value.start_date } ~ ${entry.value.end_date }</td> <!-- vacation(휴가) 테이블 -->
+										<td>
+											<select name="status_${entry.value.vacation_id }">
 												<option value="승인">승인</option>
 												<option value="반려">반려</option>
-										</select></td>
-										<td><input type="text"
-											name="comment_${entry.value.vacation_id}"
-											value="${entry.value.comment }"></td>
+											</select>
+										</td>
+										<td><input type="text" name="comment_${entry.value.vacation_id}" value="${entry.value.comment }"></td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -171,22 +153,15 @@ th, td {
 					</c:choose>
 				</tbody>
 			</table>
-
+			
 		</div>
-
+			
 		<div id="complete">
 			<p>승인 완료 목록</p>
 			<table>
 				<thead>
 					<tr>
-						<th style="width: 150px;">휴가ID</th>
-						<th>부서</th>
-						<th>직급</th>
-						<th>이름</th>
-						<th>사원id</th>
-						<th>기간</th>
-						<th>결재</th>
-						<th>비고(사유)</th>
+						<th style="width:150px;">휴가ID</th><th>부서</th><th>직급</th><th>이름</th><th>사원id</th><th>기간</th><th>결재</th><th>비고(사유)</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -198,19 +173,14 @@ th, td {
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="entry" items="${vacationMap}">
-								<c:if
-									test="${entry.value.status eq '승인' or entry.value.status eq '반려'}">
+								<c:if test="${entry.value.status eq '승인' or entry.value.status eq '반려'}">
 									<tr>
 										<td>${entry.value.vacation_id }</td>
 										<td>${entry.value.team }</td>
-										<td>${entry.value.position }</td>
-										<!-- employee(직원) 테이블 -->
-										<td>${entry.value.emp_name }</td>
-										<!-- user(회원가입) 테이블 -->
-										<td>${entry.value.emp_idx }</td>
-										<!-- employee(직원) 테이블 -->
-										<td>${entry.value.start_date }~ ${entry.value.end_date }</td>
-										<!-- vacation(휴가) 테이블 -->
+										<td>${entry.value.position }</td> <!-- employee(직원) 테이블 -->
+										<td>${entry.value.emp_name }</td> <!-- user(회원가입) 테이블 -->
+										<td>${entry.value.emp_idx }</td> <!-- employee(직원) 테이블 -->
+										<td>${entry.value.start_date } ~ ${entry.value.end_date }</td> <!-- vacation(휴가) 테이블 -->
 										<td>${entry.value.status }</td>
 										<td>${entry.value.comment }</td>
 									</tr>
@@ -221,14 +191,13 @@ th, td {
 				</tbody>
 			</table>
 		</div>
-
+			
 		<!-- 모달 오버레이 -->
 		<div id="modal_overlay"></div>
-
+        
 		<!-- 모달 창 -->
 		<div id="vacation_detail">
-			<h (°C)3>휴가 상세 정보
-			</h3>
+			<h (°C)3>휴가 상세 정보</h3>
 			<table>
 				<tbody>
 					<tr>
@@ -244,43 +213,36 @@ th, td {
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<th>사원ID</th>
-						<td><span id="modal_emp_idx"></span></td>
+						<th>사원ID</th><td><span id="modal_emp_idx"></span></td>
 					</tr>
 					<tr>
-						<th>이름</th>
-						<td><span id="modal_emp_name"></span></td>
+						<th>이름</th><td><span id="modal_emp_name"></span></td>
 					</tr>
 					<tr>
-						<th>부서</th>
-						<td><span id="modal_team"></span></td>
+						<th>부서</th><td><span id="modal_team"></span></td>
 					</tr>
 					<tr>
-						<th>직급</th>
-						<td><span id="modal_position"></span></td>
+						<th>직급</th><td><span id="modal_position"></span></td>
 					</tr>
 					<tr>
-						<th>휴가ID</th>
-						<td><span id="modal_vacation_id"></span></td>
-						<th>분류</th>
-						<td><span id="modal_vacation_type"></span></td>
+						<th>휴가ID</th><td><span id="modal_vacation_id"></span></td>
+						<th>분류</th><td><span id="modal_vacation_type"></span></td>
 					</tr>
 					<tr>
 						<th>결재</th>
-						<td><select id="modal_status">
+						<td>
+							<select id="modal_status">
 								<option value="승인">승인</option>
 								<option value="반려">반려</option>
-						</select></td>
-						<th>비고</th>
-						<td><input type="text" id="modal_comment_input"></td>
+							</select>
+						</td>
+						<th>비고</th><td><input type="text" id="modal_comment_input"></td>
 					</tr>
 					<tr>
-						<th>휴가기간</th>
-						<td colspan="3"><span id="modal_period"></span></td>
+						<th>휴가기간</th><td colspan="3"><span id="modal_period"></span></td>
 					</tr>
 					<tr>
-						<th>첨부파일</th>
-						<td colspan="3"><span id="modal_file"></span></td>
+						<th>첨부파일</th><td colspan="3"><span id="modal_file"></span></td>
 					</tr>
 				</tbody>
 			</table>
@@ -289,12 +251,12 @@ th, td {
 				<button onclick="closeModal()">닫기</button>
 			</div>
 		</div>
-
+			
 	</main>
 
 	<!-- Footer -->
 	<jsp:include page="/resources/jsp/Footer.jsp" />
-
+	
 	<script type="text/javascript">
 		
 	function updateVacationStatus(source) {

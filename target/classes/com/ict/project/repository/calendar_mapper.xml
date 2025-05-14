@@ -59,18 +59,3 @@
         WHERE calendar_idx = #{calendar_idx}
     </update>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

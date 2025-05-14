@@ -1,9 +1,13 @@
 /* Footer Section */
 footer {
+	position: relative;
     background-color: #2c3e50;
     color: #ecf0f1;
-    padding: 50px 0;
+    padding: 20px 0;
     border-top: 4px solid #003399;
+    z-index: 10px;
+    width:100%;
+    left:0px;
 }
 footer .footer-content {
     display: flex;

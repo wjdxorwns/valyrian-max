@@ -5,7 +5,7 @@ public class PersonnelChangeVO {	//	4. 인사 발령 테이블
 	//	발령ID, 직원코드, 발령유형, 발령일, 이전 부서명, 변경 후 부서명, 고용타입
 	private int change_id, request_idx;
 	private String change_type, change_date, prev_dept_id, 
-				new_dept_id, employment_type, prev_location_id, new_location_id;
+				new_dept_id, employment_type;
 	
 	
 	public int getChange_id() {
@@ -50,21 +50,11 @@ public class PersonnelChangeVO {	//	4. 인사 발령 테이블
 	public void setEmployment_type(String employment_type) {
 		this.employment_type = employment_type;
 	}
+	
+	
+	
+	
+	
 
-
-    public String getPrev_location_id() {
-        return prev_location_id;
-    }
-
-    public void setPrev_location_id(String prev_location_id) {
-        this.prev_location_id = prev_location_id;
-    }
-
-    public String getNew_location_id() {
-        return new_location_id;
-    }
-
-    public void setNew_location_id(String new_location_id) {
-        this.new_location_id = new_location_id;
-    }
+	
 }

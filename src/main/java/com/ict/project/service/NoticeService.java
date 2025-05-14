@@ -11,6 +11,9 @@ public interface NoticeService {
     void registerNotice(BoardVO boardVO, MultipartFile file, String uploadPath);
     BoardVO getNoticeDetail(int boardId);
     void increaseViewCount(int boardId);
-    void updateNotice(BoardVO boardVO, MultipartFile file, String uploadPath); // 올바른 메서드 시그니처
+    void updateNotice(BoardVO boardVO, MultipartFile file, String uploadPath);
     void deleteNotice(int boardId);
+    List<BoardVO> getRecentNotices(int limit);
+    String getLastUpdatedTime();
+    BoardVO getDefaultNotice(); // 기본 공지사항 반환 메서드
 }

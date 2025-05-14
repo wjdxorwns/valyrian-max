@@ -64,8 +64,8 @@ aside .aside-item ul li a:hover {
 	<div class= "aside-item">
      <h2>급여관리</h2>
         <ul>
-            <li><a href="/payrollList">급여 리스트 조회</a></li>
-            <li><a href="/payrollGrade">직급별 급여 리스트</a></li>
+            <li><a href="/pay">급여 리스트 조회</a></li>
+            <li><a href="${pageContext.request.contextPath}/adminPay">직급별 급여 리스트</a></li>
         </ul>
        </div>
 </aside>

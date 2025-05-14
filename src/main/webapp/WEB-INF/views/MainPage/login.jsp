@@ -28,7 +28,7 @@
 	<main>
 		<section class="login-container">
 			<div class="login-box">
-				<h2 class="login-title">3부상조 로그인</h2>
+				<h2 class="login-title">트라이어드 솔루션 비즈니스 플랫폼 로그인</h2>
 				<p class="login-subtitle">안전하고 간편한 비즈니스 플랫폼에 접속하세요</p>
 				<form id="loginForm" action="<c:url value='/login' />" method="post">
 					<div class="input-group">
@@ -41,7 +41,7 @@
 							required>
 					</div>
 					<div class="options">
-						<a href=" " class="forgot-password">비밀번호 찾기</a>
+						<a href="passwordFind" class="forgot-password">비밀번호 찾기</a>
 					</div>
 					<button type="submit" class="login-button">로그인</button>
 					<c:if test="${loginchk == 'fail'}">

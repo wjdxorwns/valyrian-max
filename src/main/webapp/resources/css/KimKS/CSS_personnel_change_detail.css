@@ -11,7 +11,7 @@
     .search-bar {
     border: 2px solid #000;
     background: #e0f4ff;
-    padding: 15px 15px 15px 160px;
+    padding: 15px 15px 15px 75px;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -134,10 +134,9 @@
 
 .map_content {
     display: flex;
-    gap: 30px;
-    padding: 30px;
+   
     align-items: flex-start;
-    margin-top: 185px;
-    margin-left: 90px;
+    margin-top: 150px;
+    margin-left: 0px;
 }
      

@@ -149,13 +149,13 @@
 }
 
 /* form-row */
-.row {
+.row, .row0, .row00 {
 	margin-bottom: 15px;
 	display: flex;
 	align-items: center;
 }
 
-.row label {
+.row label, .row0 label, .row00 label {
 	width: 100px;
 	font-weight: bold;
 }

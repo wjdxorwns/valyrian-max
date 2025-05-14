@@ -19,7 +19,7 @@
     <jsp:include page="/resources/jsp/Header.jsp" />
 	
 	<main>
-		<jsp:include page="/resources/jsp/MainAside.jsp" />
+		<jsp:include page="/resources/jsp/CalendarAside.jsp" />
 		<div class="calendar-wrapper">
 			<div class="calendar-container">
 				<h2>📅 내 할일 달력</h2>

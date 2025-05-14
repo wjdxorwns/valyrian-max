@@ -1,4 +1,4 @@
-<!-- 작성자: 한찬욱 | 기여자: 김재겸-->
+<!-- 작성자: 한찬욱 | 기여자: 김재겸, 김용호-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,252 +8,175 @@
 <meta charset="UTF-8">
 <title>3부상조 - 어드민 직원에게 급여 지급</title>
 
-<!-- 화면(CSS) 링크 -->
-<link
-	href="<c:url value='/resources/css/HanCW/CSS_admin_pay_detail_update.css'/>"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/JeoungTJ/Main.css'/>"
-	rel="stylesheet">
 <link href="<c:url value='/resources/css/Header.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/Footer.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/KimYH/PayUpdate.css'/>" rel="stylesheet">
 
-<!-- 폰트 링크 -->
+<!-- 폰트 -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
 	rel="stylesheet">
-<!-- Font Awesome for social icons -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
-
-
-
 <body>
-
-
-	<main style="width: margin: 80px auto auto;">
-		<jsp:include page="/resources/jsp/PayAside.jsp" />
-
-
-		<!-- 사진, 이메일, 직원 이름, 집주소, 상세 집주소, 휴대전화번호, 부서명, 직책, 호봉, 입사일, 직원 고유코드, 휴가일  -->
-		<!-- Header -->
-		<jsp:include page="/resources/jsp/Header.jsp" />
-		<div style="margin-top: 30px;">
-			<h2>직원 급여 지급</h2>
-			<h4>직원에게 급여를 책정합니다.</h4>
-
+	<jsp:include page="/resources/jsp/PayAside.jsp" />
+	<jsp:include page="/resources/jsp/Header.jsp" />
+	<main>
+		<div class="content">
+			<div class="text-area">
+				<h2>직원 급여 지급</h2>
+				<h4>직원에게 급여를 책정합니다.</h4>
+			</div>
+			<div class="table-area">
+				<table>
+					<tbody>
+						<tr>
+							<th colspan="2" rowspan="6">
+								<img src='<c:url value="/resources/images/18ceebb0bfd4c2da7.jpg" />' alt="프로필 이미지">
+							</th>
+							<th>이름</th><td><input type="text" class="box1" value="${eVO.emp_name}" readonly /></td>
+						</tr>
+						<tr>
+							<th>이메일</th><td><input type="text" class="box1" value="${not empty user.emp_email ? user.emp_email : '-'}" disabled /></td>
+						</tr>
+						<tr>
+							<th>전화번호</th>
+							<td><input type="text" class="box1" value="${not empty user.phone_number ? user.phone_number : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>부서명</th>
+							<td><input type="text" class="box1" value="${not empty user.team ? user.team : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>직책</th>
+							<td><input type="text" class="box1" value="${not empty user.position ? user.position : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>연(년)차</th>
+							<td><input type="text" class="box1" value="${not empty user.pay_grade ? user.pay_grade : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>입사일</th><td><input type="text" class="box1" value="${not empty user.hire_date ? user.hire_date : '-'}" disabled/></td>
+							<th>성별</th><td><input type="text" class="box1" value="${not empty user.gender ? user.gender : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>직원코드</th><td><input type="text" class="box1" name="emp_idx" value="${not empty user.emp_idx ? user.emp_idx : '-'}" disabled/></td>
+							<th>급여</th><td><input type="text" class="box1" value="${not empty user.pay ? user.pay : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>주소</th><td colspan="3"><input type="text" class="box1" value="${not empty user.home ? user.home : '-'}" disabled/></td>
+						</tr>
+						<tr>
+							<th>상세주소</th><td colspan="3"><input type="text" class="box1" value="${not empty user.detail_home ? user.detail_home : '-'}" disabled/></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				<button onclick="openmodal()">급여 수정</button>
 		</div>
-		<!-- 개인정보 테이블 -->
-		<div class="container">
-			<div class="container1">
-				<!-- 사진과 옆내용 -->
-				<div class="infor_table">
-					<!-- 사진 -->
-					<div class="profile_image">
-						<img
-							src='<c:url value="/resources/images/18ceebb0bfd4c2da7.jpg" />'>
-					</div>
-					<!-- 직원이름, 이메일, 휴대전화번호, 부서명, 직책, 호봉 -->
-					<div>
+		
+		
 
-						<div class="set">
-							<div class="info_title">이름</div>
-							<div>
-								<input type="text" class="box1" value="${user.emp_name }"
-									disabled />
-							</div>
-						</div>
-
-						<div class="set">
-							<div class="info_title">이메일</div>
-							<div>
-								<input type="text" class="box1" value="${user.emp_email }"
-									disabled />
-							</div>
-						</div>
-
-						<div class="set">
-							<div class="info_title">전화번호</div>
-							<div>
-								<input type="text" class="box1" value="${user.phone_number }"
-									disabled />
-							</div>
-						</div>
-
-						<div class="set">
-							<div class="info_title">부서명</div>
-							<div>
-								<input type="text" class="box1" value="${employee.dept_name }"
-									disabled />
-							</div>
-						</div>
-
-						<div class="set">
-							<div class="info_title">직책</div>
-							<div>
-								<input type="text" class="box1" value="${employee.position }"
-									disabled />
-							</div>
-						</div>
-
-						<div class="set">
-							<div class="info_title">호봉</div>
-							<div>
-								<input type="text" class="box1" value="${employee.pay_grade }"
-									disabled />
-							</div>
-						</div>
-
-					</div>
+		<!-- 모달 창 -->
+		<div id="pay-modal">
+			<form id="payForm" action="/admin_Pay_Update_Ok" method="post">
+				<p class="p1">
+					<label>기본급 : </label>
+					<input class="in" type="number" name="base_salary" min="0" value="${user.base_salary}">
+				</p>
+				<button class="button3" type="button" onclick="calculateRealPay()">계산</button>
+				<p class="p1">
+					<label>보너스 : </label>
+					<input class="in" type="number" name="bonus" min="0" value="${user.bonus} ">
+				</p>
+				<p class="p1">
+					<label>세금</label>
+					<select class="percentage" name="taxRate" id="taxRate">
+						<option value="1">1%</option>
+						<option value="2">2%</option>
+						<option value="3">3%</option>
+					</select>
+				</p>
+				<p>실 수령</p>
+				<p><label>기본급 - (세금×기본급) + 보너스 = 실수령 금액</label></p>
+				<p><input class="pay_box" type="text" name="realPay" readonly></p>
+				<div class="button-area">
+					<input type="button" class="button2" value="저장하기" onclick="adminPayDetailUpdateOk()"> 
+					<input type="button" class="button2" value="돌아가기" onclick="history.back()">
+					<input type="button" class="button2" value="닫기" onclick="close()">
 				</div>
-				<!-- 사진 아랫내용 -->
-				<div class="under_table">
-					<div class="und_table">
-						<div class="set">
-
-							<div class="info_title">입사일</div>
-							<div>
-								<input type="text" class="box2" value="${user.start_date }"
-									disabled />
-							</div>
-						</div>
-						<div class="set">
-							<div class="info_title">휴가일</div>
-							<div>
-								<input type="text" class="box2" value="${user.vacation_day }"
-									disabled />
-							</div>
-						</div>
-
-					</div>
-					<div class="und_table">
-						<div class="set">
-							<div class="info_title">직원코드</div>
-							<div>
-								<input type="text" class="box2" value="${user.emp_code }"
-									disabled />
-							</div>
-						</div>
-						<div class="set">
-							<div class="info_title">급여</div>
-							<div>
-								<input type="text" class="box2" value="${user.pay }" disabled />
-							</div>
-						</div>
-					</div>
-					<div class="set">
-						<div class="info_title">주소</div>
-						<div>
-							<input type="text" class="box3" value="${user.home }" disabled />
-						</div>
-					</div>
-
-					<div class="set">
-						<div class="info_title">상세주소</div>
-						<div>
-							<input type="text" class="box3" value="${user.detail_home }"
-								disabled />
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="container2">
-				<br> <br> <br> <br> <br> <br> <br>
-				<br> <br> <br> <br> <br> <br>
-				<div class="pay">
-					<div>급여 :</div>
-					<div class="choice">
-						<input class="in" type="number">
-						<button class="button3">등록</button>
-					</div>
-				</div>
-				<div class="tex">
-					<div>세금</div>
-					<div>
-						<label for="percentage" class="choice">퍼센트 선택:</label> <select
-							class="percentage" name="percentage">
-							<option value="1">1%</option>
-							<option value="2">2%</option>
-							<option value="3">3%</option>
-						</select>
-					</div>
-				</div>
-				<div class="real_pay">실수령 금액</div>
-				급여 - (세금X급여) = 실수령 금액
-				<div>
-					<input class="pay_box" type="text" readonly>
-				</div>
-				<div>
-					<input type="button" class="button2" value="저장하기"
-						onclick="admin_Pay_Detail_Update_Ok(this.form)"> <input
-						type="button" class="button2" value="돌아가기"
-						onclick="admin_Pay_Detail(this.form)">
-				</div>
-			</div>
+			</form>
 		</div>
 	</main>
-
-
-	<!-- Footer -->
+	
 	<jsp:include page="/resources/jsp/Footer.jsp" />
+	
+	<script type="text/javascript">
+		function calculateRealPay() {
+			const salaryInput = document
+					.querySelector('input[name="base_salary"]').value;
+			const salary = parseFloat(salaryInput) || 0;
+			const taxRateSelect = document.querySelector(".percentage").value;
+			const taxRate = parseFloat(taxRateSelect) / 100 || 0;
+			const taxAmount = salary * taxRate;
+			const bonusInput = document.querySelector('input[name="bonus"]').value;
+			const bonus = parseFloat(bonusInput) || 0;
+			const realPay = salary - taxAmount + bonus;
+			const realPayInput = document.querySelector(".pay_box");
+			realPayInput.value = realPay.toFixed(0);
+			console.log("Calculated real pay: " + realPay);
+		}
+
+		function adminPayDetailUpdateOk() {
+			const baseSalary = parseFloat(document
+					.querySelector('input[name="base_salary"]').value) || 0;
+			const bonus = parseFloat(document
+					.querySelector('input[name="bonus"]').value) || 0;
+			const taxRate = document.querySelector('select[name="taxRate"]').value;
+			const emp_idx = document.querySelector('input[name="emp_idx"]').value;
+
+			if (baseSalary <= 0) {
+				alert("기본급을 숫자로 입력하세요.");
+				return;
+			}
+			if (!taxRate) {
+				alert("세율을 선택하세요.");
+				return;
+			}
+			if (!emp_idx) {
+				alert("직원 코드가 없습니다.");
+				return;
+			}
+
+			// 폼 제출
+			document.getElementById("payForm").submit();
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			const calcButton = document.querySelector(".button3");
+			if (calcButton) {
+				calcButton.addEventListener("click", calculateRealPay);
+			}
+		});
+		
+		/* 모달 창 */
+		function openmodal() {
+			document.getElementById('pay-modal').style.display = 'flex';
+		}
+		function close() {
+			document.getElementById('pay-modal').style.display = 'none';
+		}
+		function calculateRealPay() {
+			const baseSalary = parseFloat(document.querySelector('input[name="base_salary"]').value) || 0;
+			const bonus = parseFloat(document.querySelector('input[name="bonus"]').value) || 0;
+			const taxRate = parseFloat(document.querySelector('select[name="taxRate"]').value) / 100;
+			const realPay = baseSalary - (baseSalary * taxRate) + bonus;
+			document.querySelector('input[name="realPay"]').value = realPay.toFixed(2);
+		}
+		function adminPayDetailUpdateOk() {
+			document.getElementById('payForm').submit();
+		}
+	</script>
 </body>
-
-
-
-<script type="text/javascript">
-	// 실수령 금액 계산
-	function calculateRealPay() {
-		const salaryInput = document.querySelector(".in").value;
-		const salary = parseFloat(salaryInput) || 0;
-		const taxRateSelect = document.querySelector(".percentage").value;
-		const taxRate = parseFloat(taxRateSelect) / 100 || 0;
-		const taxAmount = salary * taxRate;
-		const realPay = salary - taxAmount;
-		const realPayInput = document.querySelector(".pay_box");
-		realPayInput.value = realPay.toFixed(0);
-	}
-
-	function admin_Pay_Detail_Update() {
-
-		const salary = parseFloat(document.querySelector(".in").value) || 0;
-		const taxRate = parseFloat(document.querySelector(".percentage").value) || 0;
-		const realPay = parseFloat(document.querySelector(".pay_box").value) || 0;
-		const empIdx = "${user.emp_code}"; // JSP에서 직원 코드 가져오기
-
-		if (salary <= 0 || isNaN(salary)) {
-			alert("유효한 급여를 입력하세요.");
-			return;
-		}
-		if (taxRate <= 0 || isNaN(taxRate)) {
-			alert("유효한 세율을 선택하세요.");
-			return;
-		}
-
-	}
-
-	document.addEventListener("DOMContentLoaded", function() {
-
-		const calcButton = document.querySelector(".button3");
-		if (calcButton) {
-			calcButton.addEventListener("click", calculateRealPay);
-		}
-
-		const saveButton = document.querySelector('input[value="저장하기"]');
-		if (saveButton) {
-			saveButton.addEventListener("click", admin_Pay_Detail_Update_ok);
-		}
-
-		const backButton = document.querySelector('input[value="돌아가기"]');
-		if (backButton) {
-			backButton.addEventListener("click", function() {
-				window.location.href = "/searchEmployees";
-			});
-		}
-	});
-</script>
-
 </html>
-
-

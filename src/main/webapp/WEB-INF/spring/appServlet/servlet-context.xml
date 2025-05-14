@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 작성자: 김재겸 -->
+<!-- 작성자: 김재겸 , 최성현 -->
 <beans:beans 
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -8,6 +8,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    
     <!-- 어노테이션 기반 MVC 설정 활성화 -->
     <mvc:annotation-driven />
 
@@ -32,43 +33,44 @@
         <beans:property name="defaultEncoding" value="UTF-8" />
     </beans:bean>
     
-	<!-- 인터셉터 -->
-	<mvc:interceptors>
-		<!-- 1. 로그인 체크가 필요한 페이지 경로 설정 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/EmployeeRegistration"/> 		<!-- 직원 등록(큰 글씨) -->
-			<mvc:mapping path="/employeesRegister"/> 			<!-- 직원 등록 -->
-			<mvc:mapping path="/employeesList"/>				<!-- 직원 리스트 조회 -->
-			<mvc:mapping path="/employeesDetails"/>				<!-- 직원 상세 조회 -->
-			
-			<mvc:mapping path="/WorkScheduleAssignment"/>		<!-- 근무 방식 지정(큰 글씨) -->
-			<mvc:mapping path="/workSchedule"/>					<!-- 근무 방식 선택 -->
-			<mvc:mapping path="/workLocation"/>					<!-- 희망 근무지 선택 -->
-			
-			<mvc:mapping path="/HumanResourcesManagement"/>		<!-- 인사 관리(큰 글씨) -->
-			<mvc:mapping path="/hrTransfer"/>					<!-- 보직 이동 -->
-			<mvc:mapping path="/hrRetirement"/>					<!-- 퇴직 관리 -->
-			<mvc:mapping path="/hrManagement"/>					<!-- 인사 관리 -->
-			
-			<mvc:mapping path="/PayrollManagement"/>			<!-- 급여 관리(큰 글씨) -->
-			<mvc:mapping path="/payrollList"/>					<!-- 급여 리스트 조회 -->
-			<mvc:mapping path="/payrollGrade"/>					<!-- 직급별 급여 리스트 -->
-			
-			<mvc:mapping path="/Permission"/>					<!-- 헤더-슈퍼 어드민의 권한 부여 기능 -->
-			<mvc:mapping path="/PermissionRequest"/>			<!-- 헤더-슈퍼 어드민/어드민의 요청 승인 리스트 기능 -->
-			
-			<mvc:mapping path="/VacationManagement"/>			<!-- 휴가 관리(큰 글씨) -->
-			<mvc:mapping path="/vacationList"/>					<!-- 휴가 리스트 조회 -->
-			<mvc:mapping path="/vacationApproval"/>				<!-- 휴가 조정 및 신청 -->
-			<mvc:mapping path="/vacationInquiry"/>				<!-- 개인 휴가 현황 -->
-			
-			<mvc:mapping path="/userProfile"/>					<!-- 내 정보(마이페이지) -->
-			
-			<mvc:mapping path="/notice"/>						<!-- 공지사항 -->
-			<mvc:mapping path="/notice_detail"/>				<!-- 공지사항-세부내용 -->
-			<mvc:mapping path="/notice_registeration"/>			<!-- 공지사항-등록 -->
-			<mvc:mapping path="/attendance"/>					<!-- 출퇴근기능 -->
-			<beans:bean class="com.ict.project.common.LoginCheckInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
+    <!-- BCryptPasswordEncoder 빈 정의 (추가) -->
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!-- 인터셉터 -->
+    <mvc:interceptors>
+        <!-- 1. 로그인 체크가 필요한 페이지 경로 설정 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/EmployeeRegistration"/>      <!-- 직원 등록(큰 글씨) -->
+            <mvc:mapping path="/empDataRegister"/>        		<!-- 직원 등록 -->
+            <mvc:mapping path="/employeesList"/>            <!-- 직원 리스트 조회 -->
+            <mvc:mapping path="/employeesDetails"/>         <!-- 직원 상세 조회 -->
+            
+            <mvc:mapping path="/WorkScheduleAssignment"/>   <!-- 근무 방식 지정(큰 글씨) -->
+            <mvc:mapping path="/workSchedule"/>             <!-- 근무 방식 선택 -->
+            <mvc:mapping path="/workLocation"/>             <!-- 희망 근무지 선택 -->
+            
+            <mvc:mapping path="/HumanResourcesManagement"/> <!-- 인사 관리(큰 글씨) -->
+            <mvc:mapping path="/hrTransfer"/>               <!-- 보직 이동 -->
+            <mvc:mapping path="/hrRetirement"/>             <!-- 퇴직 관리 -->
+            <mvc:mapping path="/hrManagement"/>             <!-- 인사 관리 -->
+            
+            <mvc:mapping path="/adminPay"/>       			 <!-- 급여 관리(큰 글씨) -->
+            <mvc:mapping path="/admin_pay_list"/>            <!-- 급여 리스트 조회 -->
+            <mvc:mapping path="/PayrollManagement"/>         <!-- 직급별 급여 리스트 -->
+            
+            <mvc:mapping path="/VacationManagement"/>		<!-- 휴가 관리(큰 글씨) -->
+			<mvc:mapping path="/vacationList"/>				<!-- 휴가 리스트 조회 -->
+			<mvc:mapping path="/vacationApproval"/>			<!-- 휴가 조정 및 신청 -->
+			<mvc:mapping path="/vacationInquiry"/>	
+            
+            <mvc:mapping path="/PermissionRequest"/>        <!-- 전자 결제 및 권한 관리 -->
+            <mvc:mapping path="/userProfile"/>              <!-- 내 정보(마이페이지) -->
+            
+            <mvc:mapping path="/attendance"/>               <!-- 출퇴근기능 -->
+            <mvc:mapping path="/electronicpayment"/>        <!-- 전자결제 -->
+            <mvc:mapping path="/calendar"/>                 <!-- 캘린더 -->
+            
+            <beans:bean class="com.ict.project.common.LoginCheckInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans:beans>

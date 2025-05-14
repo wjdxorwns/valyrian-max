@@ -7,14 +7,15 @@
 <title>Permission Management</title>
 <style type="text/css">
 aside {
-    position: absolute;
+    position: fixed;
     top: 80px;
     left: 0;
     width: 250px;
+    height: calc(100vh - 80px);
     background-color: #ffffff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 9997; 
-    height: -webkit-fill-available;
+    z-index: 9997;
+    overflow-y: auto;
 }
 
 aside .aside-item {
@@ -30,6 +31,8 @@ aside .aside-item h2 {
 
 aside .aside-item ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 aside .aside-item ul li {
@@ -42,61 +45,40 @@ aside .aside-item ul li a {
     font-size: 16px;
     font-weight: 300;
     display: block;
-    padding: 5px 0;
-    transition: color 0.3s ease;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
 }
 
 aside .aside-item ul li a:hover {
-    color: #3498db;
+    color: #003399;
+    background-color: #f5f5f5;
 }
 </style>
 </head>
 
 <body>
-<aside id="scrollable-aside">
+<aside>
     <div class="aside-item">
-        <h2>권한 관리</h2>
-        <ul>
-            <li><a href="/Permission?emp_idx=${sessionScope.employeeVO.emp_idx}">권한 부여</a></li>
-            <li><a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">요청 승인</a></li>
-        </ul>
+        <c:choose>
+			<c:when test='${sessionScope.permissionvo.can_access_employee eq 1 or sessionScope.employeeVO.dept_name eq "슈퍼관리자"}'>
+				<li class="nav-item"><a href="/Permission">권한 및 전자결제 관리</a>
+					<ul class="dropdown-menu">
+						<li><a href="/Permission?emp_idx=${sessionScope.employeeVO.emp_idx}">권한 부여</a></li>
+						<li><a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">전자 결제</a></li>
+					</ul>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item">
+					<a href="#" onclick="alert('휴가 관리 권한이 없습니다.'); return false;">권한 및 전자결제 관리</a>
+					<ul class="dropdown-menu">
+						<li><a href="#" onclick="alert('휴가 관리 권한이 없습니다.'); return false;">권한 부여</a></li>
+					</ul>
+				</li>
+			</c:otherwise>
+		</c:choose>
     </div>
 </aside>
-
-<script>
-function adjustAsidePosition() {
-    const aside = document.getElementById('scrollable-aside');
-    const footer = document.querySelector('footer');
-    const headerHeight = 80; 
-    const scrollY = window.scrollY;
-
-    if (!footer) {
-        aside.style.top = `${scrollY + headerHeight}px`;
-        return;
-    }
-    const footerTop = footer.getBoundingClientRect().top + scrollY; 
-    const maxTop = footerTop - aside.offsetHeight;
-
-    let newTop = scrollY + headerHeight;
-
-    if (newTop > maxTop) {
-        newTop = maxTop;
-    }
-
-    aside.style.top = `${newTop}px`;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    adjustAsidePosition();
-});
-
-// 스크롤 및 리사이즈 이벤트에 위치 조정 함수 연결
-window.addEventListener('scroll', adjustAsidePosition);
-window.addEventListener('resize', adjustAsidePosition);
-
-// 푸터가 동적으로 로드될 경우를 대비해 주기적으로 체크
-setTimeout(adjustAsidePosition, 1000); // 1초 후 재시도
-</script>
-
 </body>
 </html>

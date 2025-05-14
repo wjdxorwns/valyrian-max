@@ -10,7 +10,7 @@
 	}
 
 .main-item{
-	margin-left: 100px;
+	
 	align-items: center;
 	margin-top: 30px;
 }
@@ -72,3 +72,8 @@ overflow-x: auto;
 .emp_table{
 min-width: 1500px
 }
+
+
+
+
+

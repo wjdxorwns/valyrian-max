@@ -10,6 +10,8 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- 작성자: 김재겸 -->
+
 <style>
 /* 기본 스타일 */ 
 body {
@@ -71,18 +73,25 @@ button:hover {
     <table>
         <thead>
             <tr>
-                <th>부서</th>
                 <th>이름</th>
                 <th>직책</th>
+                <th>부서</th>
                 <th>근무방식</th>
                 <th>근무지</th>
+                <th>요청사유</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>${sessionScope.employeeVO.team}</td>
                 <td>${sessionScope.userVO.emp_name}</td>
                 <td>${sessionScope.employeeVO.position}</td>
+                <td>
+                    <select name="team" id="teamSelect" class="form-control">
+                        <option value="인사1팀" ${sessionScope.employeeVO.team eq '인사1팀' ? 'selected' : ''}>인사1팀</option>
+                        <option value="인사2팀" ${sessionScope.employeeVO.team eq '인사2팀' ? 'selected' : ''}>인사2팀</option>
+                        <option value="인사3팀" ${sessionScope.employeeVO.team eq '인사3팀' ? 'selected' : ''}>인사3팀</option>
+                    </select>
+                </td>
                 <td>
                     <select name="attitude_type" id="workTypeSelect">
                         <option value="출장">출장</option>
@@ -97,6 +106,9 @@ button:hover {
                         <option value="경상북도 경산지부">경상북도 경산지부</option>
                         <option value="강원도 속초지부">강원도 속초지부</option>
                     </select>
+                </td>
+                <td>
+                    <textarea name="request_text" id="requestText" rows="3" style="width: 100%;" placeholder="근무지 변경 사유를 입력하세요"></textarea>
                 </td>
             </tr>
         </tbody>
@@ -172,14 +184,23 @@ function updateWorkArrangement() {
         const empIdx = $('input[name="emp_idx"]').val();
         const location = $('#workLocationSelect').val();
         const attitudeType = $('#workTypeSelect').val();
-
+        const team = $('#teamSelect').val();
+        const requestText = $('#requestText').val();
+        
+        if (!requestText) {
+            alert('근무지 변경 사유를 입력해주세요.');
+            return;
+        }
+        
         $.ajax({
             url: '/updateWorkArrangement',
             type: 'POST',
             data: {
                 emp_idx: empIdx,
                 location: location,
-                attitude_type: attitudeType
+                attitude_type: attitudeType,
+                team: team,
+                request_text: requestText
             },
             success: function (response) {
                 alert('요청 완료');
