@@ -1,5 +1,6 @@
 package com.ict.project.repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -28,13 +29,22 @@ public class NorDAO {
         return sqlSession.selectOne("nor.getEmployeeByUserIdx", userIdx);
     }
     
-    // 작성자: 한찬욱 | 기여자: 김재겸
-    //	user_idx로 MyPage(자신의 정보) 불러오기
-    public Map<String, Object> getEmployeeInfor(String emp_idx) {
-    	
-    	return sqlSessionTemplate.selectOne("nor.getEmployeeInfor", emp_idx);
-    }
+	// 작성자: 한찬욱 | 기여자: 김재겸
+	// user_idx로 MyPage(자신의 정보) 불러오기
+	public Map<String, Object> getEmployeeInfor(String emp_idx) {
 
-    
-	//	한찬욱 MyPage에서 Update로 넘어갈 때 empCode를 가지고 Update 화면에서 정보 불러오기
+		return sqlSessionTemplate.selectOne("nor.getEmployeeInfor", emp_idx);
+	}
+
+	public int updatePassword(int userIdx, String encryptedPassword) {
+		Map<String, Object> paraMap = new HashMap<>();
+		paraMap.put("userIdx", userIdx);
+		paraMap.put("encryptedPassword", encryptedPassword);
+
+		return sqlSessionTemplate.update("nor.updatePassword", paraMap);
+	}
+
+	public int updateSignature(Map<String, Object> params) {
+		return sqlSessionTemplate.update("nor.updateSignature", params);
+	}
 }

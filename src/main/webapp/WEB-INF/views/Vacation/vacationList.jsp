@@ -59,7 +59,7 @@ th, td {
 	<!-- Header -->
 	<jsp:include page="/resources/jsp/Header.jsp" />
 	<!-- Aside -->
-	<jsp:include page="/resources/jsp/VacationAside.jsp" />
+	<%-- <jsp:include page="/resources/jsp/VacationAside.jsp" /> --%>
 
 	<main>
 		<form action="/leaveList" method="post">

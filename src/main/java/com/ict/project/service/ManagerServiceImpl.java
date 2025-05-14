@@ -60,4 +60,28 @@ public class ManagerServiceImpl implements ManagerService {
         // 각 권한을 업데이트하는 로직
     	managerDAO.updatePermissions(userId, permissions);
     }
+
+	@Override
+	public Map<String, Object> getEmployeeInfo(String emp_idx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateWorkType(String emp_idx, String workType) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Map<String, Object> getVacationInfo(String emp_idx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updateVacationStatus(String emp_idx, String status) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -17,4 +17,10 @@ public interface PersonnelService {
 	List<Map<String, Object>> getAllApprovals();
 
 	boolean updateVacationStatuses(List<Map<String, Object>> approval);
+
+	// 작성자: 김재겸 (05-13)
+	Map<String, Object> getEmployeeDetails(String empIdx);
+
+	boolean updateWorkArrangement(String empIdx, String location, String attitudeType);
+
 }

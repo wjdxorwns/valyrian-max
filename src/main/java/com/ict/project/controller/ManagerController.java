@@ -110,4 +110,18 @@ public class ManagerController {
         }
         return result;
     }
+    
+    // 직원의 전자결제 시스템으로 넘어가기
+    @GetMapping("/PermissionRequest")
+    public ModelAndView goToTheElectronicPaymentAndView(
+            HttpSession session,
+            HttpServletResponse response) throws IOException {
+    	
+    	String emp_idx = (String) session.getAttribute("emp_idx");
+        session.setAttribute("emp_idx", emp_idx);
+        ModelAndView mv = new ModelAndView("Permission/permissionRequest");
+        return mv;
+    }
+    
+    
 }

@@ -1,5 +1,6 @@
 package com.ict.project.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,19 @@ public class PersonnelDAO {
     
     public void updateVacationStatus(Map<String, Object> approval) {
     	sqlSession.update("com.ict.project.repository.PersonnelDAO.updateVacationStatus", approval);
+    }
+
+    // 작성자: 김재겸 (05-13)
+    public Map<String, Object> getEmployeeDetails(String empIdx) {
+        return sqlSession.selectOne("personnel.getEmployeeDetails", empIdx);
+    }
+    
+    public void updateWorkArrangement(String empIdx, String location, String attitudeType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("emp_idx", empIdx);
+        params.put("location", location);
+        params.put("attitude_type", attitudeType);
+        sqlSession.update("personnel.updateWorkArrangement", params);
     }
 
 }

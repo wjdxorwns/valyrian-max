@@ -41,17 +41,12 @@
 									<a href="/Permission?emp_idx=${sessionScope.employeeVO.emp_idx}">권한 부여</a>
 								</li>
 								<li>
-									<a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">요청 승인</a>
+									<a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">전자결제 및 확인</a>
 								</li>
 							</c:when>
-							<%-- <c:when test='${sessionScope.role == "관리자"}'>
-								<li>
-									<a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">요청 승인</a>
-								</li>
-							</c:when> --%>
 							<c:otherwise>
 								<li>
-									<a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">요청 승인</a>
+									<a href="/PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">전자결제</a>
 								</li>
 							</c:otherwise>						
 						</c:choose>

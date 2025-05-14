@@ -15,10 +15,12 @@ public interface NorService {
     //	한찬욱 -- user_idx를 이용하여 MyPage 정보 불러오기
 	public Map<String, Object> getEmployeeInfor(String emp_idx);
 	
-	//	한찬욱 -- MyPage에서 Update로 넘어갈 때 empCode를 가지고 Update 화면에서 정보 불러오기
-	/*
-	 * public UsersVO getUserInfor(int user_idx);
-	 */
+	//	한찬욱 -- MyPageUpdate에서 DB로 Password 보내기	화면단에 무언가를 보여지는게 아니라 저장하는 것이라서 public void로 지정
+    public void updatePassword(int userIdx, String encryptedPassword);
+    
+    //	한찬욱 -- MyPageUpdate에서 DB로 싸인 보내기
+    public void updateSignature(int userIdx, String signatureData);
+
 	
 	
 }

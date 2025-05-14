@@ -83,7 +83,7 @@
 									<span class="screen-hidden"></span>
 								</p>
 						</a></li>
-						<li class="shortcut-list-item"><a href="electronicpayment?emp_idx=${sessionScope.employeeVO.emp_idx}">
+						<li class="shortcut-list-item"><a href="PermissionRequest?emp_idx=${sessionScope.employeeVO.emp_idx}">
 								<h3 class="txt-main">전자 결제</h3>
 								<p class="txt-sub">
 									손쉽고 간편하게<br> 승인 요청을 넣어보세요.

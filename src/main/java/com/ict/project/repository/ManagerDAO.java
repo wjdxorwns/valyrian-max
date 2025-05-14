@@ -32,4 +32,21 @@ public class ManagerDAO {
 	        }
 	    }
 	   
+	// 전자결제 관련 메서드
+	public void insertApproval(Map<String, Object> approvalData) {
+		sqlSessionTemplate.insert(NAMESPACE + ".insertApproval", approvalData);
+	}
+	
+	public List<Map<String, Object>> getApprovalList(String empIdx) {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".getApprovalList", empIdx);
+	}
+	
+	public Map<String, Object> getApprovalDetail(String approvalId) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getApprovalDetail", approvalId);
+	}
+	
+	public void updateApprovalStatus(String approvalId, String status) {
+		Map<String, String> params = Map.of("approvalId", approvalId, "status", status);
+		sqlSessionTemplate.update(NAMESPACE + ".updateApprovalStatus", params);
+	}
 }

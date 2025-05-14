@@ -61,4 +61,21 @@ public class PersonnelServiceImpl implements PersonnelService{
 			return false;
 		}
 	}
+
+	// 작성자: 김재겸 (05-13)
+	@Override
+	public Map<String, Object> getEmployeeDetails(String empIdx) {
+		return personnelDAO.getEmployeeDetails(empIdx);
+	}
+
+	@Override
+	public boolean updateWorkArrangement(String empIdx, String location, String attitudeType) {
+    	try {
+        	personnelDAO.updateWorkArrangement(empIdx, location, attitudeType);
+      	  	return true;
+    	} catch (Exception e) {
+       	 	e.printStackTrace();
+       	 	return false;
+   	 	}
+}
 }

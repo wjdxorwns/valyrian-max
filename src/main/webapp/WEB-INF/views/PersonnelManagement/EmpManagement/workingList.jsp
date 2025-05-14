@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 작성자: 김재겸 -->
-<!-- 진행중인 요청 사항 보여주기(사원용) -->
+<!-- 진행중인 요청 사항 보여주기(관리자용) -->
 
 <!DOCTYPE html>
 <html>
