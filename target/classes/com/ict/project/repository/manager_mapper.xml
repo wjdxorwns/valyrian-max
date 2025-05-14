@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="manager">
+    <select id="list" resultType="map">
+        SELECT
+        p.emp_idx,
+        u.emp_name,
+        e.dept_name,
+        p.can_access_employee,
+        p.can_access_worktype,
+        p.can_access_personnel,
+        p.can_access_salary,
+        p.can_access_vacation
+        FROM Permission p
+        INNER JOIN Employee e ON p.emp_idx = e.emp_idx
+        INNER JOIN Users u ON e.user_idx = u.user_idx
+        WHERE e.dept_name = '관리자'
+    </select>
+
+    <update id="updatePermissions" parameterType="map">
+        UPDATE Permission
+        SET can_access_employee = #{permissions.can_access_employee},
+            can_access_worktype = #{permissions.can_access_worktype},
+            can_access_personnel = #{permissions.can_access_personnel},
+            can_access_salary = #{permissions.can_access_salary},
+            can_access_vacation = #{permissions.can_access_vacation}
+        WHERE emp_idx = #{userId}
+    </update>
+    
+    <!-- 전자결제 관련 쿼리 -->
+    <insert id="insertApproval" parameterType="map">
+        INSERT INTO electronic_approval (
+            approval_id,
+            emp_idx,
+            approval_type,
+            status,
+            signature_path,
+            created_at,
+            updated_at
+        ) VALUES (
+            #{approval_id},
+            #{emp_idx},
+            #{approval_type},
+            #{status},
+            #{signature_path},
+            NOW(),
+            NOW()
+        )
+    </insert>
+    
+    <select id="getApprovalList" parameterType="string" resultType="map">
+        SELECT 
+            ea.*,
+            u.emp_name,
+            e.dept_name
+        FROM electronic_approval ea
+        INNER JOIN Employee e ON ea.emp_idx = e.emp_idx
+        INNER JOIN Users u ON e.user_idx = u.user_idx
+        WHERE ea.emp_idx = #{empIdx}
+        ORDER BY ea.created_at DESC
+    </select>
+    
+    <select id="getApprovalDetail" parameterType="string" resultType="map">
+        SELECT 
+            ea.*,
+            u.emp_name,
+            e.dept_name
+        FROM electronic_approval ea
+        INNER JOIN Employee e ON ea.emp_idx = e.emp_idx
+        INNER JOIN Users u ON e.user_idx = u.user_idx
+        WHERE ea.approval_id = #{approvalId}
+    </select>
+    
+    <update id="updateApprovalStatus" parameterType="map">
+        UPDATE electronic_approval
+        SET status = #{status},
+            updated_at = NOW()
+        WHERE approval_id = #{approvalId}
+    </update>
+</mapper>

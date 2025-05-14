@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="calendar">
+	 <select id="getAllEvents" resultType="com.ict.project.vo.personnel.CalendarVO">
+        SELECT 
+            c.calendar_idx,
+            c.emp_idx,
+            c.title,
+            c.comment,
+            DATE_FORMAT(c.start_day, '%Y-%m-%d') as start_day,
+            DATE_FORMAT(c.end_day, '%Y-%m-%d') as end_day
+        FROM Calendar c
+        ORDER BY c.start_day DESC
+    </select>
+
+    <select id="getEventById" parameterType="int" resultType="com.ict.project.vo.personnel.CalendarVO">
+        SELECT 
+            c.calendar_idx,
+            c.emp_idx,
+            c.title,
+            c.comment,
+            DATE_FORMAT(c.start_day, '%Y-%m-%d') as start_day,
+            DATE_FORMAT(c.end_day, '%Y-%m-%d') as end_day
+        FROM Calendar c
+        WHERE c.calendar_idx = #{calendar_idx}
+    </select>
+
+    <insert id="insertEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
+        INSERT INTO Calendar (
+            emp_idx,
+            title,
+            comment,
+            start_day,
+            end_day
+        ) VALUES (
+            #{emp_idx},
+            #{title},
+            #{comment},
+            #{start_day},
+            #{end_day}
+        )
+    </insert>
+
+    <delete id="deleteEvent" parameterType="int">
+        DELETE FROM Calendar 
+        WHERE calendar_idx = #{calendar_idx}
+    </delete>
+
+    <update id="updateEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
+        UPDATE Calendar
+        SET 
+            title = #{title},
+            comment = #{comment},
+            start_day = #{start_day},
+            end_day = #{end_day}
+        WHERE calendar_idx = #{calendar_idx}
+    </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

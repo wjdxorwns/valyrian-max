@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 작성자: 정택준 -->
+<mapper namespace="personnel">
+    <select id="findByEmpNameContaining" resultType="java.util.Map">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE u.emp_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByDeptNameContaining" resultType="java.util.Map">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE e.dept_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="findByPositionContaining" resultType="java.util.Map">
+        SELECT e.emp_idx, u.emp_name, e.pay_grade, e.position, e.dept_name, e.hire_date,
+               e.employment_type, s.base_salary AS salary, s.bonus
+        FROM employee e
+        INNER JOIN users u ON e.user_idx = u.user_idx
+        LEFT JOIN request r ON e.emp_idx = r.emp_idx
+        LEFT JOIN salary s ON r.request_idx = s.request_idx
+        WHERE e.position LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    
+    <!-- 작성자: 김용호 -->
+    <select id="getAllVacations" resultType="java.util.HashMap">
+		SELECT  
+			v.vacation_id, 
+			e.position, 
+			u.emp_name, 
+			DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date, 
+            DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date, 
+			v.vacation_type, 
+			v.status, 
+			v.comment 
+		FROM 
+		Vacation v 
+			INNER JOIN Request r ON v.request_idx = r.request_idx 
+			INNER JOIN Employee e ON r.emp_idx = e.emp_idx 
+			INNER JOIN Users u ON e.user_idx = u.user_idx 
+		WHERE  
+			u.remove = 0 
+		ORDER BY  
+			v.start_date DESC 
+	</select>
+	
+	<select id="getAllApprovals" resultType="java.util.HashMap">
+		SELECT  
+			v.vacation_id, 
+			e.team, 
+			e.position, 
+			u.emp_name, 
+			e.emp_idx, 
+			DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date, 
+            DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date, 
+			v.vacation_type, 
+			v.status, 
+			v.comment 
+		FROM 
+		Vacation v 
+			INNER JOIN Request r ON v.request_idx = r.request_idx 
+			INNER JOIN Employee e ON r.emp_idx = e.emp_idx 
+			INNER JOIN Users u ON e.user_idx = u.user_idx 
+		WHERE  
+			u.remove = 0 
+		ORDER BY  
+			v.start_date DESC 
+	</select>
+	<update id="updateVacationStatus">
+		update vacation 
+		set status = #{status}, comment = #{comment} 
+		where vacation_id = #{vacation_id}
+	</update>
+
+	<!-- 작성자: 김재겸 (05-13) --> 
+	<select id="getEmployeeDetails" resultType="java.util.Map">
+    	SELECT location, attitude_type
+		FROM Employee
+    	WHERE emp_idx = #{emp_idx}
+	</select>
+
+	<update id="updateWorkArrangement">
+    	UPDATE Employee
+    	SET location = #{location}, attitude_type = #{attitude_type}
+    	WHERE emp_idx = #{emp_idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
