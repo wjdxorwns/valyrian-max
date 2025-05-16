@@ -187,7 +187,7 @@
       <dependency>
          <groupId>org.springframework.security</groupId>
          <artifactId>spring-security-crypto</artifactId>
-         <version>5.3.13.RELEASE</version> <!-- spring-security-config와 동일한 버전 사용 -->
+         <version>5.8.16</version> <!-- spring-security-config와 동일한 버전 사용 -->
       </dependency>
 
       <!-- 이메일인증 -->
