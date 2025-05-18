@@ -1,0 +1,42 @@
+/* 김용호 */
+@charset "UTF-8";
+
+@media screen and (max-width: 1300px){
+	.main-item{
+		position: absolute;
+		left: 260px;
+		width: 800px;
+		overflow: hidden;
+	}
+	
+}
+.emp_information{
+	overflow-x: auto;
+	width:100%;
+}
+
+@media screen and (max-width: 1300px){
+	main{
+		position: relative;
+		left: 260px;
+		width: 800px;
+		overflow: hidden;
+	}
+	
+}
+@media screen and (min-width: 1300px){
+	main{
+		position: relative;
+		width: 1280px;
+		margin: auto;
+	}
+	
+}
+
+
+#serch{
+	margin-left: 10px;
+}
+
+
+

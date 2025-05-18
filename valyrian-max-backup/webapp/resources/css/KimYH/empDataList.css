@@ -1,0 +1,86 @@
+/* 김용호 */
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+body{
+	background-color: #f0f8ff;
+}
+@media screen and (max-width: 1300px){
+	main{
+		position: relative;
+		top: 80px;
+		left: 260px;
+		width: 1000px;
+	}
+	
+}
+@media screen and (min-width: 1300px){
+	main{
+		position: relative;
+		top: 80px;
+		width: 1280px;
+	}
+	
+}
+main{
+	padding-bottom: 200px;
+	margin: 0 auto 200px;
+}
+
+.employee-section{
+	margin:50px;
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 20px;
+}
+.title{
+	margin-bottom: 20px;
+}
+.search-form{
+	margin-bottom: 20px;
+}
+.employee, input{
+	padding: 5px;
+}
+
+button{
+	width:70px;
+	height:30px;
+}
+
+
+
+
+
+.emp_information{
+	overflow-x: auto;
+}
+.emp_table{
+	min-width: 2500px;
+}
+table, th, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+th{
+	background-color: #e0f4ff;
+}
+th, td{
+	padding: 10px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+

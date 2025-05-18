@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 작성자: 최성현 -->
+<mapper namespace="nor">
+    <!-- 이메일로 사용자 조회 -->
+    <select id="getUserByEmail" parameterType="String" resultType="com.ict.project.vo.personnel.UsersVO">
+        SELECT * FROM users WHERE emp_email = #{emp_email}
+    </select>
+
+    <!-- user_idx로 직원 조회 -->
+    <select id="getEmployeeByUserIdx" parameterType="int" resultType="com.ict.project.vo.personnel.EmployeeVO">
+        SELECT * FROM employee WHERE user_idx = #{userIdx}
+    </select>
+    
+    <!-- 작성자: 한찬욱 -->
+    <!-- user_idx로 자신의 정보 불러오기 -->
+	<select id="getEmployeeInfor" parameterType="String" resultType="map">
+	    SELECT 
+        u.emp_name, u.emp_email, u.phone_number, e.team, e.position, e.hire_date, e.vacation_balance, e.emp_idx, u.gender, u.home, u.detail_home, ep.f_name, e.pay_grade, us.sign_name
+	    FROM employee e
+	    INNER JOIN users u ON u.user_idx = e.user_idx
+	    LEFT JOIN emppicture ep ON ep.emp_idx = e.emp_idx
+		LEFT JOIN usersign us ON us.user_idx = u.user_idx
+	    WHERE e.emp_idx = #{emp_idx}
+	</select>
+
+	<!-- 사인 이미지 가져오기 -->
+	<select id="getSignature" parameterType="int" resultType="String">
+		SELECT sign_path 
+		FROM usersign 
+		WHERE user_idx = #{userIdx}
+	</select>
+	
+	<update id="updatePassword" parameterType="map">
+	 	UPDATE users
+	 	SET emp_password = #{encryptedPassword}
+	 	WHERE user_idx = #{userIdx}
+	</update>
+	
+	<insert id="updateSignature" parameterType="map">
+		INSERT INTO usersign (user_idx, sign_name, sign_path, update_day)
+		VALUES (
+			#{userIdx},
+			#{signatureFileName},
+			#{signatureFilePath},
+			NOW()
+		)
+		ON DUPLICATE KEY UPDATE
+			sign_name = VALUES(sign_name),
+			sign_path = VALUES(sign_path),
+			update_day = NOW()
+	</insert>
+	
+	
+</mapper>

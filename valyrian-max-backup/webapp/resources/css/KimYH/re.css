@@ -1,0 +1,29 @@
+/* 작성자 : 김용호 */
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+body{
+	background-color: #f0f8ff;
+}
+main{
+	position:relative;
+	top:80px;
+	min-height: calc(100vh - 80px - 120px);
+	padding-bottom: 120px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	max-width: 1600px;
+}
+
+table, th, td{
+	border:1px solid black;
+	border-collapse: collapse;
+}
+th{
+	background-color: #e0f4ff
+}
