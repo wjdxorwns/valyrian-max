@@ -1,0 +1,210 @@
+DROP DATABASE IF EXISTS pj;
+CREATE DATABASE pj;
+USE pj;
+
+-- 작성자 정택준
+--  1. 회원가입 테이블
+CREATE TABLE Users(
+	user_idx int AUTO_INCREMENT PRIMARY KEY,                -- 회원 고유 키 
+	emp_email VARCHAR(255) UNIQUE NOT NULL,                 -- 이메일 
+	emp_name VARCHAR(50) NOT NULL,                          -- 직원 이름
+	emp_password VARCHAR(100) NOT NULL,                     -- 비밀번호 
+	home VARCHAR(200) NOT NULL,                             -- 집주소
+	detail_home VARCHAR(200),                               -- 상세 집주소
+	phone_number VARCHAR(50) UNIQUE NOT NULL,               -- 휴대전화번호
+	gender  TINYINT NOT NULL,						 				  -- 성별
+	birthday DATE NOT NULL,											  -- 생일 	
+   remove TINYINT NOT NULL DEFAULT 0							  -- 삭제
+);
+
+-- 1-1 싸인 저장 테이블(찬욱이형)
+CREATE TABLE UserSign(
+	sign_idx INT AUTO_INCREMENT PRIMARY KEY,                -- 사인 고유번호(회원 고유키와 동일)
+	user_idx INT UNIQUE ,                           		  -- 회원 고유 키
+	sign_name VARCHAR(200),                         		  -- 사인명
+	sign_path VARCHAR(200),                        		     -- 사인 파일의 저장경로
+	update_day  DATE,													  -- 업데이트 사항
+	FOREIGN KEY (user_idx) REFERENCES users(user_idx)	
+);
+
+--  2. 직원 테이블
+CREATE TABLE Employee (
+	emp_idx VARCHAR(50) PRIMARY KEY,                        -- 직원 고유키(회원가입 완료 시 백엔드에서 랜덤값지정)
+	user_idx int UNIQUE NOT NULL,                           -- 회원 고유 키
+	emp_id VARCHAR(50),                                     -- 직원 고유 코드 (예: E001)
+	dept_name ENUM('직원', '대기','관리자','슈퍼관리자') NOT NULL DEFAULT '대기', -- 부서명 (ENUM 타입)
+	position VARCHAR(50),                                   -- 직책 (예: 사원, 대리)
+	pay_grade INT,                                          -- 년차 (정수형)
+	hire_date DATE,                                         -- 입사일
+	pay INT,																  -- 최신 급여
+	team ENUM('인사1팀','인사2팀','인사3팀'), 				  -- 부서이름	(추가)
+	location VARCHAR(50),									  -- 현재 근무지	(추가)
+	resignation_date DATE,                                  -- 퇴사일 (NULL이면 재직 중)
+	attitude_type ENUM('출장', '재택', '회사') NOT NULL DEFAULT '회사', -- 근무 방식
+	quitter ENUM('입사','퇴사','퇴사대기') NOT NULL DEFAULT '입사', -- 퇴사자
+	employment_type ENUM('정규직','계약직','아르바이트'), -- 고용 타입
+	vacation_balance INT NOT NULL DEFAULT 15, 				-- 잔여 휴가
+	FOREIGN KEY (user_idx) REFERENCES users(user_idx)
+);
+
+-- 2-1 이미지 테이블(기섭이형, 수정 정택준)
+CREATE TABLE EmpPicture (
+	f_id INT UNIQUE AUTO_INCREMENT NOT NULL PRIMARY KEY,    -- 파일 고유번호(기본키)
+	emp_idx VARCHAR(50) NOT NULL,                           -- 직원 고유 코드 (예: E001)
+	f_name VARCHAR(50) NOT NULL,                            -- 파일명
+	f_path VARCHAR(200) NOT NULL,                           -- 파일 경로
+	f_width INT NOT NULL,                              	  -- 이미지 폭
+	f_height INT NOT NULL,                            		  -- 이미지 높이
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+-- 11. 승인 요청 테이블(작성자: 김재겸 | 기여자: 정택준)
+CREATE TABLE Request(                                       -- 대기: 프론트에서 onclick 이벤트 실행 전 단계
+	request_idx INT AUTO_INCREMENT PRIMARY KEY,             -- emp_idx를 외래키 지정을 위한 별도의 키 값
+	emp_idx VARCHAR(50),                                    -- 직원 테이블 -> 직원 고유 키
+	request_personnelchange TINYINT NOT NULL DEFAULT 0,     -- 인사발령 승인 요청 기능
+	request_vacation TINYINT NOT NULL DEFAULT 0,            -- 근휴가 관련 승인 요청 기능
+	reject TEXT,
+	request_text TEXT,                                            -- 거절 시 관리자가 그에 대한 사유를 적는 곳
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+-- 12. 승인 요청에 대한 로그 테이블
+CREATE TABLE RequestLogging(
+	logging_idx INT AUTO_INCREMENT PRIMARY KEY,             -- emp_idx를 외래키 지정을 위한 별도의 키 값
+	request_idx INT,                                        -- 요청 키
+	logging_personnelchange VARCHAR(10),                    -- 인사발령 권한 승인 기능
+	logging_vacation VARCHAR(10),                           -- 휴가 권한 승인 기능
+	request_text TEXT,                                            -- 거절 사유
+	logging_date DATETIME DEFAULT NOW(),                    -- 로깅 일시
+	FOREIGN KEY (request_idx) REFERENCES request(request_idx)
+);
+
+
+--  3. 근무 방식 테이블
+CREATE TABLE Worktype (
+	worktype_id INT AUTO_INCREMENT PRIMARY KEY,              		-- 근무 방식 ID
+	emp_idx VARCHAR(50),   														-- 근태 날짜
+	work_date DATE,                                						-- 직원 코드
+	worktype ENUM('조퇴','지각','정상출근','결근','외근','휴가'),  -- 출근타입(수정)
+	start_time TIME,                                      			-- 시작일
+	end_time TIME,                                        			-- 종료일
+	FOREIGN KEY (emp_idx) REFERENCES Employee(emp_idx)
+);
+
+--  4. 인사 발령 테이블
+CREATE TABLE PersonnelChange (
+	change_id INT AUTO_INCREMENT PRIMARY KEY,               	 -- 발령 ID
+	request_idx INT,                                      	 -- 직원 코드
+	change_type ENUM('사내', '전출') NOT NULL DEFAULT '사내', -- 발령 유형
+	change_date DATE,                                         -- 발령일
+	prev_dept_id VARCHAR(10),                                 -- 이전 부서명
+	new_dept_id VARCHAR(10),                                  -- 변경 후 부서명
+	prev_location_id VARCHAR(50),                             -- 이전 근무지명 (추가)
+	new_location_id VARCHAR(50),                              -- 변경 후 근무지명 (추가)
+	employment_type ENUM('정규직','계약직','아르바이트') NOT NULL, -- 고용 타입
+	FOREIGN KEY (request_idx) REFERENCES request(request_idx)
+);
+
+--  5. 급여 명세서 테이블
+CREATE TABLE Salary (
+	salary_id INT AUTO_INCREMENT PRIMARY KEY,               -- 급여 ID
+	emp_idx VARCHAR(50),                                    -- 직원 코드
+	base_salary INT,                                        -- 기본급
+	bonus INT DEFAULT 0,                                    -- 보너스
+	payment_date DATE,                                      -- 지급일
+	FOREIGN KEY (emp_idx) REFERENCES Employee(emp_idx)
+);
+
+--  6. 휴가 테이블
+CREATE TABLE Vacation (
+	vacation_id INT AUTO_INCREMENT PRIMARY KEY,             -- 휴가 ID
+	request_idx INT,                                   	  -- 직원 코드
+	vacation_type ENUM('연차','공가','반차') NOT NULL,      -- 휴가 종류
+	start_date DATE,                                        -- 시작일
+	end_date DATE,                                          -- 종료일
+	comment TEXT,                                           -- 사유
+	status ENUM('승인', '대기', '반려') DEFAULT '대기',     -- 상태
+	FOREIGN KEY (request_idx) REFERENCES request(request_idx)
+);
+
+-- 7. 게시글 테이블
+CREATE TABLE Board (
+	board_id INT AUTO_INCREMENT PRIMARY KEY,                -- 게시글 고유 ID
+	title VARCHAR(255) NOT NULL,                            -- 제목
+	content TEXT NOT NULL,                                  -- 본문
+	emp_idx VARCHAR(50) NOT NULL,                           -- 작성자 고유 ID
+	created_at DATETIME DEFAULT NOW(),                      -- 작성일
+	updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),      -- 수정일
+	view_count INT DEFAULT 0,                               -- 조회수
+	is_deleted BOOLEAN DEFAULT FALSE,                       -- 삭제 여부
+	is_temp BOOLEAN DEFAULT FALSE,                          -- 임시 저장 여부
+	f_name VARCHAR(255),                                    -- 대표 사진 파일명
+	importance ENUM('중요','일반') NOT NULL DEFAULT '일반', -- 중요도
+	secret ENUM ('비밀','일반') NOT NULL DEFAULT '일반',	  -- 비밀글 
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+-- 7-1. 첨부 파일 테이블
+CREATE TABLE BoardFile (
+	file_id INT AUTO_INCREMENT PRIMARY KEY,                 					  -- 첨부파일 ID
+	board_id INT NOT NULL,                                  					  -- 게시글 ID
+	file_name VARCHAR(255) NOT NULL,                        					  -- 파일명
+	file_path VARCHAR(500) NOT NULL,                        					  -- 저장 경로
+	file_type VARCHAR(100) NOT NULL CHECK (file_type IN ('사진', '문서')), -- 파일 타입
+	file_size INT NOT NULL,                                 					  -- 크기
+	uploaded_at DATETIME DEFAULT NOW(),                     					  -- 업로드 시각
+	FOREIGN KEY (board_id) REFERENCES board(board_id)
+);
+
+-- 8. 댓글 테이블
+CREATE TABLE Comments (
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,              -- 댓글 ID
+	board_id INT NOT NULL,                                  -- 게시글 ID
+	emp_idx VARCHAR(50) NOT NULL,                           -- 작성자 ID
+	content TEXT NOT NULL,                                  -- 내용
+	created_at DATETIME DEFAULT NOW(),                      -- 작성일
+	updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),      -- 수정일
+	is_deleted BOOLEAN DEFAULT FALSE,                       -- 삭제 여부
+	FOREIGN KEY (board_id) REFERENCES board(board_id),
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+-- 9. 권한 테이블
+CREATE TABLE permission (
+	emp_idx VARCHAR(50) PRIMARY KEY,                        -- 직원 고유 ID
+	can_access_employee INT DEFAULT 0,                      -- 직원 정보 권한
+	can_access_worktype INT DEFAULT 0,                      -- 근무 방식 권한
+	can_access_personnel INT DEFAULT 0,                     -- 인사 발령 권한
+	can_access_salary INT DEFAULT 0,                        -- 급여 권한
+	can_access_vacation INT DEFAULT 0,                      -- 휴가 권한
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+
+
+-- 10. 캘린더 테이블
+CREATE TABLE Calendar (
+	calendar_idx INT AUTO_INCREMENT PRIMARY KEY,            -- 캘린더 ID
+	emp_idx VARCHAR(50),                                    -- 직원 ID
+	title VARCHAR(100),                                     -- 제목
+	comment TEXT,                                           -- 내용
+	start_day	date	NULL,											  -- 시작일
+	end_day	date	NULL,												  -- 마감일
+	FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+);
+
+
+-- 11. 문의 사항(QnA) 테이블  -- 한찬욱/ 정택준
+CREATE TABLE question(
+    answer_id INT auto_increment PRIMARY KEY,                            --    질문 번호
+    emp_idx VARCHAR(255),                                                --    이메일(아이디)[외래키 employee]
+    emp_name VARCHAR(50),                                                --    이름
+    answer_status ENUM('대기', '완료') NOT NULL DEFAULT '대기',  			 --    답변 상태
+    answer_comment    VARCHAR(500),                                      --    관리자 답변
+    question_title VARCHAR(60) NOT NULL ,                                --    질문 제목
+    question_details VARCHAR(500) NOT NULL ,                             --    질문 내용
+    question_date  DATETIME DEFAULT NOW(),                                               --    날짜
+    deletable INT DEFAULT 0,                                             --    삭제 여부 (1: 가능, 0: 불가)  
+    FOREIGN KEY (emp_idx) REFERENCES employee(emp_idx)
+); 

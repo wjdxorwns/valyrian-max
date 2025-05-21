@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.content{
+align-items: center;
+}
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], textarea {
+            width: 1280px;
+            padding: 10px;
+            border: 1px solid #e8ecef;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+            background-color: #f8fafc;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #00c73c;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+   
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        button, .cancel-link {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"] {
+            background-color: #00c73c;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #00a331;
+        }
+
+        .cancel-link {
+            background-color: #e8ecef;
+            color: #555;
+            display: inline-block;
+        }
+
+        .cancel-link:hover {
+            background-color: #d8dfe6;
+        }
