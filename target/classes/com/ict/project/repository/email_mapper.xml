@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="email"> <select id="countActiveUserByEmail" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM Users
+        WHERE emp_email = #{email}
+          AND remove = 0
+    </select>
+</mapper>

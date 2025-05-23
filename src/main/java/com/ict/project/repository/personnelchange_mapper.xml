@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="personnel">
+	
+	<!-- 한찬욱 -->
+	<!-- 관리자의 근무지 이동 신청을 받은 테이블 조회 -->
+	<select id="getApplyChangeInfor" resultType="java.util.Map">
+		SELECT 
+			e.emp_id,
+			e.emp_idx,
+			u.emp_name,
+			e.team,
+			e.position,
+			u.emp_email,
+			r.request_text,
+			r.request_personnelchange,
+			pc.prev_location_id,
+			pc.new_location_id,
+			r.request_idx
+		FROM request r
+		INNER JOIN employee e ON r.emp_idx = e.emp_idx
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		INNER JOIN personnelchange pc ON r.request_idx = pc.request_idx
+		WHERE r.request_personnelchange = 1
+	</select>
+	
+	<!-- 관리자의 근무지 이동 승인/반려 받은 테이블 조회 -->
+	<select id="getPersonChangeInfor" resultType="java.util.Map">
+		SELECT 
+			e.emp_id,
+			e.emp_idx,
+			u.emp_name,
+			e.team,
+			e.position,
+			u.emp_email,
+			r.request_text,
+			r.request_personnelchange,
+			pc.prev_location_id,
+			pc.new_location_id,
+			r.request_idx,
+			rl.logging_idx,
+			rl.logging_personnelchange
+		FROM request r
+		LEFT JOIN employee e ON r.emp_idx = e.emp_idx
+		LEFT JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN personnelchange pc ON r.request_idx = pc.request_idx
+		LEFT JOIN requestlogging rl ON r.request_idx = rl.request_idx
+		WHERE r.request_personnelchange = 0
+		ORDER BY r.request_idx DESC
+	</select>
+
+	<!-- 이동 신청 기록 존재 여부 확인 -->
+	<select id="checkRequestLoggingExists" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM requestlogging 
+		WHERE request_idx = CAST(#{request_idx} AS SIGNED)
+		AND logging_personnelchange IS NOT NULL
+	</select>
+
+	<!-- 이동 신청 기록 업데이트 -->
+	<update id="updateLoggingpersonnelChangeStatus" parameterType="java.util.Map">
+		<choose>
+			<when test="recordExists == 1">
+				UPDATE requestlogging rl
+				INNER JOIN request r ON rl.request_idx = r.request_idx
+				INNER JOIN personnelchange pc ON r.request_idx = pc.request_idx
+				INNER JOIN employee e ON r.emp_idx = e.emp_idx
+				SET rl.logging_personnelchange = #{logging_personnelchange},
+					rl.reject = #{reject},
+					rl.logging_date = now(),
+					pc.prev_location_id = e.location,
+					pc.new_location_id = #{new_location_id}
+				WHERE rl.request_idx = CAST(#{request_idx} AS SIGNED)
+			</when>
+			<otherwise>
+				INSERT INTO requestlogging
+				(request_idx, logging_personnelchange, reject, logging_date)
+				VALUES(CAST(#{request_idx} AS SIGNED), #{logging_personnelchange}, #{reject}, now())
+			</otherwise>
+		</choose>
+	</update>
+
+	<update id="updatePersonnelChangeLocation" parameterType="java.util.Map">
+		UPDATE personnelchange pc
+		INNER JOIN request r ON pc.request_idx = r.request_idx
+		INNER JOIN employee e ON r.emp_idx = e.emp_idx
+		SET pc.prev_location_id = e.location,
+			pc.new_location_id = #{new_location_id}
+		WHERE pc.request_idx = CAST(#{request_idx} AS SIGNED)
+	</update>
+
+	<!-- 이동 신청 이력 초기화 -->
+	<update id="resetPersonChangeStatus">
+		update request
+		set request_personnelchange = 0
+		where request_idx = #{request_idx}
+	</update>
+
+
+</mapper>

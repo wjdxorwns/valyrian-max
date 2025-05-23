@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="calendar">
+    <!-- 사용자별 일정 조회 -->
+    <select id="getEventsByEmpIdx" parameterType="String" resultType="com.ict.project.vo.personnel.CalendarVO">
+        SELECT /*+ INDEX(calendar IDX_CALENDAR_EMP_START) */
+            calendar_idx, emp_idx, title, start_day, end_day, comment
+        FROM calendar
+        WHERE emp_idx = #{emp_idx}
+        ORDER BY start_day ASC
+    </select>
+
+    <!-- 특정 일정 조회 -->
+    <select id="getEventById" parameterType="int" resultType="com.ict.project.vo.personnel.CalendarVO">
+        SELECT /*+ INDEX(calendar PK_CALENDAR) */
+            calendar_idx, emp_idx, title, start_day, end_day, comment
+        FROM calendar
+        WHERE calendar_idx = #{calendar_idx}
+    </select>
+
+    <!-- 일정 추가 -->
+    <insert id="insertEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
+        INSERT INTO calendar (
+            emp_idx, 
+            title, 
+            start_day, 
+            end_day, 
+            comment
+        ) VALUES (
+            #{emp_idx}, 
+            #{title}, 
+            #{start_day}, 
+            #{end_day}, 
+            #{comment}
+        )
+    </insert>
+
+    <!-- 일정 수정 -->
+    <update id="updateEvent" parameterType="com.ict.project.vo.personnel.CalendarVO">
+        UPDATE calendar
+        SET title = #{title},
+            start_day = #{start_day},
+            end_day = #{end_day},
+            comment = #{comment}
+        WHERE calendar_idx = #{calendar_idx}
+        AND emp_idx = #{emp_idx}
+    </update>
+
+    <!-- 일정 삭제 -->
+    <delete id="deleteEvent" parameterType="int">
+        DELETE FROM calendar
+        WHERE calendar_idx = #{calendar_idx}
+    </delete>
+</mapper> 

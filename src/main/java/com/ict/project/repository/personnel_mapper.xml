@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="personnel">
+	<select id="getAllVacations" resultType="java.util.HashMap">
+		SELECT
+		v.vacation_id,
+		e.position,
+		u.emp_name,
+		DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date,
+		DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date,
+		v.vacation_type,
+		v.status,
+		v.comment
+		FROM
+		Vacation v
+		INNER JOIN Request r ON v.request_idx = r.request_idx
+		INNER JOIN Employee e ON r.emp_idx = e.emp_idx
+		INNER JOIN Users u ON e.user_idx = u.user_idx
+		WHERE
+		u.remove = 0
+		ORDER BY
+		v.start_date DESC
+	</select>
+
+	<select id="getAllApprovals" resultType="java.util.HashMap">
+		SELECT
+			v.vacation_id,
+			v.request_idx,
+			e.team,
+			e.position,
+			u.emp_name,
+			e.emp_idx,
+			DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date,
+			DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date,
+			v.vacation_type,
+			v.status,
+			v.comment,
+			p.f_path AS photo_path
+		FROM
+			Vacation v
+		INNER JOIN Request r ON v.request_idx = r.request_idx
+		INNER JOIN Employee e ON r.emp_idx = e.emp_idx
+		INNER JOIN Users u ON e.user_idx = u.user_idx
+		LEFT JOIN EmpPicture p ON e.emp_idx = p.emp_idx
+		WHERE
+		u.remove = 0
+		ORDER
+		BY
+		v.start_date DESC
+	</select>
+
+	<update id="updateVacationStatus" parameterType="map">
+		UPDATE Vacation
+		SET status = #{status}, comment = #{comment}
+		WHERE vacation_id = #{vacation_id}
+	</update>
+
+	<insert id="insertVacationLogging"
+		parameterType="com.ict.project.vo.management.RequestLoggingVO">
+		INSERT INTO RequestLogging(
+		request_idx, logging_vacation, reject, logging_date)
+		VALUES(
+		#{request_idx}, #{logging_vacation}, #{reject}, NOW())
+	</insert>
+
+	<select id="getAllInquiry" resultType="java.util.HashMap">
+		SELECT
+		e.emp_idx,
+		u.emp_name,
+		e.position,
+		e.pay_grade,
+		e.vacation_balance
+		FROM
+		Employee e
+		INNER JOIN Users u ON e.user_idx = u.user_idx
+		WHERE
+		u.remove = 0
+		ORDER BY
+		u.emp_name
+	</select>
+
+	<select id="getUserInquiry" parameterType="int"
+		resultType="java.util.HashMap">
+		SELECT
+		e.emp_idx,
+		u.emp_name,
+		e.position,
+		e.vacation_balance,
+		v.vacation_id,
+		v.vacation_type,
+		DATE_FORMAT(v.start_date, '%Y-%m-%d') AS start_date,
+		DATE_FORMAT(v.end_date, '%Y-%m-%d') AS end_date,
+		v.comment,
+		v.status
+		FROM
+		Vacation v
+		INNER JOIN Request r ON v.request_idx = r.request_idx
+		INNER JOIN Employee e ON r.emp_idx = e.emp_idx
+		INNER JOIN Users u ON e.user_idx = u.user_idx
+		WHERE
+		u.remove = 0
+		AND u.user_idx = #{user_idx}
+		ORDER BY
+		v.start_date DESC
+	</select>
+
+	<select id="getUserVacationDays" parameterType="int"
+		resultType="java.util.HashMap">
+		SELECT
+		e.emp_idx,
+		u.emp_name,
+		e.position,
+		e.vacation_balance
+		FROM
+		Employee e
+		INNER JOIN Users u ON e.user_idx = u.user_idx
+		WHERE
+		u.remove = 0
+		AND u.user_idx = #{user_idx}
+	</select>
+
+	<update id="deductVacationDays" parameterType="map">
+		UPDATE Employee
+		SET vacation_balance = vacation_balance - (
+		SELECT DATEDIFF(v.end_date, v.start_date) + 1
+		FROM Vacation v
+		WHERE v.vacation_id = #{vacation_id}
+		AND v.status = '승인'
+		)
+		WHERE emp_idx = (
+		SELECT r.emp_idx
+		FROM Request r
+		INNER JOIN Vacation v ON r.request_idx = v.request_idx
+		WHERE v.vacation_id = #{vacation_id}
+		)
+	</update>
+	<update id="resetVacationRequest" parameterType="int">
+    	UPDATE request
+    	SET request_vacation = 0
+    	WHERE request_idx = #{request_idx}
+	</update>
+
+	<select id="findByEmpNameContaining" resultType="java.util.Map">
+		SELECT
+		s.salary_id,  
+		e.emp_idx,
+		u.emp_name,
+		e.pay_grade,
+		e.position,
+		e.dept_name,
+		e.hire_date,
+		e.employment_type,
+		e.pay,
+		s.bonus,
+		s.base_salary
+		FROM employee e
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN (
+		SELECT * FROM salary s1
+		WHERE (emp_idx, payment_date) IN (
+		SELECT emp_idx, MAX(payment_date)
+		FROM salary
+		GROUP BY emp_idx
+		)
+		) s ON e.emp_idx = s.emp_idx
+		WHERE u.emp_name LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+
+	<select id="findByDeptNameContaining" resultType="java.util.Map">
+		SELECT
+		s.salary_id,  
+		e.emp_idx,
+		u.emp_name,
+		e.pay_grade,
+		e.position,
+		e.dept_name,
+		e.hire_date,
+		e.employment_type,
+		e.pay,
+		s.bonus,
+		s.base_salary
+		FROM employee e
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN (
+		SELECT * FROM salary s1
+		WHERE (emp_idx, payment_date) IN (
+		SELECT emp_idx, MAX(payment_date)
+		FROM salary
+		GROUP BY emp_idx
+		)
+		) s ON e.emp_idx = s.emp_idx
+		WHERE e.dept_name LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+
+
+	<select id="findByPositionContaining" resultType="java.util.Map">
+		SELECT
+		s.salary_id,  
+		e.emp_idx,
+		u.emp_name,
+		e.pay_grade,
+		e.position,
+		e.dept_name,
+		e.hire_date,
+		e.employment_type,
+		e.pay,
+		s.bonus,
+		s.base_salary
+		FROM employee e
+		JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN (
+		SELECT s1.emp_idx, s1.base_salary, s1.bonus
+		FROM salary s1
+		JOIN (
+		SELECT emp_idx, MAX(payment_date) AS max_date
+		FROM salary
+		GROUP BY emp_idx
+		) s2 ON s1.emp_idx = s2.emp_idx AND s1.payment_date = s2.max_date
+		) s ON e.emp_idx = s.emp_idx
+		WHERE u.emp_name LIKE CONCAT('%', #{searchKeyword}, '%')
+	</select>
+
+
+	<select id="paydtail" parameterType="String"
+		resultType="java.util.Map">
+		SELECT u.emp_name, u.emp_email, u.phone_number,
+		e.team, e.position, e.pay_grade, e.hire_date,
+		u.gender, e.emp_idx, e.pay,
+		u.home, u.detail_home
+		FROM employee e
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		WHERE e.emp_idx = #{emp_idx}
+	</select>
+
+
+	<select id="payList" parameterType="map"
+		resultType="java.util.Map">
+		SELECT
+		s.salary_id,  
+		e.emp_idx,
+		u.emp_name,
+		s.payment_date,
+		e.pay_grade,
+		e.team,
+		e.position,
+		e.employment_type,
+		s.base_salary,
+		s.bonus
+		FROM employee e
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN salary s ON e.emp_idx = s.emp_idx
+		WHERE s.payment_date LIKE CONCAT(#{payment_date},'%')
+		AND e.emp_idx = #{emp_idx}
+	</select>
+
+
+	<insert id="payinsert" parameterType="map">
+		INSERT INTO salary (emp_idx, base_salary, bonus, payment_date)
+		VALUES (#{emp_idx}, #{base_salary}, #{bonus}, #{payment_date});
+	</insert>
+
+
+	<update id="updatePay" parameterType="map">
+		UPDATE salary
+		SET base_salary = #{base_salary},
+		bonus = #{bonus},
+		payment_date = #{payment_date}
+		WHERE emp_idx = #{emp_idx}
+		AND payment_date = #{payment_date};
+	</update>
+
+
+	<select id="checkPayRecord" parameterType="map"
+		resultType="java.util.Map">
+		SELECT salary_id
+		FROM salary
+		WHERE emp_idx = #{emp_idx}
+		AND payment_date = #{payment_date}
+	</select>
+
+
+	<update id="updateEmployeePay" parameterType="map">
+		UPDATE employee
+		SET pay = (
+		SELECT base_salary + bonus
+		FROM salary
+		WHERE emp_idx = #{emp_idx}
+		ORDER BY payment_date DESC
+		LIMIT 1
+		)
+		WHERE emp_idx = #{emp_idx}
+	</update>
+
+	<select id="payListAll" parameterType="String"
+		resultType="java.util.Map">
+		SELECT
+		s.salary_id,  
+		e.emp_idx,
+		u.emp_name,
+		s.payment_date,
+		e.pay_grade,
+		e.team,
+		e.position,
+		e.employment_type,
+		s.base_salary,
+		s.bonus
+		FROM employee e
+		INNER JOIN users u ON e.user_idx = u.user_idx
+		LEFT JOIN salary s ON e.emp_idx = s.emp_idx
+		WHERE e.emp_idx = #{emp_idx}
+		ORDER BY s.payment_date DESC
+	</select>
+
+	<update id="updateLatestSalary" parameterType="map">
+		UPDATE salary
+		SET base_salary = #{base_salary}, bonus = #{bonus}
+		WHERE emp_idx = #{emp_idx}
+		AND payment_date = (
+		SELECT MAX(payment_date)
+		FROM salary
+		WHERE emp_idx = #{emp_idx}
+		)
+	</update>
+
+	<select id="getLatestSalary" parameterType="String"
+		resultType="map">
+		SELECT base_salary, bonus,salary_id
+		FROM salary
+		WHERE emp_idx = #{emp_idx}
+		ORDER BY payment_date DESC
+		LIMIT 1
+	</select>
+
+	<update id="updatePayById" parameterType="map">
+		UPDATE salary
+		SET base_salary = #{base_salary},
+		bonus = #{bonus}
+		WHERE salary_id = #{salary_id}
+	</update>
+
+	<!-- 작성자: 김재겸 (05-13) -->
+	<select id="getEmployeeDetails" resultType="java.util.Map">
+		SELECT location, attitude_type
+		FROM Employee
+		WHERE emp_idx = #{emp_idx}
+	</select>
+
+	<!-- new_dept_id랑 prev_dept_id는 상의하고나서 넣기 -->
+    <update id="updateWorkArrangement" parameterType="java.util.Map">
+    UPDATE employee e
+    LEFT JOIN request r ON e.emp_idx = r.emp_idx
+    LEFT JOIN personnelchange pc ON r.request_idx = pc.request_idx
+    SET 
+        e.location = 
+            CASE
+                WHEN e.location IS NULL THEN #{location}
+                ELSE #{location}
+            END,
+        pc.prev_location_id = 
+            CASE 
+                WHEN pc.new_location_id IS NULL THEN '데이터없음'
+                ELSE pc.new_location_id 
+            END,
+        pc.new_location_id = 
+            CASE
+                WHEN pc.new_location_id IS NULL THEN e.location
+                ELSE e.location
+            END,
+        e.team = 
+        	CASE
+        		WHEN e.team IS NULL THEN #{team}
+        		ELSE #{team}
+        	END,
+        pc.prev_dept_id =
+        	CASE
+        		WHEN pc.new_dept_id IS NULL THEN '데이터없음'
+        		ELSE pc.new_dept_id
+        	END,
+        pc.new_dept_id =
+        	CASE
+        		WHEN pc.new_dept_id IS NULL THEN e.team
+        		ELSE e.team
+        	END,
+        e.attitude_type = #{attitude_type},
+        r.request_personnelchange = 1
+    WHERE e.emp_idx = CAST(#{emp_idx} AS SIGNED)
+    </update>
+
+
+<select id="getSalaryListByIds" parameterType="list" resultType="map">
+    SELECT
+        s.salary_id,
+        s.payment_date,
+        s.base_salary,
+        s.bonus,
+        u.emp_name,
+        e.position,
+        e.team
+    FROM salary s
+    JOIN employee e ON s.emp_idx = e.emp_idx
+    JOIN users u ON e.user_idx = u.user_idx
+    WHERE
+    <choose>
+        <when test="list != null and list.size() > 0">
+            s.salary_id IN
+            <foreach collection="list" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </when>
+        <otherwise>
+            1 = 0  <!-- IN 값 없으면 무조건 false -->
+        </otherwise>
+    </choose>
+</select>
+
+   <update id="insertVacationRequest" parameterType="map">
+  		UPDATE Request
+  		set request_vacation = 1
+  		where emp_idx=#{emp_idx}
+    </update>
+
+    <!-- 휴가 정보 Vacation 테이블 삽입 -->
+    <insert id="insertVacation" parameterType="map">
+        INSERT INTO Vacation (
+    request_idx,
+    vacation_type,
+    start_date,
+    end_date,
+    comment,
+    status
+) VALUES (
+    #{request_idx},
+    #{vacation_type},
+    STR_TO_DATE(#{start_date}, '%Y-%m-%d'),
+    STR_TO_DATE(#{end_date}, '%Y-%m-%d'),
+    #{comment},
+    '대기'
+);
+    </insert>
+    <select id="getRequestIdx" parameterType="String" resultType="int">
+    	SELECT request_idx
+    	FROM request
+    	WHERE emp_idx=#{emp_idx}
+    </select>
+
+
+
+
+
+</mapper>
