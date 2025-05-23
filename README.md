@@ -36,3 +36,15 @@
 - **FullCalendar API**: 일정 관리 및 캘린더 기능을 제공하는 API
 
 ---
+
+### 프로젝트에 대한 PPT
+**PPT**
+- https://www.canva.com/design/DAGkY8AzJTA/fkuR0nnpY0n7Ml2KMmMRSA/edit
+
+**ERD흐름도**
+- https://www.erdcloud.com/d/6yFpqn8swzJoTGeNc
+
+**Flow-Cha**
+- https://app.diagrams.net/#G1Egfg9XJJuh3NUUsRDUKSnCzj9CLXcOea#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
+
+---
