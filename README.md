@@ -48,5 +48,5 @@
 - https://app.diagrams.net/#G1Egfg9XJJuh3NUUsRDUKSnCzj9CLXcOea#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
 
 **시연영상**
-https://drive.google.com/file/d/1nf5smwg_VDI-lYG0CS-vzAKZ7wR7D6Hm/view?usp=drive_link
+- https://drive.google.com/file/d/1nf5smwg_VDI-lYG0CS-vzAKZ7wR7D6Hm/view?usp=drive_link
 ---
